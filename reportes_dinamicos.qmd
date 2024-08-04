@@ -720,7 +720,7 @@ El paquete crea archivos Rmarkdown con plantillas para el análisis de datos (ca
 
 -   Genere un reporte dinámico en formato PDF
 
--   Cree un proyecto de Rstudio para organizar los contenidos del taller
+-   Cree un proyecto de Rstudio para organizar los contenidos del curso
 
 -   Cree un compendio de investigación con sketchy
 :::

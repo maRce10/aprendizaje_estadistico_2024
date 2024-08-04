@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Aprendizaje Computacional, SEP-UCR 2024</title>
+<title>Aprendizaje Estadístico, SEP-UCR 2024</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -105,7 +105,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="floating nav-fixed">
+<body class="floating nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -113,7 +113,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Aprendizaje Computacional, SEP-UCR 2024</span>
+    <span class="navbar-title">Aprendizaje Estadístico, SEP-UCR 2024</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Buscar"></div>
@@ -172,19 +172,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
-    <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">Contenidos</h2>
-   
-  <ul class="collapse">
-  <li><a href="#instalacion-de-software" id="toc-instalacion-de-software" class="nav-link active" data-scroll-target="#instalacion-de-software"><span class="header-section-number">1</span> Instalacion de software</a></li>
-  <li><a href="#lecturas-y-materiales" id="toc-lecturas-y-materiales" class="nav-link" data-scroll-target="#lecturas-y-materiales"><span class="header-section-number">2</span> Lecturas y materiales</a></li>
-  </ul>
-</nav>
+    
 </nav>
 <div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-    </div>
+    
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -212,7 +204,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <ol start="3" type="1">
-<li>Instalá R en la computadora que utilizarás durante el taller (<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>). Probablemente ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R &lt; 4.0.0. Podés encontrar qué versión de R tenés ejecutando esto en la consola de R:</li>
+<li>Instalá R en la computadora que utilizarás durante el curso (<a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a>). Probablemente ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R &lt; 4.0.0. Podés encontrar qué versión de R tenés ejecutando esto en la consola de R:</li>
 </ol>
 <div class="cell">
 <details open="" class="code-fold">
@@ -224,7 +216,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Instalá la interfaz de RStudio (<a href="https://posit.co/download/rstudio-desktop/" class="uri">https://posit.co/download/rstudio-desktop/</a>, elejí la versión gratuita).</p></li>
 <li><p>Abrí RStudio y seleccioná la pestaña “Tools” y luego “Global options” (última opción). Seleccioná la opción “Code”, luego seleccioná la casilla de “Soft wrap”.</p></li>
 <li><p>También en Rstudio: Seleccioná la opción “Pane Layout” y mové “Source” al panel superior izquierdo y “Console” al panel superior derecho. Esta disposición asigna más espacio en la pantalla a los paneles más útiles. Dalé “Apply” y “Ok”. Para aquellos que no estén familiarizados con RStudio, “Source” es un editor de texto donde se escribe el código y donde guardas el código en un archivo físico (normalmente en formato .R) y la consola evalúa el código que se envia desde el “Source” e imprime los resultados (si los hay). Podés escribir código en la consola, pero no se guardará en un archivo físico.</p></li>
-<li><p>Ahora en la consola de R en Rstudio ejecutá el siguiente código para instalar los paquetes que estaremos usando durante el taller:</p></li>
+<li><p>Ahora en la consola de R en Rstudio ejecutá el siguiente código para instalar los paquetes que estaremos usando durante el curso:</p></li>
 </ol>
 <div class="cell">
 <details open="" class="code-fold">
@@ -262,7 +254,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </details>
 </div>
 <ol start="8" type="1">
-<li>Creá un proyecto para el taller corriendo este código:</li>
+<li>Creá un proyecto para el curso corriendo este código:</li>
 </ol>
 <div class="cell">
 <details open="" class="code-fold">
@@ -280,31 +272,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><em>(en realidad este es tambien un <a href="https://marce10.github.io/ciencia_reproducible/compendios_de_investigacion.html">compendio de investigación</a>)</em></p>
 <p>Abrí el proyecto en Rstudio:</p>
 <p><img src="./images/abrir_proyecto.png" class="img-fluid" style="width:80.0%"></p>
-<p>Este proyecto debe usarse cada vez que se trabaja código del taller ✌️</p>
-<hr>
-</section>
-<section id="lecturas-y-materiales" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> Lecturas y materiales</h1>
-<ul>
-<li><p>Introducción a R:</p>
-<ul>
-<li><a href="https://marce10.github.io/UCR_ESP_2024/fundamentos_de_r.html">Tutorial de este taller</a></li>
-<li><a href="https://intro2r.com/">Libro: An Introduction to R</a></li>
-</ul></li>
-<li><p>Introducción a modelos de regresión:</p>
-<ul>
-<li><a href="https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/">Opción 1</a></li>
-<li><a href="https://www.scribbr.com/statistics/linear-regression-in-r/">Opción 2</a></li>
-</ul></li>
-<li><p>Varying (mixed) effect models:</p>
-<ul>
-<li><a href="https://peerj.com/articles/4794/">Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E., &amp; Inger, R. (2018). <strong>A brief introduction to mixed effects modelling and multi-model inference in ecology</strong>. <em>PeerJ</em>, 6, e4794.</a></li>
-</ul></li>
-<li><p>Interaction effects:</p>
-<ul>
-<li><a href="https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939">Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., … &amp; Chase, J. M. (2023). <strong>Understanding ‘it depends’ in ecology: a guide to hypothesising, visualising and interpreting statistical interactions</strong>. <em>Biological Reviews</em>, 983-1002</a></li>
-</ul></li>
-</ul>
+<p>Este proyecto debe usarse cada vez que se trabaja código del curso ✌️</p>
 
 
 </section>

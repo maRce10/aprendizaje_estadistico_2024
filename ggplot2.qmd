@@ -186,7 +186,7 @@ Algunos atributos funcionan mejor con algunos tipos de datos:
 Utilizando el conjunto de datos "hylaeformis":
 
 ```{r,  eval=F, echo=T}
-# lear desde el sitio del taller
+# lear desde el sitio del curso
 hylaeformis_data <- read.csv(
   paste0("https://raw.githubusercontent.com/maRce10/", "r_avanzado_2023/master/data/hylaeformis_data.csv")
 )

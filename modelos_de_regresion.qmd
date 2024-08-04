@@ -2231,9 +2231,13 @@ Este manual solo pretende sugerir un abordaje estadístico centrado en los model
 
 -   Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., ... & Chase, J. M. (2023). [Understanding 'it depends' in ecology: a guide to hypothesising, visualising and interpreting statistical interactions](https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939). Biological Reviews.
 
- 
+-   [Complete introduction to linear regression in R](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
 
-------------------------------------------------------------------------
+-   [Linear regression in R](https://www.scribbr.com/statistics/linear-regression-in-r/)
+
+-   Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E., & Inger, R. (2018). [A brief introduction to mixed effects modelling and multi-model inference in ecology](https://peerj.com/articles/4794/). *PeerJ*, 6, e4794.
+
+---
 
 # Información de la sesión {.unnumbered .unlisted}
 

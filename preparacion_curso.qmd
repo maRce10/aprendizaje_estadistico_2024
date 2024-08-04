@@ -1,6 +1,6 @@
 ---
 date: ""
-toc: true
+toc: false
 format:
   html:
     code-tools: false
@@ -24,7 +24,7 @@ version$version.string
 update.packages(ask = FALSE)
 ```
 
-3)  Instalá R en la computadora que utilizarás durante el taller (<https://cran.r-project.org/>). Probablemente ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R \< 4.0.0. Podés encontrar qué versión de R tenés ejecutando esto en la consola de R:
+3)  Instalá R en la computadora que utilizarás durante el curso (<https://cran.r-project.org/>). Probablemente ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R \< 4.0.0. Podés encontrar qué versión de R tenés ejecutando esto en la consola de R:
 
 ```{r}
 version$version.string
@@ -36,7 +36,7 @@ version$version.string
 
 6)  También en Rstudio: Seleccioná la opción "Pane Layout" y mové "Source" al panel superior izquierdo y "Console" al panel superior derecho. Esta disposición asigna más espacio en la pantalla a los paneles más útiles. Dalé "Apply" y "Ok". Para aquellos que no estén familiarizados con RStudio, "Source" es un editor de texto donde se escribe el código y donde guardas el código en un archivo físico (normalmente en formato .R) y la consola evalúa el código que se envia desde el "Source" e imprime los resultados (si los hay). Podés escribir código en la consola, pero no se guardará en un archivo físico.
 
-7)  Ahora en la consola de R en Rstudio ejecutá el siguiente código para instalar los paquetes que estaremos usando durante el taller:
+7)  Ahora en la consola de R en Rstudio ejecutá el siguiente código para instalar los paquetes que estaremos usando durante el curso:
 
 ```{r, eval = FALSE}
 # cargar funciones del paquete "sketchy"
@@ -71,7 +71,7 @@ load_packages(
 )
 ```
 
-8)  Creá un proyecto para el taller corriendo este código:
+8)  Creá un proyecto para el curso corriendo este código:
 
 ```{r, eval = FALSE}
 library(sketchy)
@@ -90,26 +90,4 @@ Abrí el proyecto en Rstudio:
 
 ![](./images/abrir_proyecto.png){width="80%"}
 
-Este proyecto debe usarse cada vez que se trabaja código del taller `r emo::ji("v")`
-
-------------------------------------------------------------------------
-
-# Lecturas y materiales
-
--   Introducción a R:
-
-    -   [Tutorial de este taller](https://marce10.github.io/UCR_ESP_2024/fundamentos_de_r.html)
-    -   [Libro: An Introduction to R](https://intro2r.com/)
-
--   Introducción a modelos de regresión:
-
-    -   [Opción 1](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)
-    -   [Opción 2](https://www.scribbr.com/statistics/linear-regression-in-r/)
-
--   Varying (mixed) effect models:
-
-    -   [Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E., & Inger, R. (2018). **A brief introduction to mixed effects modelling and multi-model inference in ecology**. *PeerJ*, 6, e4794.](https://peerj.com/articles/4794/)
-
--   Interaction effects:
-
-    -   [Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., ... & Chase, J. M. (2023). **Understanding ‘it depends’ in ecology: a guide to hypothesising, visualising and interpreting statistical interactions**. *Biological Reviews*, 983-1002](https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939)
+Este proyecto debe usarse cada vez que se trabaja código del curso `r emo::ji("v")`

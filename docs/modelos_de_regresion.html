@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Aprendizaje Computacional, SEP-UCR 2024 - Modelos de regresión</title>
+<title>Aprendizaje Estadístico, SEP-UCR 2024 - Modelos de regresión</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -142,7 +142,7 @@ window.Quarto = {
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
-    <span class="navbar-title">Aprendizaje Computacional, SEP-UCR 2024</span>
+    <span class="navbar-title">Aprendizaje Estadístico, SEP-UCR 2024</span>
     </a>
   </div>
             <div id="quarto-search" class="" title="Buscar"></div>
@@ -260,7 +260,7 @@ window.Quarto = {
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">2 de agosto de 2024</p>
+      <p class="date">4 de agosto de 2024</p>
     </div>
   </div>
   
@@ -3251,8 +3251,10 @@ x1            1.3166     0.1151 290.0679 11.4395 2.9326e-25</code></pre>
 <li><p><a href="https://www.programmingr.com/examples/neat-tricks/sample-r-function/rexp/">R’s exp – Simulating Exponential Distributions</a></p></li>
 <li><p><a href="https://aosmith.rbind.io/2018/08/29/getting-started-simulating-data/">Simulating data in R</a></p></li>
 <li><p>Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., … &amp; Chase, J. M. (2023). <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939">Understanding ‘it depends’ in ecology: a guide to hypothesising, visualising and interpreting statistical interactions</a>. Biological Reviews.</p></li>
+<li><p><a href="https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/">Complete introduction to linear regression in R</a></p></li>
+<li><p><a href="https://www.scribbr.com/statistics/linear-regression-in-r/">Linear regression in R</a></p></li>
+<li><p>Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E., &amp; Inger, R. (2018). <a href="https://peerj.com/articles/4794/">A brief introduction to mixed effects modelling and multi-model inference in ecology</a>. <em>PeerJ</em>, 6, e4794.</p></li>
 </ul>
-<p>&nbsp;</p>
 <hr>
 </section>
 </section>
@@ -5956,17 +5958,21 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb163-2303"><a href="#cb163-2303" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb163-2304"><a href="#cb163-2304" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., ... &amp; Chase, J. M. (2023). <span class="co">[</span><span class="ot">Understanding 'it depends' in ecology: a guide to hypothesising, visualising and interpreting statistical interactions</span><span class="co">](https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939)</span>. Biological Reviews.</span>
 <span id="cb163-2305"><a href="#cb163-2305" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2306"><a href="#cb163-2306" aria-hidden="true" tabindex="-1"></a>&nbsp;</span>
+<span id="cb163-2306"><a href="#cb163-2306" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Complete introduction to linear regression in R</span><span class="co">](https://www.machinelearningplus.com/machine-learning/complete-introduction-linear-regression-r/)</span></span>
 <span id="cb163-2307"><a href="#cb163-2307" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2308"><a href="#cb163-2308" aria-hidden="true" tabindex="-1"></a>------------------------------------------------------------------------</span>
+<span id="cb163-2308"><a href="#cb163-2308" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="co">[</span><span class="ot">Linear regression in R</span><span class="co">](https://www.scribbr.com/statistics/linear-regression-in-r/)</span></span>
 <span id="cb163-2309"><a href="#cb163-2309" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2310"><a href="#cb163-2310" aria-hidden="true" tabindex="-1"></a><span class="fu"># Información de la sesión {.unnumbered .unlisted}</span></span>
+<span id="cb163-2310"><a href="#cb163-2310" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>Harrison, X. A., Donaldson, L., Correa-Cano, M. E., Evans, J., Fisher, D. N., Goodwin, C. E., &amp; Inger, R. (2018). <span class="co">[</span><span class="ot">A brief introduction to mixed effects modelling and multi-model inference in ecology</span><span class="co">](https://peerj.com/articles/4794/)</span>. *PeerJ*, 6, e4794.</span>
 <span id="cb163-2311"><a href="#cb163-2311" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2312"><a href="#cb163-2312" aria-hidden="true" tabindex="-1"></a><span class="in">```{r session info, echo=F}</span></span>
+<span id="cb163-2312"><a href="#cb163-2312" aria-hidden="true" tabindex="-1"></a>---</span>
 <span id="cb163-2313"><a href="#cb163-2313" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2314"><a href="#cb163-2314" aria-hidden="true" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
+<span id="cb163-2314"><a href="#cb163-2314" aria-hidden="true" tabindex="-1"></a><span class="fu"># Información de la sesión {.unnumbered .unlisted}</span></span>
 <span id="cb163-2315"><a href="#cb163-2315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb163-2316"><a href="#cb163-2316" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb163-2316"><a href="#cb163-2316" aria-hidden="true" tabindex="-1"></a><span class="in">```{r session info, echo=F}</span></span>
+<span id="cb163-2317"><a href="#cb163-2317" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-2318"><a href="#cb163-2318" aria-hidden="true" tabindex="-1"></a><span class="in">sessionInfo()</span></span>
+<span id="cb163-2319"><a href="#cb163-2319" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb163-2320"><a href="#cb163-2320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
 </code><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
