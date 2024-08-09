@@ -20,6 +20,8 @@ website:
       #   href: program.qmd
       - text: "Manuales"
         menu:
+        - text: "Introducción al curso"
+          href: intro_curso.qmd
         - text: "Fundamentos de R"
           href: fundamentos_de_r.qmd
         - text: "Modelos de regresión"

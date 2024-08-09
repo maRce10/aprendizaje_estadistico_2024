@@ -2,7 +2,6 @@
 title: <font size="7"><b>Elementos básicos del lenguaje R</b></font>
 ---
 
-
 ```{r,echo=FALSE,message=FALSE}
 
 options("digits"=5)
@@ -14,7 +13,6 @@ knitr::opts_chunk$set(
  )
 
 ```
-
 
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}

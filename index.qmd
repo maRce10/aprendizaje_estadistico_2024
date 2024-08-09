@@ -5,12 +5,12 @@ format:
   html:
     code-tools: false
 ---
+
 <center><img src="images/machine-Learning2.jpeg" alt="acoustic measurements" width="100%"/></center>
 
 <center><font size="5"><b><a href="https://tropicalstudies.org/">Sistema de Estudios de Posgrado</a><br></b></font></center>
 
 <center><font size="5"><b><a href="https://tropicalstudies.org/">Universidad de Costa Rica</a><br></b></font></center>
-
 
 <center><font size="4">II semestre, 2024</font></center>
 
@@ -25,9 +25,9 @@ El aprendizaje estadístico ("machine learning") es una rama de la inteligencia 
 ::: {.alert .alert-info}
 ### Objetivos {.unnumbered .unlisted}
 
-- Describir y explicar los conceptos y métodos principales del aprendizaje estadístico aplicados a las Ciencias Cognoscitivas.
-- Diferenciar entre los tipos de aprendizaje computacional: supervisado, no supervisado, semi-supervisado y por reforzamiento
-- Comprender los fundamentos teóricos y los supuestos de técnicas como la regresión, las redes neuronales, los árboles de decisión y el análisis de conglomerados
-- Implementar, en el lenguaje de programación R, las técnicas desarrolladas a lo largo del curso
-- Seleccionar la técnica más adecuada en función del problema práctico o pregunta de investigación en las diversas áreas de las Ciencias Cognoscitivas.
+-   Describir y explicar los conceptos y métodos principales del aprendizaje estadístico aplicados a las Ciencias Cognoscitivas.
+-   Diferenciar entre los tipos de aprendizaje computacional: supervisado, no supervisado, semi-supervisado y por reforzamiento
+-   Comprender los fundamentos teóricos y los supuestos de técnicas como la regresión, las redes neuronales, los árboles de decisión y el análisis de conglomerados
+-   Implementar, en el lenguaje de programación R, las técnicas desarrolladas a lo largo del curso
+-   Seleccionar la técnica más adecuada en función del problema práctico o pregunta de investigación en las diversas áreas de las Ciencias Cognoscitivas.
 :::

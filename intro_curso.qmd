@@ -1,0 +1,258 @@
+---
+format:
+  revealjs:
+    toc: false
+    number-sections: false    
+    embed-resources: true
+    self-contained: true
+    auto-section: false 
+    auto-play-media: true 
+    dpi: 300
+    fig-dpi: 300
+    code-line-numbers: false
+    code-block-border-left: true
+    slide-number: true
+    preview-links: auto
+    css: styles_revealjs.css
+    footer: <font size=3><a href="https://marce10.github.io/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
+editor_options: 
+  chunk_output_type: console
+---
+
+# Introducción al Aprendizaje Estadístico {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity=0.4}
+
+<center><font size=6><b><a href="https://marce10.github.io/baRulho/">Marcelo Araya-Salas</a><br></b>Universidad de Costa Rica</font><br/></center>
+
+## ¿Qué es el Aprendizaje Estadístico? {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity=0.1}
+
+<br>
+
+-   Utilización de datos para modelar fenómenos, hacer predicciones y tomar decisiones basadas en la información extraída
+
+-   Combina teorías estadísticas con algoritmos computacionales
+
+## ¿Qué es el Aprendizaje Estadístico? 
+
+::: columns
+::: {.column width="50%"}
+![](/images/machine-Learning.jpeg){width="100%"}
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: x-large;"}
+**Inteligencia Artificial**: hacer tareas que requieren inteligencia humana
+
+**Aprendizaje estadístico**: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones
+:::
+:::
+:::
+
+## ¿Qué es el Aprendizaje Estadístico?
+
+::: columns
+::: {.column width="50%"}
+![](/images/machine-Learning.jpeg){width="100%"}
+:::
+
+::: {.column width="50%"}
+::: {style="font-size: x-large;"}
+**Inteligencia Artificial**: hacer tareas que requieren inteligencia humana
+
+**Aprendizaje estadístico**: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones
+
+**Aprendizaje Profundo**: uso de redes neuronales profundas para analizar diversos niveles de abstracción en los datos
+
+**Ciencia de Datos**: técnicas de análisis, procesamiento, y visualización de datos para extraer información/conocimiento de grandes volúmenes de datos
+:::
+:::
+:::
+
+## ¿Qué es el Aprendizaje Estadístico?
+
+::: {style="font-size: 70px;"}
+$$ Y = f(X) + E $$
+:::
+
+::: {.fragment .fade-in}
+-   Y: variable dependiente (se quiere predecir o explicar)
+:::
+
+::: {.fragment .fade-in}
+-   X: variable(s) independiente(s) con informacióm relevante para predecir Y
+:::
+
+::: {.fragment .fade-in}
+-   E: error no reducible
+:::
+
+
+## ¿Qué es el Aprendizaje Estadístico?
+
+::: {style="font-size: 70px;"}
+$$ Y = f(X) + E $$
+:::
+
+::: {.fragment .fade-in}
+-   sinónimos de Y: variable dependiente, resultado (outcome), etiqueta, objetivo, etc.
+:::
+
+::: {.fragment .fade-in}
+-   sinónimos de X: variable independiente, atributo (feature), dimensión, predictor, entrada (input), etc.
+:::
+
+
+## ¿Para que estimar f(X)?
+
+::: {style="font-size: 70px;"}
+$$ Y = f(X) + E $$
+:::
+
+
+-   **Predicción**: predecir valores futuros de Y
+
+-   **Inferencia**: establecer una relación causal (*i.e. estimar el efecto de un cambio en X sobre el cambio en Y*)
+
+::: {.fragment .fade-in}
+::: {style="font-size: 60px; color='red';"}
+<div class="custom-color">
+ **Aprendizaje estadístico = estimar f(X)**
+</div>
+:::
+:::
+
+
+## Aplicaciones
+
+-   **Economía**: Modelado de riesgos y predicción de mercados
+-   **Medicina**: Diagnósticos automatizados y personalización del tratamiento médico
+-   **Tecnología**: Mejora en sistemas de recomendación y asistentes inteligentes
+
+## Aplicaciones en Ciencias Cognoscitivas
+
+::: {style="font-size: 30px;"}
+Crucial para entender cómo procesamos la información, tomamos decisiones y aprendemos. Algunos sub-campos que utilizan estas herramientas: 
+
+::: columns
+::: {.column width="70%"}
+-   **Neurociencia Cognitiva**: Identificación de patrones en la actividad cerebral relacionados con diferentes funciones cognitivas
+-   **Psicología Experimental**: Modelado de comportamiento humano y predicción de respuestas psicológicas
+-   **Neurociencia Computacional**: Modelado de la actividad neuronal para simular procesos cerebrales
+:::
+
+::: {.column width="30%"}
+![](./images/neurocompu.png){width="100%"}
+:::
+:::
+:::
+
+##
+### Aplicaciones: memoria
+
+::: columns
+
+::: {.column width="40%"}
+::: {style="font-size: 30px;"}
+
+- Roediger et al 2001. [Factors that determine false recall: A multiple regression analysis](https://link.springer.com/content/pdf/10.3758/bf03196177.pdf)
+
+
+
+- Regresión multiple para identificar factores que influyen en el recuerdo falso
+
+
+::: {.fragment .fade-in}
+- Recuerdo verídico (r = 0.73) y la fuerza de la asociacion entre items (r = -0.43) influyen
+
+:::
+:::
+:::
+
+
+::: {.column width="60%"}
+![](./images/ROEDIGER.png){width="100%"}
+:::
+
+:::
+
+::: {.fragment .fade-in}
+<center>
+ $Y: emoción \sim X: asociacion\ entre\ items + recuerdo\ verídico + ...$
+</center>
+:::
+
+##
+### Aplicaciones: reconocimiento de emociones
+
+::: columns
+
+::: {.column width="40%"}
+::: {style="font-size: 30px;"}
+
+- Hema et al 2023. [*Emotional speech Recognition using CNN and Deep learning techniques*](https://www.sciencedirect.com/science/article/pii/S0003682X23002906)
+
+- Aprendizaje profundo en el reconocimiento y análisis del tono emocional en la voz
+
+- 78% de precision
+
+:::
+:::
+
+::: {.column width="60%"}
+![](https://ars.els-cdn.com/content/image/1-s2.0-S0003682X23002906-gr11.jpg){width="100%"}
+:::
+
+:::
+
+::: {.fragment .fade-in}
+<center>
+ $Y: emoción \sim X: estructura\ acústica$
+</center>
+:::
+
+##
+### Aplicaciones: resilencia al estrés
+
+::: columns
+
+::: {.column width="40%"}
+::: {style="font-size: 30px;"}
+
+- Chen et al. 2023. [*Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach*](https://www.sciencedirect.com/science/article/pii/S2666827023000476) 
+
+- Factores que determinan la resiliencia al estrés
+
+- 80% de probabilidad de una predición correcta 
+
+:::
+:::
+
+::: {.column width="60%"}
+![](./images/stress.png){width="100%"}
+:::
+
+:::
+
+::: {.fragment .fade-in}
+<center>
+ $Y:estrés (binaria) \sim X: género + edad + educación + ...$
+</center>
+:::
+
+## Escogiendo el modelo adecuado 
+
+::: {style="font-size: 20px;"}
+[*Tomado de Badillo et al 2020*](https://ascpt.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cpt.1796)
+:::
+
+::: footer
+:::
+
+![](./images/interpre_complex.png){width="100%"}
+
+## Escogiendo el modelo adecuado
+
+::: {style="font-size: 20px;"}
+[*Tomado de Badillo et al 2020*](https://ascpt.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cpt.1796)
+:::
+
+![](./images/model_decision_tree.png){width="100%"}

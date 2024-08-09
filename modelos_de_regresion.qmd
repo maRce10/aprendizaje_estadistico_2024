@@ -35,29 +35,6 @@ theme_set(theme_classic(base_size = 20))
 
  
 
-# Modelos lineales como marco unificador
-
-Tradicionalmente, los modelos estadísticos se han enseñado como herramientas desconectadas sin una relación clara entre ellas. Sólo hace falta darle un vistazo a un libro clásico de estadística para biólogos (Sokal & Rolhf):
-
-```{r, out.width = "100%", echo = FALSE, fig.align= "center"}
-
-knitr::include_graphics("./images/sokal_rohlf.png")
-
-```
-
- 
-
-Sin embargo, la mayoría de esos modelos estadísticos comunes no son más que casos especiales de modelos lineales. Por lo tanto, aprenderlos como tales puede simplificar mucho las cosas. Este enfoque tiene varias ventajas:
-
--   En primer lugar, **todo se reduce a *y=a⋅x+b***, lo que simplifica en gran medida el aprendizaje
-
--   Esto también significa que no hay **necesidad de aprender sobre los parámetros, las hipótesis y la interpretación de los resultados para cada caso especial**.
-
--   Los modelos lineales se han ampliado para **tener en cuenta distribuciones y estructuras de datos complejas** (por ejemplo, modelos mixtos, modelos lineales generalizados, modelos cero-inflados, etc.) proporcionando una **plataforma más flexible**.
-
--   Los modelos lineales se **aplican en todos los paradigmas estadísticos** (por ejemplo, frecuentista, bayesiano)
-
- 
 
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}

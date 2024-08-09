@@ -1,6 +1,6 @@
 ---
 date: ""
-toc: false
+toc: true
 format:
   html:
     code-tools: false
@@ -63,9 +63,15 @@ load_packages(
     "ggplot2",
     "viridis",
     "MASS",
+    "psych",
+    "lme4",
+    "caret",
     "lmerTest",
     "sjPlot",
     "car",
+    "nnet",
+    "neuralnet",
+    "randomForest",
     github = "maRce10/sketchy"
   )
 )
@@ -91,3 +97,14 @@ Abrí el proyecto en Rstudio:
 ![](./images/abrir_proyecto.png){width="80%"}
 
 Este proyecto debe usarse cada vez que se trabaja código del curso `r emo::ji("v")`
+
+
+# Recursos adicionales
+
+- Introducción a Rstudio [video](https://www.youtube.com/watch?v=skPzCkvr8Cw)
+
+- kaggle: juegos de datos de ejemplo [link](https://www.kaggle.com/datasets?search=psychology):
+
+      - [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt) 
+      
+- R data sets: [link](https://vincentarelbundock.github.io/Rdatasets/articles/data.html)      
