@@ -161,7 +161,7 @@ Crucial para entender cómo procesamos la información, tomamos decisiones y apr
 
 
 ::: {.fragment .fade-in}
-- Recuerdo verídico (r = 0.73) y la fuerza de la asociacion entre items (r = -0.43) influyen
+- Recuerdo verídico (r = 0.73) y la fuerza de la asociación entre items (r = -0.43) influyen
 
 :::
 :::

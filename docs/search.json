@@ -207,7 +207,7 @@
     "href": "intro_curso.html#section",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "",
-    "text": "Aplicaciones: memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = 0.73) y la fuerza de la asociacion entre items (r = -0.43) influyen\n\n\n\n\n\n\n\n\n\n\\(Y: emoción \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
+    "text": "Aplicaciones: memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = 0.73) y la fuerza de la asociación entre items (r = -0.43) influyen\n\n\n\n\n\n\n\n\n\n\\(Y: emoción \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
   },
   {
     "objectID": "intro_curso.html#section-1",
