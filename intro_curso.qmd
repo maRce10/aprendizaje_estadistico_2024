@@ -14,16 +14,32 @@ format:
     slide-number: true
     preview-links: auto
     css: styles_revealjs.css
-    footer: <font size=3><a href="https://marce10.github.io/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
 editor_options: 
   chunk_output_type: console
 ---
 
-# Introducción al Aprendizaje Estadístico {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity=0.4}
+```{r}
+#| echo: false
+
+library(kableExtra)
+library(knitr)
+library(viridis)
+
+cols <- viridis::mako(10, alpha = 0.2)
+
+```
+
+# Introducción al Aprendizaje Estadístico {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity="0.4"}
 
 <center><font size=6><b><a href="https://marce10.github.io/baRulho/">Marcelo Araya-Salas</a><br></b>Universidad de Costa Rica</font><br/></center>
 
-## ¿Qué es el Aprendizaje Estadístico? {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity=0.1}
+::: footer
+
+<font size=3><a href="https://marce10.github.io/aprendizaje_estadistico_2024/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
+
+:::
+
+## ¿Qué es el Aprendizaje Estadístico? {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity="0.1"}
 
 <br>
 
@@ -31,7 +47,8 @@ editor_options:
 
 -   Combina teorías estadísticas con algoritmos computacionales
 
-## ¿Qué es el Aprendizaje Estadístico? 
+
+## ¿Qué es el Aprendizaje Estadístico?
 
 ::: columns
 ::: {.column width="50%"}
@@ -85,7 +102,6 @@ $$ Y = f(X) + E $$
 -   E: error no reducible
 :::
 
-
 ## ¿Qué es el Aprendizaje Estadístico?
 
 ::: {style="font-size: 70px;"}
@@ -100,13 +116,11 @@ $$ Y = f(X) + E $$
 -   sinónimos de X: variable independiente, atributo (feature), dimensión, predictor, entrada (input), etc.
 :::
 
-
-## ¿Para que estimar f(X)?
+## ¿Para que Estimar f(X)?
 
 ::: {style="font-size: 70px;"}
 $$ Y = f(X) + E $$
 :::
-
 
 -   **Predicción**: predecir valores futuros de Y
 
@@ -114,23 +128,24 @@ $$ Y = f(X) + E $$
 
 ::: {.fragment .fade-in}
 ::: {style="font-size: 60px; color='red';"}
-<div class="custom-color">
- **Aprendizaje estadístico = estimar f(X)**
-</div>
+::: custom-color
+**Aprendizaje estadístico = estimar f(X)**
 :::
 :::
-
+:::
 
 ## Aplicaciones
 
--   **Economía**: Modelado de riesgos y predicción de mercados
--   **Medicina**: Diagnósticos automatizados y personalización del tratamiento médico
--   **Tecnología**: Mejora en sistemas de recomendación y asistentes inteligentes
+Omnipresente en herramientas electrónicas: 
+
+-   **Detección de correo spam**: busca patrones en el contenido del mensaje, como palabras clave sospechosas y comportamientos de envío
+-   **Reconocimeinto facial**: analiza las características faciales desde diferentes ángulos y aprenden a reconocer variaciones sutiles en la apariencia de un individuo
+-   **Optimización de Rutas con GPS**: usa los patrones de tráfico históricos y en tiempo real para predecir y sugerir las rutas más rápidas o eficientes
 
 ## Aplicaciones en Ciencias Cognoscitivas
 
 ::: {style="font-size: 30px;"}
-Crucial para entender cómo procesamos la información, tomamos decisiones y aprendemos. Algunos sub-campos que utilizan estas herramientas: 
+Crucial para entender cómo procesamos la información, tomamos decisiones y aprendemos. Algunos sub-campos que utilizan estas herramientas:
 
 ::: columns
 ::: {.column width="70%"}
@@ -145,114 +160,214 @@ Crucial para entender cómo procesamos la información, tomamos decisiones y apr
 :::
 :::
 
-##
-### Aplicaciones: memoria
+## 
+
+### Aplicaciones: Memoria
 
 ::: columns
-
 ::: {.column width="40%"}
 ::: {style="font-size: 30px;"}
+-   Roediger et al 2001. [Factors that determine false recall: A multiple regression analysis](https://link.springer.com/content/pdf/10.3758/bf03196177.pdf)
 
-- Roediger et al 2001. [Factors that determine false recall: A multiple regression analysis](https://link.springer.com/content/pdf/10.3758/bf03196177.pdf)
-
-
-
-- Regresión multiple para identificar factores que influyen en el recuerdo falso
-
+-   Regresión multiple para identificar factores que influyen en el recuerdo falso
 
 ::: {.fragment .fade-in}
-- Recuerdo verídico (r = 0.73) y la fuerza de la asociación entre items (r = -0.43) influyen
-
+-   Recuerdo verídico (r = 0.73) y la fuerza de la asociación entre items (r = -0.43) influyen
 :::
 :::
 :::
-
 
 ::: {.column width="60%"}
 ![](./images/ROEDIGER.png){width="100%"}
 :::
-
 :::
 
 ::: {.fragment .fade-in}
-<center>
- $Y: emoción \sim X: asociacion\ entre\ items + recuerdo\ verídico + ...$
-</center>
+<center>$Y: emoción \sim X: asociacion\ entre\ items + recuerdo\ verídico + ...$</center>
 :::
 
-##
-### Aplicaciones: reconocimiento de emociones
+## 
+
+### Aplicaciones: Reconocimiento de Emociones
 
 ::: columns
-
 ::: {.column width="40%"}
 ::: {style="font-size: 30px;"}
+-   Hema et al 2023. [*Emotional speech Recognition using CNN and Deep learning techniques*](https://www.sciencedirect.com/science/article/pii/S0003682X23002906)
 
-- Hema et al 2023. [*Emotional speech Recognition using CNN and Deep learning techniques*](https://www.sciencedirect.com/science/article/pii/S0003682X23002906)
+-   Aprendizaje profundo en el reconocimiento y análisis del tono emocional en la voz
 
-- Aprendizaje profundo en el reconocimiento y análisis del tono emocional en la voz
-
-- 78% de precision
-
+-   78% de precision
 :::
 :::
 
 ::: {.column width="60%"}
 ![](https://ars.els-cdn.com/content/image/1-s2.0-S0003682X23002906-gr11.jpg){width="100%"}
 :::
-
 :::
 
 ::: {.fragment .fade-in}
-<center>
- $Y: emoción \sim X: estructura\ acústica$
-</center>
+<center>$Y: emoción \sim X: estructura\ acústica$</center>
 :::
 
-##
-### Aplicaciones: resilencia al estrés
+## 
+
+### Aplicaciones: Resilencia al Estrés
 
 ::: columns
-
 ::: {.column width="40%"}
 ::: {style="font-size: 30px;"}
+-   Chen et al. 2023. [*Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach*](https://www.sciencedirect.com/science/article/pii/S2666827023000476)
 
-- Chen et al. 2023. [*Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach*](https://www.sciencedirect.com/science/article/pii/S2666827023000476) 
+-   Factores que determinan la resiliencia al estrés
 
-- Factores que determinan la resiliencia al estrés
-
-- 80% de probabilidad de una predición correcta 
-
+-   80% de probabilidad de una predición correcta
 :::
 :::
 
 ::: {.column width="60%"}
 ![](./images/stress.png){width="100%"}
 :::
-
 :::
 
 ::: {.fragment .fade-in}
-<center>
- $Y:estrés (binaria) \sim X: género + edad + educación + ...$
-</center>
+<center>$Y:estrés (binaria) \sim X: género + edad + educación + ...$</center>
 :::
 
-## Escogiendo el modelo adecuado 
+## Tipos de Modelos
+
+**Supervisado**: Se predice una Y conocida *a priori*
+
+$$ Y = f(X) $$
+```{r}
+#| eval: true
+#| echo: false
+
+n = 5
+
+set.seed(123)
+dat <- data.frame(Y = rnorm(n = n), X1 = rnorm(n = n), X2 = rnorm(n = n), X3 = rnorm(n = n))
+
+# knitr::kable(dat)
+
+kbl <- kableExtra::kable(dat, align = "c", row.names = F,  format = "html", escape = F, digits = 2)
+
+kbl <- kableExtra::kable_styling(kbl, bootstrap_options = "striped", font_size = 38) |>  kableExtra::column_spec(1, background = cols[5]) |>  kableExtra::column_spec(2:4, background = cols[8])
+
+kbl
+```
+
+
+## Tipos de Modelos
+
+**No supervisado**: genera una Y con base en la estructura de X
+
+$$ f(X) $$
+```{r}
+#| eval: true
+#| echo: false
+
+n = 5
+
+set.seed(123)
+dat <- data.frame(Y = rep("   ?   ", n), X1 = rnorm(n = n), X2 = rnorm(n = n), X3 = rnorm(n = n))
+
+# knitr::kable(dat)
+
+kbl <- kableExtra::kable(dat, align = "c", row.names = F,  format = "html", escape = F, digits = 2)
+
+kbl <- kableExtra::kable_styling(kbl, bootstrap_options = "striped", font_size = 38) |>  kableExtra::column_spec(1, background = cols[6]) |>  kableExtra::column_spec(2:4, background = cols[8])
+
+kbl
+
+```
+
+
+## Tipos de Modelos
+
+**No supervisado**: ó explora la estructura de X
+
+$$ f(X) $$
+```{r}
+#| eval: true
+#| echo: false
+
+n = 5
+
+set.seed(123)
+dat <- data.frame(X1 = rnorm(n = n), X2 = rnorm(n = n), X3 = rnorm(n = n))
+
+# knitr::kable(dat)
+
+kbl <- kableExtra::kable(dat, align = "c", row.names = F,  format = "html", escape = F, digits = 2)
+
+kbl <- kableExtra::kable_styling(kbl, bootstrap_options = "striped", font_size = 38) |>   kableExtra::column_spec(1:3, background = cols[8])
+
+kbl
+
+```
+
+
+## Escogiendo el Modelo Adecuado 
+
+<br>
+<center>¿Existe Y?</center>
+
+<br>
+
+![](./images/diagrama_1.png){width="100%"}
+
+## Escogiendo el Modelo Adecuado 
+
+<br>
+
+<center>Si Y existe ¿Es continua o categórica?</center>
+
+<br>
+![](./images/superv.png){width="100%"}
+
+
+## Escogiendo el Modelo Adecuado 
+
+<br>
+
+<center>Si Y no existe ¿Queremos generarla o solo explorar X?</center>
+
+<br>
+
+![](./images/no_superv.png){width="100%"}
+
+
+
+## Escogiendo el Modelo Adecuado
+
+<br>
+
+![](./images/diagrama_nivel2.png){width="100%"}
+
+## Escogiendo el Modelo Adecuado {.scrollable .nostretch}
+![](./images/diagrama_completo.png){width="100%"}
+
+
+## Escogiendo el Modelo Adecuado  {.scrollable .nostretch}
+![](./images/diagrama_completo.png){width="100%"}
+
+## Escogiendo el Modelo Adecuado 
+
+Interpretabilidad
 
 ::: {style="font-size: 20px;"}
 [*Tomado de Badillo et al 2020*](https://ascpt.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cpt.1796)
-:::
-
-::: footer
 :::
 
 ![](./images/interpre_complex.png){width="100%"}
 
-## Escogiendo el modelo adecuado
+# Introducción al Aprendizaje Estadístico {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity="0.4"}
 
-::: {style="font-size: 20px;"}
-[*Tomado de Badillo et al 2020*](https://ascpt.onlinelibrary.wiley.com/doi/pdfdirect/10.1002/cpt.1796)
+<center><font size=6><b><a href="https://marce10.github.io/baRulho/">Marcelo Araya-Salas</a><br></b>Universidad de Costa Rica</font><br/></center>
+
+::: footer
+
+<font size=3><a href="https://marce10.github.io/aprendizaje_estadistico_2024/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
+
 :::
-
-![](./images/model_decision_tree.png){width="100%"}

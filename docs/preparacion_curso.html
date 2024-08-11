@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -198,7 +198,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="instalacion-de-software" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Instalacion de software</h1>
 <ol type="1">
-<li>Instalá o actualizá R en el ordenador que utilizarás durante el curso (<a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>). Asumo que ya lo tenés instalado, pero intentá actualizarlo si tienes una versión de R &lt; 4.0.0. Puedes averiguar qué versión de R tienes ejecutando esto en la consola de R:</li>
+<li>Instalá o actualizá R en el ordenador que utilizarás durante el curso (<a href="https://cran.r-project.org" class="uri">https://cran.r-project.org</a>). Asumo que ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R &lt; 4.0.0. Puedes averiguar qué versión de R tenés ejecutando esto en la consola de R:</li>
 </ol>
 <div class="cell">
 <details open="" class="code-fold">
@@ -296,8 +296,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h1 data-number="2"><span class="header-section-number">2</span> Recursos adicionales</h1>
 <ul>
 <li><p>Introducción a Rstudio <a href="https://www.youtube.com/watch?v=skPzCkvr8Cw">video</a></p></li>
-<li><p>kaggle: juegos de datos de ejemplo <a href="https://www.kaggle.com/datasets?search=psychology">link</a>:</p>
-<pre><code>- [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt) </code></pre></li>
+<li><p>kaggle: juegos de datos de ejemplo <a href="https://www.kaggle.com/datasets?search=psychology">link</a>:</p></li>
+<li><p><a href="https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt">Datos para classificar personalidad</a></p></li>
 <li><p>R data sets: <a href="https://vincentarelbundock.github.io/Rdatasets/articles/data.html">link</a></p></li>
 </ul>
 
@@ -395,11 +395,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -441,11 +436,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

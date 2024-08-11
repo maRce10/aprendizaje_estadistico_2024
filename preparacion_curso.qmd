@@ -12,7 +12,7 @@ format:
 knitr::opts_chunk$set(eval = FALSE)
 ```
 
-1)  Instalá o actualizá R en el ordenador que utilizarás durante el curso (<https://cran.r-project.org>). Asumo que ya lo tenés instalado, pero intentá actualizarlo si tienes una versión de R \< 4.0.0. Puedes averiguar qué versión de R tienes ejecutando esto en la consola de R:
+1)  Instalá o actualizá R en el ordenador que utilizarás durante el curso (<https://cran.r-project.org>). Asumo que ya lo tenés instalado, pero intentá actualizarlo si tenés una versión de R \< 4.0.0. Puedes averiguar qué versión de R tenés ejecutando esto en la consola de R:
 
 ```{r}
 version$version.string
@@ -98,13 +98,12 @@ Abrí el proyecto en Rstudio:
 
 Este proyecto debe usarse cada vez que se trabaja código del curso `r emo::ji("v")`
 
-
 # Recursos adicionales
 
-- Introducción a Rstudio [video](https://www.youtube.com/watch?v=skPzCkvr8Cw)
+-   Introducción a Rstudio [video](https://www.youtube.com/watch?v=skPzCkvr8Cw)
 
-- kaggle: juegos de datos de ejemplo [link](https://www.kaggle.com/datasets?search=psychology):
+-   kaggle: juegos de datos de ejemplo [link](https://www.kaggle.com/datasets?search=psychology):
 
-      - [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt) 
-      
-- R data sets: [link](https://vincentarelbundock.github.io/Rdatasets/articles/data.html)      
+- [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt) 
+
+-   R data sets: [link](https://vincentarelbundock.github.io/Rdatasets/articles/data.html)
