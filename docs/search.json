@@ -662,7 +662,7 @@
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico-3",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nY: variable dependiente (se quiere predecir o explicar)\n\n\n\n\nX: variable(s) independiente(s) con informacióm relevante para predecir Y\n\n\n\n\nE: error no reducible"
+    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nY: variable dependiente (se quiere predecir o explicar)\n\n\n\n\nX: variable(s) independiente(s) con información relevante para predecir Y\n\n\n\n\nE: error no reducible"
   },
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico-4",
@@ -697,7 +697,7 @@
     "href": "intro_curso.html#section",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "",
-    "text": "Aplicaciones: Memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = 0.73) y la fuerza de la asociación entre items (r = -0.43) influyen\n\n\n\n\n\n\n\n\n\n\\(Y: emoción \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
+    "text": "Aplicaciones: Memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = -0.43) y la fuerza de la asociación entre items (r = 0.73) influyen\n\n\n\n\n\n\n\n\n\n\\(Y: recuerdo\\ falso \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
   },
   {
     "objectID": "intro_curso.html#section-1",
@@ -711,7 +711,7 @@
     "href": "intro_curso.html#section-2",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "",
-    "text": "Aplicaciones: Resilencia al Estrés\n\n\n\n\nChen et al. 2023. Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach\nFactores que determinan la resiliencia al estrés\n80% de probabilidad de una predición correcta\n\n\n\n\n\n\n\n\n\\(Y:estrés (binaria) \\sim X: género + edad + educación + ...\\)"
+    "text": "Aplicaciones: Resilencia al Estrés\n\n\n\n\nChen et al. 2023. Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach\nFactores que determinan la resiliencia al estrés\n80% de probabilidad de una predición correcta\n\n\n\n\n\n\n\n\n\\(Y:resilencia\\ (binaria) \\sim X: género + edad + educación + ...\\)"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos",
@@ -725,7 +725,7 @@
     "href": "intro_curso.html#tipos-de-modelos-1",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
+    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\nA\n-0.55\n-1.60\n-0.83\n\n\nC\n-0.02\n0.66\n-0.62\n\n\nB\n-0.58\n-1.87\n-0.29\n\n\nC\n1.07\n0.26\n-0.50\n\n\nA\n1.04\n-0.22\n1.10"
   },
   {
     "objectID": "intro_curso.html#diagrama",
@@ -1026,11 +1026,25 @@
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-6",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado\nInterpretabilidad\n\nTomado de Badillo et al 2020"
+    "text": "Escogiendo el Modelo Adecuado\n\nInterpretabilidad\n\n\nTomado de Badillo et al 2020"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-2",
     "href": "intro_curso.html#tipos-de-modelos-2",
+    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
+    "section": "Tipos de Modelos",
+    "text": "Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
+  },
+  {
+    "objectID": "intro_curso.html#escogiendo-el-modelo-adecuadog",
+    "href": "intro_curso.html#escogiendo-el-modelo-adecuadog",
+    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
+    "section": "Escogiendo el Modelo Adecuadog",
+    "text": "Escogiendo el Modelo Adecuadog"
+  },
+  {
+    "objectID": "intro_curso.html#tipos-de-modelos-3",
+    "href": "intro_curso.html#tipos-de-modelos-3",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
     "text": "Tipos de Modelos\nNo supervisado: ó explora la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n\n\n-0.23\n0.46\n0.36\n\n\n1.56\n-1.27\n0.40\n\n\n0.07\n-0.69\n0.11\n\n\n0.13\n-0.45\n-0.56"
