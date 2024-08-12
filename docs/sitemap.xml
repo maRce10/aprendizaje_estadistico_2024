@@ -1,36 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/reportes_dinamicos.html</loc>
-    <lastmod>2024-08-04T19:17:46.660Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/modelos_de_regresion.html</loc>
-    <lastmod>2024-08-04T19:40:32.652Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/funciones.html</loc>
-    <lastmod>2024-08-08T00:19:53.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/ggplot2.html</loc>
-    <lastmod>2024-08-04T19:17:46.604Z</lastmod>
-  </url>
-  <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/fundamentos_de_r.html</loc>
-    <lastmod>2024-08-05T17:41:03.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/instructor.html</loc>
-    <lastmod>2024-08-02T19:26:45.667Z</lastmod>
+    <lastmod>2024-08-12T20:02:44.840Z</lastmod>
   </url>
   <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/intro_curso.html</loc>
-    <lastmod>2024-08-11T16:42:03.817Z</lastmod>
+    <lastmod>2024-08-11T16:42:03.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marce10.github.io/UCR_ESP_2024/Diagrama.html</loc>
+    <lastmod>2024-08-10T18:49:43.000Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marce10.github.io/UCR_ESP_2024/instructor.html</loc>
+    <lastmod>2024-08-02T19:26:45.000Z</lastmod>
   </url>
   <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/index.html</loc>
-    <lastmod>2024-08-08T00:19:15.000Z</lastmod>
+    <lastmod>2024-08-08T00:19:15.321Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marce10.github.io/UCR_ESP_2024/funciones.html</loc>
+    <lastmod>2024-08-08T00:19:53.794Z</lastmod>
+  </url>
+  <url>
+    <loc>https://marce10.github.io/UCR_ESP_2024/reportes_dinamicos.html</loc>
+    <lastmod>2024-08-04T19:17:46.000Z</lastmod>
   </url>
   <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/estadistica_tradicional_regresion.html</loc>
@@ -38,22 +34,22 @@
   </url>
   <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/preparacion_curso.html</loc>
-    <lastmod>2024-08-10T19:04:05.970Z</lastmod>
+    <lastmod>2024-08-10T19:04:05.000Z</lastmod>
   </url>
   <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/intro_curso (Copia en conflicto de marce-Latitude-3410 2024-08-10).html</loc>
-    <lastmod>2024-08-10T15:51:44.054Z</lastmod>
+    <loc>https://marce10.github.io/UCR_ESP_2024/modelos_de_regresion.html</loc>
+    <lastmod>2024-08-12T20:30:24.378Z</lastmod>
   </url>
   <url>
     <loc>https://marce10.github.io/UCR_ESP_2024/importar_datos.html</loc>
-    <lastmod>2024-08-02T19:59:06.928Z</lastmod>
+    <lastmod>2024-08-02T19:59:06.000Z</lastmod>
   </url>
   <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/Diagrama.html</loc>
-    <lastmod>2024-08-10T18:49:43.660Z</lastmod>
+    <loc>https://marce10.github.io/UCR_ESP_2024/como_simular_datos.html</loc>
+    <lastmod>2024-08-12T20:36:21.651Z</lastmod>
   </url>
   <url>
-    <loc>https://marce10.github.io/UCR_ESP_2024/diagrama_pdf.html</loc>
-    <lastmod>2024-08-10T18:20:40.564Z</lastmod>
+    <loc>https://marce10.github.io/UCR_ESP_2024/ggplot2.html</loc>
+    <lastmod>2024-08-04T19:17:46.000Z</lastmod>
   </url>
 </urlset>

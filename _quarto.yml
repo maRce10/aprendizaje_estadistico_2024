@@ -24,6 +24,10 @@ website:
           href: intro_curso.qmd
         - text: "Fundamentos de R"
           href: fundamentos_de_r.qmd
+        - text: "Importar y exportar datos de R"
+          href: importar_datos.qmd
+        - text: "Como simular datos"
+          href: como_simular_datos.qmd
         - text: "Modelos de regresión"
           href: modelos_de_regresion.qmd
         # - text: "Estadística tradicional como regresión"
@@ -32,8 +36,6 @@ website:
           href: ggplot2.qmd
         #- text: "Reportes dinámicos"
         #  href: reportes_dinamicos.qmd
-        - text: "Importar y exportar datos de R"
-          href: importar_datos.qmd
       - text: "Preparación para el curso"
         href: preparacion_curso.qmd
       - text: "Compartir código"
