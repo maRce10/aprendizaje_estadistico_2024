@@ -39,21 +39,25 @@ version$version.string
 7)  Ahora en la consola de R en Rstudio ejecutá el siguiente código para instalar los paquetes que estaremos usando durante el curso:
 
 ```{r, eval = FALSE}
-# cargar funciones del paquete "sketchy"
-source(
-  paste0(
-    "https://raw.githubusercontent.com/maRce10/",
-    "sketchy/main/R/load_packages.R"
-  )
-)
-source(
-  paste0(
-    "https://raw.githubusercontent.com/maRce10/",
-    "sketchy/main/R/internal_functions.R"
-  )
-)
+# # cargar funciones del paquete "sketchy"
+# source(
+#   paste0(
+#     "https://raw.githubusercontent.com/maRce10/",
+#     "sketchy/main/R/load_packages.R"
+#   )
+# )
+# source(
+#   paste0(
+#     "https://raw.githubusercontent.com/maRce10/",
+#     "sketchy/main/R/internal_functions.R"
+#   )
+# )
+# 
+# instalar paquete sketchy para instalar otros paquetes y creer proyectos
+# install.packages("sketchy")
 
-
+# cargar paquete
+library(sketchy)
 
 # instalar/ cargar paquetes
 load_packages(
@@ -72,6 +76,7 @@ load_packages(
     "nnet",
     "neuralnet",
     "randomForest",
+    "dimRed",
     github = "maRce10/sketchy"
   )
 )
@@ -104,6 +109,6 @@ Este proyecto debe usarse cada vez que se trabaja código del curso `r emo::ji("
 
 -   kaggle: juegos de datos de ejemplo [link](https://www.kaggle.com/datasets?search=psychology):
 
-- [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt) 
+-   [Datos para classificar personalidad](https://www.kaggle.com/datasets/anshulmehtakaggl/60k-responses-of-16-personalities-test-mbt)
 
 -   R data sets: [link](https://vincentarelbundock.github.io/Rdatasets/articles/data.html)

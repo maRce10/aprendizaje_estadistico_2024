@@ -1,0 +1,212 @@
+---
+number-sections: false
+format:
+  html:
+    code-tools: false
+---
+
+<font size="4">
+
+------------------------------------------------------------------------
+
+::: {.alert .alert-info}
+
+[Programa del curso en PDF](https://github.com/maRce10/aprendizaje_estadistico_2024/blob/master/additional_files/programa_SP_3068_aprendizaje_de_maquinas.pdf)
+:::
+
+
+::: {.alert .alert-success}
+# Antes de empezar el curso {.unnumbered .unlisted}
+
+-   Asegurese de instalar los paquetes necesarios para el curso detallados [aqui](../preparacion_curso.html).
+:::
+
+# Día 1
+
+**Introducción a R (Parte I)** <a href="fundamentos_de_r.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Introducción al aprendizaje estadístico
+-   Instalación de R y RStudio
+-   Navegación en el entorno de RStudio
+-   Estructuras de datos básicas: vectores, matrices y listas
+-   Operaciones básicas y funciones en R
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Badillo et al (2020). [An introduction to machine learning](https://ascpt.onlinelibrary.wiley.com/doi/full/10.1002/cpt.1796)
+:::
+
+# Día 2
+
+**Introducción a R (Parte II)** <a href="fundamentos_de_r.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Manejo de data frames y matrices
+-   Filtrado, ordenamiento y resumen de datos
+-   Visualización básica de datos con gráficos base
+-   Creación de gráficos personalizados
+
+# Día 3
+
+**Simulación de Datos con Patrones Predefinidos**<a href="como_simular_datos.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Introducción a la simulación de datos y su importancia
+-   Generación de datos con distribuciones específicas (normal, uniforme, etc.)
+-   Creación de datos con correlaciones y estructuras de dependencia
+-   Generación de datos categóricos y con ruido controlado
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Roediger et al (2001). [Factors that determine false recall: A multiple regression analysis](https://link.springer.com/content/pdf/10.3758/bf03196177.pdf)
+:::
+
+::: {.alert .alert-info}
+# Tarea 1
+
+1.  Genere un conjunto de datos con 100 observaciones y 5 variables, donde una de ellas sea una variable categórica con 3 niveles. Cada variable cuantitativa debe ser generada con una distriución diferente (e.g. normal,log-normal, gamma, etc)
+
+2.  Cree 100 replicas aleatorias del conjunto de datos del punto 1.
+:::
+
+# Día 4
+
+**Regresión lineal simple** <a href="modelos_de_regresion.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Conceptos básicos de regresión lineal simple
+-   Ajuste de modelos y interpretación de coeficientes
+-   Evaluación del modelo: R² y error cuadrático medio (MSE)
+-   Diagnóstico de supuestos y multicolinealidad
+-   Tamaño de muestra y poder estadístico
+
+# Día 5
+
+**Regresión Múltiple e Interacciones** <a href="modelos_de_regresion.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Introducción a la regresión múltiple
+-   Modelado con variables categóricas mediante variables ficticias
+-   Interacciones entre variables y su interpretación
+-   Evaluación y diagnóstico de modelos avanzados
+
+# Día 6
+
+**Regresión Logística** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Introducción a la clasificación y problemas de clasificación
+-   Regresión logística, uso e interpretación
+-   Predicciones a partir de un modelo
+-   Regresión multinomial
+-   Análisis de función discriminante
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Chen et al (2023). [Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach](https://www.sciencedirect.com/science/article/pii/S2666827023000476)
+:::
+
+::: {.alert .alert-info}
+# Tarea 2
+
+1.  Investigue el efecto del tamaño de muestra en la estimación de parámetros de un modelo de regresión lineal simple. ¿Qué sucede con la precisión de los coeficientes a medida que aumenta el tamaño de muestra?. Genere gŕaficos de tamano de muestra (de 5 a 100 observaciones) vs. la distancia entre coeficientes estimados y simulados y explique sus observaciones.
+
+2.  Investigue el efecto de la multicolinealidad en la estimación de parámetros de un modelo de regresión lineal múltiple. ¿Qué sucede con la precisión de los coeficientes a medida que aumenta la correlación entre variables?. Genere gŕaficos de correlación (de 0 a 0.9) vs. la distancia entre coeficientes estimados y simulados y explique sus observaciones.
+
+3.  Haga el mismo ejercicio para un modelo de regresión logística y evalúe el efecto de la multicolinealidad en la estimación de coeficientes y la precisión del modelo.
+:::
+
+# Día 7
+
+**Métodos de Remuestreo y Evaluación de Modelos (Parte I)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Validación cruzada y técnicas de remuestreo
+-   Uso de validación cruzada para evaluar modelos
+-   Medidas de evaluación: matriz de confusión, precisión, recall, índice F1
+
+# Día 8
+
+**Evaluación de Modelos (Parte II)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Validación cruzada y división de conjuntos de datos
+-   Curvas ROC y AUC: interpretación y uso
+-   Análisis de errores y ajuste de modelos
+-   Comparación y selección de modelos
+
+# Día 9
+
+\*\* Métodos Basados en Árboles\*\*<a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Árboles de decisión: construcción e interpretación
+-   Random forest: fundamentos y aplicaciones
+-   Evaluación de modelos de árboles y comparación con otros métodos
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Choi et al. (2020). [Introduction to machine learning, neural networks, and deep learning](https://tvst.arvojournals.org/article.aspx?articleid=2762344)
+-   Video: [Random Forest Algorithm Clearly Explained](https://www.youtube.com/watch?v=v6VJ2RO66Ag)
+:::
+
+# Día 10
+
+**Explorar Espacios Multidimensionales: Reducción de Dimensionalidad** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Introducción a la reducción de dimensionalidad y su necesidad
+-   Análisis de Componentes Principales (PCA): teoría y aplicación
+-   Visualización de datos en espacios reducidos
+-   Comparación con otros métodos como t-SNE
+
+::: {.alert .alert-info}
+# Tarea 3
+
+*Por definir*
+:::
+
+# Día 11
+
+**Redes Neuronales y Deep Learning (Introducción)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Estructura de una red neuronal: neuronas, capas y activación
+-   Entrenamiento de redes neuronales: forward y backpropagation
+-   Introducción a Deep Learning y redes neuronales profundas
+-   Aplicaciones y casos de uso en el mundo real
+
+# Día 12
+
+**Redes Neuronales y Deep Learning (Aplicaciones Avanzadas)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Capas convolucionales y redes neuronales convolucionales (CNNs)
+-   Redes neuronales recurrentes (RNNs) y LSTM
+-   Técnicas de optimización y regularización
+-   Casos de estudio y aplicaciones en visión por computadora y procesamiento de lenguaje natural
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Yarkoni & Westfall. 2017. [Choosing prediction over explanation in psychology: Lessons from machine learning](https://journals.sagepub.com/doi/pdf/10.1177/1745691617693393)
+-   Video: [¿Que es una red neuronal?](https://www.youtube.com/watch?v=jKCQsndqEGQ)
+:::
+
+# Día 13
+
+**Regularización y Generalización** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Conceptos de sobreajuste y subajuste
+-   Regularización: Lasso, Ridge y Elastic Net
+-   Validación cruzada y selección de hiperparámetros
+-   Impacto de la regularización en el aprendizaje estadístico
+
+# Día 14
+
+**Aprendizaje No Supervisado: Clustering** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+
+-   Conceptos básicos de clustering y su importancia
+-   Método k-means: algoritmos y aplicaciones
+-   Clustering jerárquico: construcción de dendrogramas
+-   Evaluación de clusters: índice de Silhouette y coeficiente de Rand
+
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Lectura: Yarkoni & Westfall. 2017. [Choosing prediction over explanation in psychology: Lessons from machine learning](https://journals.sagepub.com/doi/pdf/10.1177/1745691617693393)
+-   Video: [Clustering in Machine Learning](https://www.youtube.com/watch?v=wk2ylI1qgU0)
+:::

@@ -140,7 +140,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="dropdown-text">Fundamentos de R</span></a>
   </li>  
         <li>
-    <a class="dropdown-item" href="./importar_datos.html">
+    <a class="dropdown-item" href="./importar_datos.q’#1E90FF’md">
  <span class="dropdown-text">Importar y exportar datos de R</span></a>
   </li>  
         <li>
@@ -166,8 +166,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span class="menu-text">Compartir código</span></a>
   </li>  
   <li class="nav-item">
+    <a class="nav-link" href="./programa.html"> 
+<span class="menu-text">Programa</span></a>
+  </li>  
+  <li class="nav-item">
     <a class="nav-link" href="./instructor.html"> 
 <span class="menu-text">Profesor</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/maRce10/aprendizaje_estadistico_2024"> <i class="bi bi-github" role="img" aria-label="GitHub">
+</i> 
+<span class="menu-text"></span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -224,7 +235,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Fecha de publicación</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">12 de agosto de 2024</p>
+      <p class="date">13 de agosto de 2024</p>
     </div>
   </div>
   
@@ -878,10 +889,9 @@ loaded via a namespace (and not attached):
 [25] magrittr_2.0.3      digest_0.6.36       grid_4.4.1         
 [28] rstudioapi_0.16.0   remotes_2.5.0       packrat_0.9.2      
 [31] lifecycle_1.0.4     vctrs_0.6.5         evaluate_0.24.0    
-[34] glue_1.7.0          farver_2.1.2        urlchecker_1.0.1   
-[37] fansi_1.0.6         colorspace_2.1-1    sketchy_1.0.3      
-[40] rmarkdown_2.27      tools_4.4.1         pkgconfig_2.0.3    
-[43] htmltools_0.5.8.1  </code></pre>
+[34] glue_1.7.0          farver_2.1.2        fansi_1.0.6        
+[37] colorspace_2.1-1    sketchy_1.0.3       rmarkdown_2.27     
+[40] tools_4.4.1         pkgconfig_2.0.3     htmltools_0.5.8.1  </code></pre>
 </div>
 </div>
 
@@ -1023,7 +1033,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   }
     var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
     var mailtoRegex = new RegExp(/^mailto:/);
-      var filterRegex = new RegExp("https:\/\/marce10\.github\.io\/UCR_ESP_2024\/");
+      var filterRegex = new RegExp("https:\/\/marce10\.github\.io\/aprendizaje_estadistico_2024\/");
     var isInternal = (href) => {
         return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
     }

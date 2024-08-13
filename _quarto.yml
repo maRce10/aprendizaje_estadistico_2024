@@ -6,13 +6,14 @@ website:
   page-footer: Copyright 2024 | <a href="https://marce10.github.io">Marcelo Araya-Salas</a>
   title: "Aprendizaje Estadístico, SEP-UCR 2024"
   search: true
-  site-url: https://marce10.github.io/UCR_ESP_2024/
-  repo-url: https://github.com/maRce10/UCR_ESP_2024-
+  site-url: https://marce10.github.io/aprendizaje_estadistico_2024/
+  repo-url: https://github.com/maRce10/aprendizaje_estadistico_2024/
   navbar:
-    # right:
-    #   - icon: github
-    #     href: https://github.com/maRce10/UCR_ESP_2024/
-    #     aria-label: GitHub
+    background: white
+    right:
+      - icon: github
+        href: https://github.com/maRce10/aprendizaje_estadistico_2024
+        aria-label: GitHub
     left:
       - href: index.qmd
         text: " "
@@ -25,7 +26,7 @@ website:
         - text: "Fundamentos de R"
           href: fundamentos_de_r.qmd
         - text: "Importar y exportar datos de R"
-          href: importar_datos.qmd
+          href: importar_datos.q'#1E90FF'md
         - text: "Como simular datos"
           href: como_simular_datos.qmd
         - text: "Modelos de regresión"
@@ -40,6 +41,8 @@ website:
         href: preparacion_curso.qmd
       - text: "Compartir código"
         href: https://codefile.io/f/inMsojTFoN
+      - text: "Programa"
+        href: programa.qmd
       - text: "Profesor"
         href: instructor.qmd
 
