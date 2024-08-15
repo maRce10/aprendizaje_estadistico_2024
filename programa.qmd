@@ -10,10 +10,8 @@ format:
 ------------------------------------------------------------------------
 
 ::: {.alert .alert-info}
-
 [Programa del curso en PDF](https://github.com/maRce10/aprendizaje_estadistico_2024/blob/master/additional_files/programa_SP_3068_aprendizaje_de_maquinas.pdf)
 :::
-
 
 ::: {.alert .alert-success}
 # Antes de empezar el curso {.unnumbered .unlisted}
@@ -133,7 +131,7 @@ format:
 
 # Día 9
 
-\*\* Métodos Basados en Árboles\*\*<a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Métodos Basados en Árboles **<a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Árboles de decisión: construcción e interpretación
 -   Random forest: fundamentos y aplicaciones

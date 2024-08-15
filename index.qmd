@@ -31,3 +31,17 @@ El aprendizaje estadístico ("machine learning") es una rama de la inteligencia 
 -   Implementar, en el lenguaje de programación R, las técnicas desarrolladas a lo largo del curso
 -   Seleccionar la técnica más adecuada en función del problema práctico o pregunta de investigación en las diversas áreas de las Ciencias Cognoscitivas.
 :::
+
+::: columns
+
+::: {.column width="50%"}
+![](./images/hostig.png){width="100%"}
+:::
+
+::: {.column width="50%"}
+
+![](./images/discrim.png){width="100%"}
+
+:::
+
+:::
