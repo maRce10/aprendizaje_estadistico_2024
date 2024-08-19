@@ -38,7 +38,7 @@ Históricamente:
 -   Basado en el lenguaje de programación S
 -   Alrededor de 20 años de antigüedad (el linaje data de 1975 - hace casi 40 años)
 
-![](images/Rinterf.jpeg){width=100%}
+![](images/Rinterf.jpeg){width="100%"}
 
  
 
@@ -50,10 +50,9 @@ Entorno de desarrollo integrado (IDE) para R. Incluye:
 -   Editor para resaltar la sintaxis que soporta la ejecución directa del código
 -   Herramientas para el trazado, el historial, la depuración y la gestión del espacio de trabajo
 
-![](images/Rstudio.jpeg){width=100%}
+![](images/Rstudio.jpeg){width="100%"}
 
- 
----
+##  
 
 ```{r paleta}
 #| eval: false
@@ -64,7 +63,6 @@ Entorno de desarrollo integrado (IDE) para R. Incluye:
  [9] "#A0DFB966" "#DEF5E566"
 
 ```
-
 
 # Elementos del lenguaje R
 
@@ -115,8 +113,7 @@ flowchart LR
 
 ```
 
-Para sentirse cómodo programando en R en necesario saber en todo momento con que tipo de objetos estamos trabajando. Las funciones `class()` y `str()` nos permiten evaluar la estrucutra de los objetos. Las estaremos usando repetidamente en este tutorial. 
- 
+Para sentirse cómodo programando en R en necesario saber en todo momento con que tipo de objetos estamos trabajando. Las funciones `class()` y `str()` nos permiten evaluar la estrucutra de los objetos. Las estaremos usando repetidamente en este tutorial.  
 
 ## Objetos que contienen datos
 
@@ -196,6 +193,7 @@ class(x)
 ```
 
 De caracteres:
+
 ```{r}
 y <- "algo"
 
@@ -203,6 +201,7 @@ class(y)
 ```
 
 Lógico:
+
 ```{r}
 z <- TRUE
 
@@ -210,6 +209,7 @@ class(z)
 ```
 
 O factor:
+
 ```{r}
 q <- factor(1)
 
@@ -227,8 +227,6 @@ class(1)
 
 class("a")
 ```
-
-
 
 Los vectores sólo pueden contener elementos del mismo tipo. Los tipos diferentes de elementos serán forzados al tipo más flexible:
 
@@ -258,10 +256,7 @@ class(v)
 
 ```
 
-
-
 ::: {.alert .alert-warning}
-
 #### Factores
 
 Los vectores con factores son muy simulares a los de caracteres. Sin embargo, un factor sólo puede contener valores predefinidos, conocidos como niveles. Los atributos se utilizan para definir los niveles del factor.
@@ -293,10 +288,7 @@ x <- factor(c("a", "b", "b", "a"))
 
 c(x)
 ```
-
-
 :::
-
 
 #### Listas
 
@@ -327,6 +319,7 @@ str(l)
 ```
 
 ### Objetos de 2 dimensiones
+
 ### Matrices
 
 Todas los elementos son del mismo tipo:
@@ -417,18 +410,16 @@ m <-
 
 ## Funciones: objetos que hacen tareas
 
-
 Todas las funciones se crean con la función `function()` y siguen la misma estructura:
 
-![](images/function.png){width=100%}
-
+![](images/function.png){width="100%"}
 
 <font size="2">\* Modified from <i>Grolemund 2014</i></font>  
-
 
 ### Funciones integradas
 
 #### Funciones básicas
+
 R viene con muchas funciones que puedes usar para hacer tareas sofisticadas:
 
 ```{r}
@@ -467,7 +458,6 @@ flowchart LR
 
 
 ```
-
 
 #### Operadores
 
@@ -571,9 +561,7 @@ knitr::kable(d, row.names = F,  booktabs = TRUE, escape = FALSE)
 
  
 
-
 ::: {.alert .alert-warning}
-
 ### Vectorización
 
 La mayoría de las funciones están vectorizadas:
@@ -584,8 +572,7 @@ La mayoría de las funciones están vectorizadas:
 
 ```
 
-![](images/vectorize.png){width=100%}
-
+![](images/vectorize.png){width="100%"}
 
 <font size="2">\* Modified from <i>Grolemund & Wickham 2017</i></font>
 
@@ -609,19 +596,16 @@ R recicla vectores de longitud desigual:
 
 ```
 
-![](images/recycle.png){width=100%}
+![](images/recycle.png){width="100%"}
 
 <font size="2">\* Modified from <i>Grolemund & Wickham 2017</i></font>
-
 :::
 
  
 
-
 ### Funciones de paquetes adicionales
 
 Estas son funciones que son incluidas en paquetes adicionales que se pueden instalar y cargar en R. Para ser utilizadas el paquete debe ser instalado y cargado.Por ejemplo para usar la función `corTest` del paquete "psych" primero debemos instalar. Los paquetes son instalados del servidor de CRAN (Comprehensive R Archive Network) con la función `install.packages()`:
-
 
 ```{r}
 #| eval: false
@@ -639,7 +623,6 @@ library(psych)
 
 ```
 
-
 Una vez instalado y cargado 'psych', podemos llamar a la función `corTest`:
 
 ```{r}
@@ -647,7 +630,6 @@ Una vez instalado y cargado 'psych', podemos llamar a la función `corTest`:
 corTest(iris$Sepal.Length, iris$Sepal.Width)
 
 ```
-
 
 El uso de paquetes externos es la caracteristica mas util de R ya que permite hacer uso de un número casi infinito de funciones especializadas en diferentes tareas así como de campos muy diversos de la ciencia y la industria.
 
@@ -658,18 +640,16 @@ Podemos explorar los paquetes disponibles para R en [la página de CRAN](https:/
 
  
 
-- Busque un paquete que le interese en CRAN
+-   Busque un paquete que le interese en CRAN
 
-- Instale el paquete y carguelo
+-   Instale el paquete y carguelo
 
-- Corra el codigo de ejemplo de una de sus funciones
-
+-   Corra el codigo de ejemplo de una de sus funciones
 :::
 
- 
----
+##  
 
-# Manipulación de objetos 
+# Manipulación de objetos
 
 ## Extraer subconjuntos usando indexación (indexing)
 
@@ -827,9 +807,7 @@ View(df)
 -   ¿Cuántas observaciones tienen una longitud de sépalo superior a 6?
 :::
 
-
- 
----
+##  
 
 # El estilo importa
 
@@ -964,9 +942,7 @@ La mayoría de los recursos de R están muy bien documentados. Así que **la pri
 
 ## Package documentation
 
-
-![](images/packagepage.png){width=100%}
-
+![](images/packagepage.png){width="100%"}
 
  
 
@@ -991,8 +967,7 @@ help("mean")
 
 ```
 
-![](images/documentation.png){width=100%}
-
+![](images/documentation.png){width="100%"}
 
 Esta documentación también puede mostrarse en Rstudio pulsando `F1` cuando el cursor está en el nombre de la función
 

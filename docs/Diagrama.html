@@ -2,11 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="es" xml:lang="es"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.551">
+<meta name="generator" content="quarto-1.4.549">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2024-08-13">
+<meta name="dcterms.date" content="2024-08-19">
 
 <title>Aprendizaje Estadístico, SEP-UCR 2024 - Diagrama: aprendizaje estadístico</title>
 <style>
@@ -48,7 +48,7 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header">
 <h1 class="title">Diagrama: aprendizaje estadístico</h1>
 
-<p class="date">2024-08-13</p>
+<p class="date">2024-08-19</p>
 </header>
 
 <nav id="TOC" role="doc-toc">
@@ -73,14 +73,14 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    ML["Aprendizaje Estadístico (Y = f(X))"] --&gt;|'Y' no existe| U[Aprendizaje\nNo Supervisado]
-    ML --&gt;|'Y' existe| S[Aprendizaje\nSupervisado]
+    ML("Aprendizaje Estadístico (Y = f(X))") --&gt;|'Y' no existe| U(Aprendizaje\nNo Supervisado)
+    ML --&gt;|'Y' existe| S(Aprendizaje\nSupervisado)
 
     class ML,U,S largeText;
 
     style ML fill:#FFFFFF, stroke:#000, width:340px, stroke-width:2px, color:#000, text-align:center;
-    style U fill:#28192F99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
-    style S fill:#3B2F5E99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style U fill:#28192F66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style S fill:#3B2F5E66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
 
 </pre>
 </div>
@@ -97,22 +97,22 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    ML["Aprendizaje Estadístico (Y = f(X))"] --&gt;|'Y' no existe| U[Aprendizaje\nNo Supervisado]
-    ML --&gt;|'Y' existe| S[Aprendizaje\nSupervisado]
-    U --&gt;|Se desea\ngenerar 'Y'| Clus[Agrupamiento]
-    U --&gt; |Se desea\nexplorar 'X'| DR[Reducción de\nDimensionalidad]
-    S --&gt;|'Y' es continua| Reg[Regresión]
-    S --&gt; |'Y' es categórica| Class[Clasificación]
+    ML("Aprendizaje Estadístico (Y = f(X))") --&gt;|'Y' no existe| U(Aprendizaje\nNo Supervisado)
+    ML --&gt;|'Y' existe| S(Aprendizaje\nSupervisado)
+    U --&gt;|Se desea\ngenerar 'Y'| Clus(Agrupamiento)
+    U --&gt; |Se desea\nexplorar 'X'| DR(Reducción de\nDimensionalidad)
+    S --&gt;|'Y' es continua| Reg(Regresión)
+    S --&gt; |'Y' es categórica| Class(Clasificación)
 
     class ML,U,S largeText;
 
     style ML fill:#FFFFFF, stroke:#000, stroke-width:2px, color:#000, width:340px
-    style U fill:#28192F99, stroke:#000, stroke-width:2px, color:#000, width:160px
-    style S fill:#3B2F5E99, stroke:#000, stroke-width:2px, color:#000, width:140px
-    style Clus fill:#40498E99, stroke:#000, stroke-width:2px, color:#000
-    style DR fill:#366A9F99, stroke:#000, stroke-width:2px, color:#000
-    style Reg fill:#348AA699, stroke:#000, stroke-width:2px, color:#000
-    style Class fill:#38AAAC99, stroke:#000, stroke-width:2px, color:#000
+    style U fill:#28192F66, stroke:#000, stroke-width:2px, color:#000, width:160px
+    style S fill:#3B2F5E66, stroke:#000, stroke-width:2px, color:#000, width:140px
+    style Clus fill:#40498E66, stroke:#000, stroke-width:2px, color:#000
+    style DR fill:#366A9F66, stroke:#000, stroke-width:2px, color:#000
+    style Reg fill:#348AA666, stroke:#000, stroke-width:2px, color:#000
+    style Class fill:#38AAAC66, stroke:#000, stroke-width:2px, color:#000
 
 </pre>
 </div>
@@ -129,14 +129,14 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    U[Aprendizaje\nNo Supervisado] --&gt;|Se desea generar 'Y'| Clus[Agrupamiento]
-    U --&gt; |Se desea\nexplorar 'X'|DR[Reducción de\nDimensionalidad]
+    U(Aprendizaje\nNo Supervisado) --&gt;|Se desea generar 'Y'| Clus(Agrupamiento)
+    U --&gt; |Se desea\nexplorar 'X'|DR(Reducción de\nDimensionalidad)
 
     class U,Clus,DR largeText;
 
-    style U fill:#28192F99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
-    style Clus fill:#40498E99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
-    style DR fill:#366A9F99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style U fill:#28192F66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style Clus fill:#40498E66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style DR fill:#366A9F66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
 
 </pre>
 </div>
@@ -153,30 +153,30 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    U[Aprendizaje\nNo Supervisado] --&gt;|Se desea generar 'Y'| Clus[Agrupamiento]
-    U --&gt; |Se desea\nexplorar 'X'|DR[Reducción de\nDimensionalidad]
+    U(Aprendizaje\nNo Supervisado) --&gt;|Se desea generar 'Y'| Clus(Agrupamiento)
+    U --&gt; |Se desea\nexplorar 'X'|DR(Reducción de\nDimensionalidad)
 
-    Clus --&gt; Kmeans[K-means]
-    Clus --&gt; DB[HDBSCAN]
-    Clus --&gt; Hier[Jerárquico]
+    Clus --&gt; Kmeans(K-means)
+    Clus --&gt; DB(HDBSCAN)
+    Clus --&gt; Hier(Jerárquico)
 
-    DR --&gt; PCA[PCA]
-    DR --&gt; TSNE[t-SNE]
-    DR --&gt; UMAP[UMAP]
+    DR --&gt; PCA(PCA)
+    DR --&gt; TSNE(t-SNE)
+    DR --&gt; UMAP(UMAP)
 
     class U,Clus,DR largeText;
 
-    style U fill:#28192F99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
-    style Clus fill:#40498E99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
-    style DR fill:#366A9F99, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style U fill:#28192F66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style Clus fill:#40498E66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
+    style DR fill:#366A9F66, stroke:#000, width:160px, stroke-width:2px, color:#000, text-align:center;
 
-    style Kmeans fill:#40498E99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style DB fill:#40498E99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style Hier fill:#40498E99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style Kmeans fill:#40498E66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style DB fill:#40498E66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style Hier fill:#40498E66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
 
-    style PCA fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style TSNE fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style UMAP fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style PCA fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style TSNE fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style UMAP fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
 
 </pre>
 </div>
@@ -193,14 +193,14 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    S[Aprendizaje\nSupervisado] --&gt;|Y es continua| Reg[Regresión]
-    S --&gt;|Y es categórica| Class[Clasificación]
+    S(Aprendizaje\nSupervisado) --&gt;|Y es continua| Reg(Regresión)
+    S --&gt;|Y es categórica| Class(Clasificación)
 
     class S,Reg,Class largeText;
 
-    style S fill:#3B2F5E99, stroke:#000, width:140px, stroke-width:2px, color:#000, text-align:center;
-    style Reg fill:#348AA699, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
-    style Class fill:#38AAAC99, stroke:#000, width:150px, stroke-width:2px, color:#000, text-align:center;
+    style S fill:#3B2F5E66, stroke:#000, width:140px, stroke-width:2px, color:#000, text-align:center;
+    style Reg fill:#348AA666, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
+    style Class fill:#38AAAC66, stroke:#000, width:150px, stroke-width:2px, color:#000, text-align:center;
 
 </pre>
 </div>
@@ -217,34 +217,34 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    S[Aprendizaje\nSupervisado] --&gt;|Y es continua| Reg[Regresión]
-    S --&gt;|Y es categórica| Class[Clasificación]
+    S(Aprendizaje\nSupervisado) --&gt;|Y es continua| Reg(Regresión)
+    S --&gt;|Y es categórica| Class(Clasificación)
 
-    Reg --&gt; Regr[Regresión]
-    Reg --&gt; RFR[Regresión\nRandom Forest]
-    Reg --&gt; NNR[Regresión\nde Red Neuronal]
+    Reg --&gt; Regr(Regresión)
+    Reg --&gt; RFR(Regresión\nRandom Forest)
+    Reg --&gt; NNR(Regresión\nde Red Neuronal)
 
-    Class --&gt; DT[Árboles de Decisión]
-    Class --&gt; RL[Regresión Logística]
-    Class --&gt; KNN[K vecinos más cercanos]
-    Class --&gt; RF[Random Forest]
-    Class --&gt; NN[Redes Neuronales]
+    Class --&gt; DT(Árboles de Decisión)
+    Class --&gt; RL(Regresión Logística)
+    Class --&gt; KNN(K vecinos más cercanos)
+    Class --&gt; RF(Random Forest)
+    Class --&gt; NN(Redes Neuronales)
 
     class S,Reg,Class largeText;
 
-    style S fill:#3B2F5E99, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
-    style Reg fill:#348AA699, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
-    style Class fill:#38AAAC99, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
+    style S fill:#3B2F5E66, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
+    style Reg fill:#348AA666, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
+    style Class fill:#38AAAC66, stroke:#000, width:130px, stroke-width:2px, color:#000, text-align:center;
 
-    style Regr fill:#348AA699, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style RFR fill:#348AA699, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style NNR fill:#348AA699, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style Regr fill:#348AA666, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style RFR fill:#348AA666, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style NNR fill:#348AA666, stroke:#000, stroke-width:1px, color:#000, text-align:center;
 
-    style DT fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style RL fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style KNN fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style RF fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
-    style NN fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style DT fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style RL fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style KNN fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style RF fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
+    style NN fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000, text-align:center;
 
 </pre>
 </div>
@@ -261,53 +261,53 @@ ul.task-list li input[type="checkbox"] {
 <pre class="mermaid mermaid-js">flowchart LR
     classDef largeText font-size:18px, padding:15px; 
     
-    ML["Aprendizaje Estadístico (Y = f(X))"] --&gt;|'Y' no existe| U[Aprendizaje\nNo Supervisado]
-    ML --&gt;|'Y' existe| S[Aprendizaje\nSupervisado]
-    U --&gt;|Se desea\ngenerar 'Y'| Clus[Agrupamiento]
-    U --&gt; |Se desea\nexplorar 'X'| DR[Reducción de\nDimensionalidad]
-    S --&gt;|'Y' es continua| Reg[Regresión]
-    S --&gt; |'Y' es categórica| Class[Clasificación]
-    Clus --&gt; Kmeans[K-means]
-    Clus --&gt; DB[HDBSCAN]
-    Clus --&gt; Hier[Jerárquico]
-    DR --&gt; PCA[PCA]
-    DR --&gt; TSNE[t-SNE]
-    DR --&gt; UMAP[UMAP]
-    Reg --&gt; Regr[Regresión]
-    Reg --&gt; RFR[Regresión\nRandom Forest]
-    Reg --&gt; NNR[Regresión de\nRed Neuronal]
-    Class --&gt; DT[Árboles de\nDecisión]
-    Class --&gt; RL[Regresión Logística]
-    Class --&gt; KNN[K vecinos\nmás cercanos]
-    Class --&gt; RF[Random Forest]
-    Class --&gt; NN[Redes\nNeuronales]
+    ML("Aprendizaje Estadístico (Y = f(X))") --&gt;|'Y' no existe| U(Aprendizaje\nNo Supervisado)
+    ML --&gt;|'Y' existe| S(Aprendizaje\nSupervisado)
+    U --&gt;|Se desea\ngenerar 'Y'| Clus(Agrupamiento)
+    U --&gt; |Se desea\nexplorar 'X'| DR(Reducción de\nDimensionalidad)
+    S --&gt;|'Y' es continua| Reg(Regresión)
+    S --&gt; |'Y' es categórica| Class(Clasificación)
+    Clus --&gt; Kmeans(K-means)
+    Clus --&gt; DB(HDBSCAN)
+    Clus --&gt; Hier(Jerárquico)
+    DR --&gt; PCA(PCA)
+    DR --&gt; TSNE(t-SNE)
+    DR --&gt; UMAP(UMAP)
+    Reg --&gt; Regr(Regresión)
+    Reg --&gt; RFR(Regresión\nRandom Forest)
+    Reg --&gt; NNR(Regresión de\nRed Neuronal)
+    Class --&gt; DT(Árboles de\nDecisión)
+    Class --&gt; RL(Regresión Logística)
+    Class --&gt; KNN(K vecinos\nmás cercanos)
+    Class --&gt; RF(Random Forest)
+    Class --&gt; NN(Redes\nNeuronales)
 
     class ML,U,S largeText;
 
     style ML fill:#FFFFFF, stroke:#000, stroke-width:2px, color:#000, width:320px
-    style U fill:#28192F99, stroke:#000, stroke-width:2px, color:#000, width:160px
-    style S fill:#3B2F5E99, stroke:#000, stroke-width:2px, color:#000, width:130px
-    style Clus fill:#40498E99, stroke:#000, stroke-width:2px, color:#000
-    style Kmeans fill:#40498E99, stroke:#000, stroke-width:1px, color:#000
-    style DB fill:#40498E99, stroke:#000, stroke-width:1px, color:#000
-    style Hier fill:#40498E99, stroke:#000, stroke-width:1px, color:#000
+    style U fill:#28192F66, stroke:#000, stroke-width:2px, color:#000, width:160px
+    style S fill:#3B2F5E66, stroke:#000, stroke-width:2px, color:#000, width:130px
+    style Clus fill:#40498E66, stroke:#000, stroke-width:2px, color:#000
+    style Kmeans fill:#40498E66, stroke:#000, stroke-width:1px, color:#000
+    style DB fill:#40498E66, stroke:#000, stroke-width:1px, color:#000
+    style Hier fill:#40498E66, stroke:#000, stroke-width:1px, color:#000
 
-    style DR fill:#366A9F99, stroke:#000, stroke-width:2px, color:#000
-    style PCA fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000
-    style TSNE fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000
-    style UMAP fill:#366A9F99, stroke:#000, stroke-width:1px, color:#000
+    style DR fill:#366A9F66, stroke:#000, stroke-width:2px, color:#000
+    style PCA fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000
+    style TSNE fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000
+    style UMAP fill:#366A9F66, stroke:#000, stroke-width:1px, color:#000
 
-    style Reg fill:#348AA699, stroke:#000, stroke-width:2px, color:#000
-    style Regr fill:#348AA699, stroke:#000, stroke-width:1px, color:#000
-    style RFR fill:#348AA699, stroke:#000, stroke-width:1px, color:#000
-    style NNR fill:#348AA699, stroke:#000, stroke-width:1px, color:#000
+    style Reg fill:#348AA666, stroke:#000, stroke-width:2px, color:#000
+    style Regr fill:#348AA666, stroke:#000, stroke-width:1px, color:#000
+    style RFR fill:#348AA666, stroke:#000, stroke-width:1px, color:#000
+    style NNR fill:#348AA666, stroke:#000, stroke-width:1px, color:#000
 
-    style Class fill:#38AAAC99, stroke:#000, stroke-width:2px, color:#000
-    style DT fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000
-    style RL fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000
-    style KNN fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000
-    style RF fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000
-    style NN fill:#38AAAC99, stroke:#000, stroke-width:1px, color:#000
+    style Class fill:#38AAAC66, stroke:#000, stroke-width:2px, color:#000
+    style DT fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000
+    style RL fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000
+    style KNN fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000
+    style RF fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000
+    style NN fill:#38AAAC66, stroke:#000, stroke-width:1px, color:#000
 
 </pre>
 </div>
@@ -411,11 +411,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     for (var i=0; i<links.length; i++) {
       const link = links[i];
       if (!isInternal(link.href)) {
-        // undo the damage that might have been done by quarto-nav.js in the case of
-        // links that we want to consider external
-        if (link.dataset.originalHref !== undefined) {
-          link.href = link.dataset.originalHref;
-        }
           // target, if specified
           link.setAttribute("target", "_blank");
           if (link.getAttribute("rel") === null) {
@@ -457,11 +452,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (note) {
-        return note.innerHTML;
-      } else {
-        return "";
-      }
+      return note.innerHTML;
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');

@@ -34,9 +34,7 @@ cols <- viridis::mako(10, alpha = 0.2)
 <center><font size=6><b><a href="https://marce10.github.io/baRulho/">Marcelo Araya-Salas</a><br></b>Universidad de Costa Rica</font><br/></center>
 
 ::: footer
-
 <font size=3><a href="https://marce10.github.io/aprendizaje_estadistico_2024/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
-
 :::
 
 ## ¿Qué es el Aprendizaje Estadístico? {background-color="white" background-image="./images/neurocompu.png" background-size="60%" background-opacity="0.1"}
@@ -46,7 +44,6 @@ cols <- viridis::mako(10, alpha = 0.2)
 -   Utilización de datos para modelar fenómenos, hacer predicciones y tomar decisiones basadas en la información extraída
 
 -   Combina teorías estadísticas con algoritmos computacionales
-
 
 ## ¿Qué es el Aprendizaje Estadístico?
 
@@ -136,7 +133,7 @@ $$ Y = f(X) + E $$
 
 ## Aplicaciones
 
-Omnipresente en herramientas electrónicas: 
+Omnipresente en herramientas electrónicas:
 
 -   **Detección de correo spam**: busca patrones en el contenido del mensaje, como palabras clave sospechosas y comportamientos de envío
 -   **Reconocimeinto facial**: analiza las características faciales desde diferentes ángulos y aprenden a reconocer variaciones sutiles en la apariencia de un individuo
@@ -239,6 +236,7 @@ Crucial para entender cómo procesamos la información, tomamos decisiones y apr
 **Supervisado**: Se predice una Y conocida *a priori*
 
 $$ Y = f(X) $$
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -262,6 +260,7 @@ kbl
 **Supervisado**: Se predice una Y conocida *a priori*
 
 $$ Y = f(X) $$
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -280,13 +279,12 @@ kbl <- kableExtra::kable_styling(kbl, bootstrap_options = "striped", font_size =
 kbl
 ```
 
-
-
 ## Tipos de Modelos
 
 **No supervisado**: genera una Y con base en la estructura de X
 
 $$ f(X) $$
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -306,12 +304,12 @@ kbl
 
 ```
 
-
 ## Tipos de Modelos
 
 **No supervisado**: ó explora la estructura de X
 
 $$ f(X) $$
+
 ```{r}
 #| eval: true
 #| echo: false
@@ -331,27 +329,25 @@ kbl
 
 ```
 
-
-## Escogiendo el Modelo Adecuado 
+## Escogiendo el Modelo Adecuado
 
 <br>
+
 <center>¿Existe Y?</center>
 
 <br>
 
 ![](./images/diagrama_1.png){width="100%"}
 
-## Escogiendo el Modelo Adecuado 
+## Escogiendo el Modelo Adecuado
 
 <br>
 
 <center>Si Y existe ¿Es continua o categórica?</center>
 
-<br>
-![](./images/superv.png){width="100%"}
+<br> ![](./images/superv.png){width="100%"}
 
-
-## Escogiendo el Modelo Adecuado 
+## Escogiendo el Modelo Adecuado
 
 <br>
 
@@ -361,8 +357,6 @@ kbl
 
 ![](./images/no_superv.png){width="100%"}
 
-
-
 ## Escogiendo el Modelo Adecuado
 
 <br>
@@ -370,13 +364,10 @@ kbl
 ![](./images/diagrama_nivel2.png){width="100%"}
 
 ## Escogiendo el Modelo Adecuado {.scrollable .nostretch}
+
 ![](./images/diagrama_completo.png){width="100%"}
 
-
-## Escogiendo el Modelo Adecuado  {.scrollable .nostretch}
-![](./images/diagrama_completo.png){width="100%"}
-
-## Escogiendo el Modelo Adecuado 
+## Escogiendo el Modelo Adecuado
 
 ::: {style="text-align: center;"}
 Interpretabilidad
@@ -393,7 +384,5 @@ Interpretabilidad
 <center><font size=6><b><a href="https://marce10.github.io/baRulho/">Marcelo Araya-Salas</a><br></b>Universidad de Costa Rica</font><br/></center>
 
 ::: footer
-
 <font size=3><a href="https://marce10.github.io/aprendizaje_estadistico_2024/">https://marce10.github.io/aprendizaje_estadistico_2024/</a></font>
-
 :::
