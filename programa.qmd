@@ -159,9 +159,18 @@ format:
 *Por definir*
 :::
 
+::: {.alert .alert-warning}
+## Recursos adicionales
+
+-   Video: [Convolutional Neural Networks (CNNs) explained](https://youtu.be/YRhxdVk_sIs?si=cc-mNGXup0q4brhj)
+
+-   Video: [Neural Network In 5 Minutes](https://youtu.be/bfmFfD2RIcg?si=3NdeH6UU2EJmF1pA)
+
+:::
+
 # Día 11
 
-**Redes Neuronales y Deep Learning (Introducción)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Redes Neuronales y Deep Learning (Parte I)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Estructura de una red neuronal: neuronas, capas y activación
 -   Entrenamiento de redes neuronales: forward y backpropagation
@@ -170,7 +179,7 @@ format:
 
 # Día 12
 
-**Redes Neuronales y Deep Learning (Aplicaciones Avanzadas)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Redes Neuronales y Deep Learning (Parte II)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Capas convolucionales y redes neuronales convolucionales (CNNs)
 -   Redes neuronales recurrentes (RNNs) y LSTM
