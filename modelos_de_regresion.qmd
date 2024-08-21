@@ -67,9 +67,7 @@ sketchy::load_packages(
 
 ```
 
- 
-::: {.alert .alert-warning}
-<font size = 6>
+  ::: {.alert .alert-warning} <font size = 6>
 
 <center>Regresión lineal simple</center>
 
@@ -149,8 +147,7 @@ knitr::include_graphics("./images/model_betas_esp.png")
 
 ```
 
- 
-:::
+  :::
 
  
 

@@ -387,7 +387,7 @@ m <-
  
 
 ::: {.alert .alert-info}
-## Ejercicio 1
+### Ejercicio 1
 
  
 
@@ -439,8 +439,7 @@ Algunas funciones vienen de forma predeterminada con R básico. Nuevas funciones
 flowchart LR
     classDef largeText font-size:18px, padding:15px;
 
-    R(Objetos en R) --> F(Funciones)
-    F --> BF(Funciones Integradas)
+    F(Funciones) --> BF(Funciones Integradas)
     BF --> OP(Operadores)
     BF --> BA(Funciones Básicas)
     F --> PF(Paquetes)
@@ -448,7 +447,6 @@ flowchart LR
 
     class R,D,D1,D2,F largeText;
 
-    style R fill:#28192F66, stroke:#000, stroke-width:2px, color:#FFF, width:140px
     style F fill:#357BA266, stroke:#000, stroke-width:2px, color:#FFF, width:120px
     style BF fill:#A0DFB966, stroke:#000, stroke-width:2px, color:#000
     style BA fill:#DEF5E566, stroke:#000, stroke-width:2px, color:#000
@@ -636,7 +634,7 @@ El uso de paquetes externos es la caracteristica mas util de R ya que permite ha
 Podemos explorar los paquetes disponibles para R en [la página de CRAN](https://cran.r-project.org/) (hacer click en el enlace "packages").
 
 ::: {.alert .alert-info}
-## Ejercicio 2
+### Ejercicio 2
 
  
 
@@ -646,8 +644,6 @@ Podemos explorar los paquetes disponibles para R en [la página de CRAN](https:/
 
 -   Corra el codigo de ejemplo de una de sus funciones
 :::
-
-##  
 
 # Manipulación de objetos
 
