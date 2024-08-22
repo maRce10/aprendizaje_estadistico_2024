@@ -6,7 +6,7 @@ format:
     code-tools: false
 ---
 
-<center><img src="images/machine-Learning2.jpeg" alt="acoustic measurements" width="100%"/></center>
+<center><img src="images/machine-Learning2.jpeg" alt="" width="100%"/></center>
 
 <center><font size="5"><b><a href="https://tropicalstudies.org/">Sistema de Estudios de Posgrado</a><br></b></font></center>
 
@@ -33,15 +33,11 @@ El aprendizaje estadístico ("machine learning") es una rama de la inteligencia 
 :::
 
 ::: columns
-
 ::: {.column width="50%"}
 ![](./images/hostig.png){width="100%"}
 :::
 
 ::: {.column width="50%"}
-
 ![](./images/discrim.png){width="100%"}
-
 :::
-
 :::

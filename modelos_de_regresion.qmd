@@ -699,6 +699,87 @@ plot_model(xy_mod_multp, type = "diag")
 
  
 
+
+Hay un punto importante que es necesario enfatizar aquí: **la regresión múltiple estima el efecto de un predictor después de tener en cuenta el efecto de los demás predictores del modelo**. En otras palabras, los nuevos predictores del modelo tratarán de explicar la variación de los datos que no fue explicada por los otros predictores. Así que **el resultado de la regresión múltiple no es equivalente a los resultados de las regresiones lineales simples** sobre los predictores por separado. Esto puede demostrarse fácilmente corriendo esas regresiones:
+
+```{r}
+coef(xy_mod_multp)# Resumen del modelo de multiple 
+
+# Regresión simple de Y con A
+mod_x1 <- lm(y ~ x1, data = xy_datos_multp)
+coef(mod_x1)  # Resumen del modelo de regresión 
+
+# Regresión simple de Y con A
+mod_x2 <- lm(y ~ x2, data = xy_datos_multp)
+coef(mod_x2)  # Resumen del modelo de regresión
+```
+
+Como vemos los tamaños de efecto para el mismo predictor difieren entre la regresión multiple y la simple. Esto se debe a que en **la regresion multiple ajusta los predictores para que se comporten como si fueran ortogonales entre sí**. Esto lo podemos simular sacando los residuales de cada predictor en una regresión contra todos los otros predictores en la regresión multiple. En nuestro caso es fácil ya que solo tenemos 2 predictores:   
+```{r}
+# Regresión de x1 sobre x2 para obtener los residuales
+mod_resid_x1 <- lm(x1 ~ x2, data = xy_datos_multp)
+
+# Obtener los residuales
+xy_datos_multp$residuales_x1 <- resid(mod_resid_x1)  
+
+# Regresión de x2 sobre x1 para obtener los residuales
+mod_resid_x2 <- lm(x2 ~ x1, data = xy_datos_multp)
+
+# Obtener los residuales 
+xy_datos_multp$residuales_x2 <- resid(mod_resid_x2)  
+```
+
+Ahora si corremos las regresiones simples con estos residuales, los tamaños de efecto coinciden con los obtenidos en la regresión multiple:
+
+```{r}
+# Regresión de Y sobre los residuales de A
+mod_resid_reg_x1 <- lm(y ~ residuales_x1, data = xy_datos_multp)
+
+# Regresión de Y sobre los residuales de B
+mod_resid_reg_x2 <- lm(y ~ residuales_x2, data = xy_datos_multp)
+
+# Resúmenes finales de los modelos para comparar
+coef(xy_mod_multp)[-1]
+c(coef(mod_resid_reg_x1)[-1], coef(mod_resid_reg_x2)[-1])
+
+```
+
+Por comodidad, hemos utilizado `coef()` para extraer sólo los estimado de la regresión, pero los valores son los mismos que obtenemos con `summary(model)`.
+
+Este punto se demuestra además por el hecho de que, si uno de los predictores no tiene ninguna influencia en la respuesta, el efecto del predictor adicional convergerá a su efecto en una regresión lineal simple. Para simular este escenario, fijamos b2 en 0:
+
+```{r}
+
+# definir semilla
+set.seed(123)
+
+# numero de observaciones
+n <- 50
+b0 <- -4
+b1 <- 3
+b2 <- 0
+error <- rnorm(n = n, mean = 0, sd = 1)
+
+#  variables aleatorias
+x1 <-  rnorm(n = n, mean = 0, sd = 1)
+x2 <-  rnorm(n = n, mean = 0, sd = 1)
+y <- b0 + b1 * x1 + b2 * x2 + error
+
+# crear data frame
+xy_datos <- data.frame(x1, x2, y)
+
+# construir modelos
+xy_mod <- lm(formula = y ~ x1 + x2, data = xy_datos)
+x1y_mod <- lm(formula = y ~ x1, data = xy_datos)
+
+# shortcut to coefficients
+coef(xy_mod)
+coef(x1y_mod)
+```
+
+El estimado de $\beta_1$ fue casi el mismo en la regresión múltiple (`r coef(xy_mod)[2]`) y en la regresión de un solo predictor (`r coef(x1y_mod)[2]`)
+
+
 ::: {.alert .alert-success}
  
 
@@ -745,64 +826,6 @@ knitr::include_graphics("./images/lbh_cognition.png")
 
  
 :::
-
- 
-
-Hay un punto importante que es necesario enfatizar aquí: **la regresión múltiple estima el efecto de un predictor después de tener en cuenta el efecto de los demás predictores del modelo**. En otras palabras, los nuevos predictores del modelo tratarán de explicar la variación de los datos que no fue explicada por los otros predictores. Así que **el resultado de la regresión múltiple no es equivalente a los resultados de las regresiones lineales simples** sobre los mismos predictores. Esto puede demostrarse fácilmente corriendo esas regresiones:
-
-```{r}
-
-# construir modelos
-x1y_mod <- lm(formula = y ~ x1, data = xy_datos)
-x2y_mod <- lm(formula = y ~ x2, data = xy_datos)
-
-# atajo a los coeficientes
-coef(xy_mod)
-coef(x1y_mod)
-coef(x2y_mod)
-
-```
-
- 
-
-Las estimaciones de las mismas variables varían considerablemente entre la regresión múltiple y las regresiones de un solo predictor.
-
-Este punto se demuestra además por el hecho de que, si uno de los predictores no tiene ninguna influencia en la respuesta, el efecto del predictor adicional convergerá a su efecto en una regresión lineal simple. Para simular este escenario, fijamos b2 en 0:
-
-```{r}
-
-# definir semilla
-set.seed(123)
-
-# numero de observaciones
-n <- 50
-b0 <- -4
-b1 <- 3
-b2 <- 0
-error <- rnorm(n = n, mean = 0, sd = 1)
-
-#  variables aleatorias
-x1 <-  rnorm(n = n, mean = 0, sd = 1)
-x2 <-  rnorm(n = n, mean = 0, sd = 1)
-y <- b0 + b1 * x1 + b2 * x2 + error
-
-# crear data frame
-xy_datos <- data.frame(x1, x2, y)
-
-# construir modelos
-xy_mod <- lm(formula = y ~ x1 + x2, data = xy_datos)
-x1y_mod <- lm(formula = y ~ x1, data = xy_datos)
-
-# shortcut to coefficients
-coef(xy_mod)
-coef(x1y_mod)
-```
-
-El estimado de $\beta_1$ fue casi el mismo en la regresión múltiple (`r coef(xy_mod)[2]`) y en la regresión de un solo predictor (`r coef(x1y_mod)[2]`)
-
-Por comodidad, hemos utilizado `coef()` para extraer sólo los estimado de la regresión, pero los valores son los mismos que obtenemos con `summary(model)`.
-
- 
 
 ::: {.alert .alert-info}
 <font size="5">Ejercicio 5</font>
