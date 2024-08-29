@@ -1,59 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/fundamentos_de_r.html</loc>
-    <lastmod>2024-08-21T20:58:19.000Z</lastmod>
-  </url>
-  <url>
     <loc>https://marce10.github.io/aprendizaje_estadistico_2024/intro_curso.html</loc>
     <lastmod>2024-08-19T17:32:52.942Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/programa.html</loc>
-    <lastmod>2024-08-20T19:06:22.888Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/como_simular_datos.html</loc>
-    <lastmod>2024-08-12T20:36:21.651Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/importar_datos.html</loc>
-    <lastmod>2024-08-02T19:59:06.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/modelos_de_regresion.html</loc>
-    <lastmod>2024-08-22T16:14:20.662Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/preparacion_curso.html</loc>
-    <lastmod>2024-08-22T22:24:30.160Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/estadistica_tradicional_regresion.html</loc>
-    <lastmod>2024-01-15T02:02:42.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/reportes_dinamicos.html</loc>
-    <lastmod>2024-08-04T19:17:46.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/funciones.html</loc>
-    <lastmod>2024-08-08T00:19:53.794Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/index.html</loc>
-    <lastmod>2024-08-22T15:23:13.811Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/instructor.html</loc>
-    <lastmod>2024-08-02T19:26:45.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/Diagrama.html</loc>
-    <lastmod>2024-08-19T17:17:47.000Z</lastmod>
-  </url>
-  <url>
-    <loc>https://marce10.github.io/aprendizaje_estadistico_2024/ggplot2.html</loc>
-    <lastmod>2024-08-04T19:17:46.000Z</lastmod>
   </url>
 </urlset>
