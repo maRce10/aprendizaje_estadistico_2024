@@ -221,28 +221,28 @@
     "href": "intro_curso.html#tipos-de-modelos",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n1.79\n\n\n-0.23\n0.46\n0.36\n0.50\n\n\n1.56\n-1.27\n0.40\n-1.97\n\n\n0.07\n-0.69\n0.11\n0.70\n\n\n0.13\n-0.45\n-0.56\n-0.47"
+    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n1.79\n\n\n-0.23\n0.46\n0.36\n0.50\n\n\n1.56\n-1.27\n0.40\n-1.97\n\n\n0.07\n-0.69\n0.11\n0.70\n\n\n0.13\n-0.45\n-0.56\n-0.47"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-1",
     "href": "intro_curso.html#tipos-de-modelos-1",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\nA\n-0.55\n-1.60\n-0.83\n\n\nC\n-0.02\n0.66\n-0.62\n\n\nB\n-0.58\n-1.87\n-0.29\n\n\nC\n1.07\n0.26\n-0.50\n\n\nA\n1.04\n-0.22\n1.10"
+    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\nA\n-0.55\n-1.60\n-0.83\n\n\nC\n-0.02\n0.66\n-0.62\n\n\nB\n-0.58\n-1.87\n-0.29\n\n\nC\n1.07\n0.26\n-0.50\n\n\nA\n1.04\n-0.22\n1.10"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-2",
     "href": "intro_curso.html#tipos-de-modelos-2",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
+    "text": "Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-3",
     "href": "intro_curso.html#tipos-de-modelos-3",
     "title": "Aprendizaje Estadístico, SEP-UCR 2024",
     "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nNo supervisado: ó explora la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\n\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n\n\n-0.23\n0.46\n0.36\n\n\n1.56\n-1.27\n0.40\n\n\n0.07\n-0.69\n0.11\n\n\n0.13\n-0.45\n-0.56"
+    "text": "Tipos de Modelos\nNo supervisado: ó explora la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n\n\n-0.23\n0.46\n0.36\n\n\n1.56\n-1.27\n0.40\n\n\n0.07\n-0.69\n0.11\n\n\n0.13\n-0.45\n-0.56"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado",
