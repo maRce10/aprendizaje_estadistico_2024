@@ -179,8 +179,16 @@ Crucial para entender cómo procesamos la información, tomamos decisiones y apr
 :::
 :::
 
+<br>
+
 ::: {.fragment .fade-in}
+
+::: {style="font-size: 30px;"}
+
 <center>$Y: recuerdo\ falso \sim X: asociacion\ entre\ items + recuerdo\ verídico + ...$</center>
+
+:::
+
 :::
 
 ## 
@@ -228,7 +236,13 @@ Crucial para entender cómo procesamos la información, tomamos decisiones y apr
 :::
 
 ::: {.fragment .fade-in}
+
+::: {style="font-size: 30px;"}
+
 <center>$Y:resilencia\ (binaria) \sim X: género + edad + educación + ...$</center>
+
+:::
+
 :::
 
 ## Tipos de Modelos

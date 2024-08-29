@@ -67,8 +67,8 @@ sketchy::load_packages(
 
 ```
 
- 
-::: {.alert .alert-warning}
+::: {.alert .alert-warning} 
+
 <font size = 6>
 
 <center>Regresión lineal simple</center>
@@ -95,7 +95,7 @@ El objetivo más común de una regresión lineal es la estimación de los valore
 
 ```{r, out.width = "100%", echo = FALSE, fig.align= "center"}
 
-knitr::include_graphics("./images/regression.jpg")
+knitr::include_graphics("./images/regression-2.jpg")
 
 ```
 
@@ -145,11 +145,10 @@ Por ejemplo, un modelo de regresión con este resultado:
 
 ```{r, out.width = "90%", echo = FALSE, fig.align= "center"}
 
-knitr::include_graphics("./images/model_betas_esp.png")
+knitr::include_graphics("./images/model_betas_esp-2.png")
 
 ```
 
- 
 :::
 
  
