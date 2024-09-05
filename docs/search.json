@@ -513,149 +513,149 @@
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico",
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\nUtilización de datos para modelar fenómenos, hacer predicciones y tomar decisiones basadas en la información extraída\nCombina teorías estadísticas con algoritmos computacionales"
+    "title": "",
+    "section": "1.1 ¿Qué es el Aprendizaje Estadístico?",
+    "text": "1.1 ¿Qué es el Aprendizaje Estadístico?\n\n\nUtilización de datos para modelar fenómenos, hacer predicciones y tomar decisiones basadas en la información extraída\nCombina teorías estadísticas con algoritmos computacionales"
   },
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico-1",
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico-1",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\n\n\n\nInteligencia Artificial: hacer tareas que requieren inteligencia humana\nAprendizaje estadístico: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones"
+    "title": "",
+    "section": "1.2 ¿Qué es el Aprendizaje Estadístico?",
+    "text": "1.2 ¿Qué es el Aprendizaje Estadístico?\n\n\n\n\n\nInteligencia Artificial: hacer tareas que requieren inteligencia humana\nAprendizaje estadístico: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones"
   },
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico-2",
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico-2",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\n\n\n\nInteligencia Artificial: hacer tareas que requieren inteligencia humana\nAprendizaje estadístico: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones\nAprendizaje Profundo: uso de redes neuronales profundas para analizar diversos niveles de abstracción en los datos\nCiencia de Datos: técnicas de análisis, procesamiento, y visualización de datos para extraer información/conocimiento de grandes volúmenes de datos"
+    "title": "",
+    "section": "1.3 ¿Qué es el Aprendizaje Estadístico?",
+    "text": "1.3 ¿Qué es el Aprendizaje Estadístico?\n\n\n\n\n\nInteligencia Artificial: hacer tareas que requieren inteligencia humana\nAprendizaje estadístico: uso de algoritmos para analizar datos, aprender de ellos, y hacer predicciones\nAprendizaje Profundo: uso de redes neuronales profundas para analizar diversos niveles de abstracción en los datos\nCiencia de Datos: técnicas de análisis, procesamiento, y visualización de datos para extraer información/conocimiento de grandes volúmenes de datos"
   },
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico-3",
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico-3",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nY: variable dependiente (se quiere predecir o explicar)\n\n\n\n\nX: variable(s) independiente(s) con información relevante para predecir Y\n\n\n\n\nE: error no reducible"
+    "title": "",
+    "section": "1.4 ¿Qué es el Aprendizaje Estadístico?",
+    "text": "1.4 ¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nY: variable dependiente (se quiere predecir o explicar)\n\n\n\n\nX: variable(s) independiente(s) con información relevante para predecir Y\n\n\n\n\nE: error no reducible"
   },
   {
     "objectID": "intro_curso.html#qué-es-el-aprendizaje-estadístico-4",
     "href": "intro_curso.html#qué-es-el-aprendizaje-estadístico-4",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Qué es el Aprendizaje Estadístico?",
-    "text": "¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nsinónimos de Y: variable dependiente, resultado (outcome), etiqueta, objetivo, etc.\n\n\n\n\nsinónimos de X: variable independiente, atributo (feature), dimensión, predictor, entrada (input), etc."
+    "title": "",
+    "section": "1.5 ¿Qué es el Aprendizaje Estadístico?",
+    "text": "1.5 ¿Qué es el Aprendizaje Estadístico?\n\n\\[ Y = f(X) + E \\]\n\n\n\nsinónimos de Y: variable dependiente, resultado (outcome), etiqueta, objetivo, etc.\n\n\n\n\nsinónimos de X: variable independiente, atributo (feature), dimensión, predictor, entrada (input), etc."
   },
   {
     "objectID": "intro_curso.html#para-que-estimar-fx",
     "href": "intro_curso.html#para-que-estimar-fx",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "¿Para que Estimar f(X)?",
-    "text": "¿Para que Estimar f(X)?\n\n\\[ Y = f(X) + E \\]\n\n\nPredicción: predecir valores futuros de Y\nInferencia: establecer una relación causal (i.e. estimar el efecto de un cambio en X sobre el cambio en Y)\n\n\n\n\nAprendizaje estadístico = estimar f(X)"
+    "title": "",
+    "section": "1.6 ¿Para que Estimar f(X)?",
+    "text": "1.6 ¿Para que Estimar f(X)?\n\n\\[ Y = f(X) + E \\]\n\n\nPredicción: predecir valores futuros de Y\nInferencia: establecer una relación causal (i.e. estimar el efecto de un cambio en X sobre el cambio en Y)\n\n\n\n\nAprendizaje estadístico = estimar f(X)"
   },
   {
     "objectID": "intro_curso.html#aplicaciones",
     "href": "intro_curso.html#aplicaciones",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Aplicaciones",
-    "text": "Aplicaciones\nOmnipresente en herramientas electrónicas:\n\nDetección de correo spam: busca patrones en el contenido del mensaje, como palabras clave sospechosas y comportamientos de envío\nReconocimeinto facial: analiza las características faciales desde diferentes ángulos y aprenden a reconocer variaciones sutiles en la apariencia de un individuo\nOptimización de Rutas con GPS: usa los patrones de tráfico históricos y en tiempo real para predecir y sugerir las rutas más rápidas o eficientes"
+    "title": "",
+    "section": "1.7 Aplicaciones",
+    "text": "1.7 Aplicaciones\nOmnipresente en herramientas electrónicas:\n\nDetección de correo spam: busca patrones en el contenido del mensaje, como palabras clave sospechosas y comportamientos de envío\nReconocimeinto facial: analiza las características faciales desde diferentes ángulos y aprenden a reconocer variaciones sutiles en la apariencia de un individuo\nOptimización de Rutas con GPS: usa los patrones de tráfico históricos y en tiempo real para predecir y sugerir las rutas más rápidas o eficientes"
   },
   {
     "objectID": "intro_curso.html#aplicaciones-en-ciencias-cognoscitivas",
     "href": "intro_curso.html#aplicaciones-en-ciencias-cognoscitivas",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Aplicaciones en Ciencias Cognoscitivas",
-    "text": "Aplicaciones en Ciencias Cognoscitivas\n\nCrucial para entender cómo procesamos la información, tomamos decisiones y aprendemos. Algunos sub-campos que utilizan estas herramientas:\n\n\n\nNeurociencia Cognitiva: Identificación de patrones en la actividad cerebral relacionados con diferentes funciones cognitivas\nPsicología Experimental: Modelado de comportamiento humano y predicción de respuestas psicológicas\nNeurociencia Computacional: Modelado de la actividad neuronal para simular procesos cerebrales"
+    "title": "",
+    "section": "1.8 Aplicaciones en Ciencias Cognoscitivas",
+    "text": "1.8 Aplicaciones en Ciencias Cognoscitivas\n\nCrucial para entender cómo procesamos la información, tomamos decisiones y aprendemos. Algunos sub-campos que utilizan estas herramientas:\n\n\n\nNeurociencia Cognitiva: Identificación de patrones en la actividad cerebral relacionados con diferentes funciones cognitivas\nPsicología Experimental: Modelado de comportamiento humano y predicción de respuestas psicológicas\nNeurociencia Computacional: Modelado de la actividad neuronal para simular procesos cerebrales"
   },
   {
     "objectID": "intro_curso.html#section",
     "href": "intro_curso.html#section",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "",
-    "text": "Aplicaciones: Memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = -0.43) y la fuerza de la asociación entre items (r = 0.73) influyen\n\n\n\n\n\n\n\n\n\n\n\n\\(Y: recuerdo\\ falso \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
+    "title": "",
+    "section": "1.9 ",
+    "text": "1.9 \n\n1.9.1 Aplicaciones: Memoria\n\n\n\n\nRoediger et al 2001. Factors that determine false recall: A multiple regression analysis\nRegresión multiple para identificar factores que influyen en el recuerdo falso\n\n\n\nRecuerdo verídico (r = -0.43) y la fuerza de la asociación entre items (r = 0.73) influyen\n\n\n\n\n\n\n\n\n\n\n\n\\(Y: recuerdo\\ falso \\sim X: asociacion\\ entre\\ items + recuerdo\\ verídico + ...\\)"
   },
   {
     "objectID": "intro_curso.html#section-1",
     "href": "intro_curso.html#section-1",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "",
-    "text": "Aplicaciones: Reconocimiento de Emociones\n\n\n\n\nHema et al 2023. Emotional speech Recognition using CNN and Deep learning techniques\nAprendizaje profundo en el reconocimiento y análisis del tono emocional en la voz\n78% de precision\n\n\n\n\n\n\n\n\n\\(Y: emoción \\sim X: estructura\\ acústica\\)"
+    "title": "",
+    "section": "1.10 ",
+    "text": "1.10 \n\n1.10.1 Aplicaciones: Reconocimiento de Emociones\n\n\n\n\nHema et al 2023. Emotional speech Recognition using CNN and Deep learning techniques\nAprendizaje profundo en el reconocimiento y análisis del tono emocional en la voz\n78% de precision\n\n\n\n\n\n\n\n\n\\(Y: emoción \\sim X: estructura\\ acústica\\)"
   },
   {
     "objectID": "intro_curso.html#section-2",
     "href": "intro_curso.html#section-2",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "",
-    "text": "Aplicaciones: Resilencia al Estrés\n\n\n\n\nChen et al. 2023. Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach\nFactores que determinan la resiliencia al estrés\n80% de probabilidad de una predición correcta\n\n\n\n\n\n\n\n\n\n\\(Y:resilencia\\ (binaria) \\sim X: género + edad + educación + ...\\)"
+    "title": "",
+    "section": "1.11 ",
+    "text": "1.11 \n\n1.11.1 Aplicaciones: Resilencia al Estrés\n\n\n\n\nChen et al. 2023. Identifying the top determinants of psychological resilience among community older adults during COVID-19 in Taiwan: A random forest approach\nFactores que determinan la resiliencia al estrés\n80% de probabilidad de una predición correcta\n\n\n\n\n\n\n\n\n\n\\(Y:resilencia\\ (binaria) \\sim X: género + edad + educación + ...\\)"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos",
     "href": "intro_curso.html#tipos-de-modelos",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n1.79\n\n\n-0.23\n0.46\n0.36\n0.50\n\n\n1.56\n-1.27\n0.40\n-1.97\n\n\n0.07\n-0.69\n0.11\n0.70\n\n\n0.13\n-0.45\n-0.56\n-0.47"
+    "title": "",
+    "section": "1.12 Tipos de Modelos",
+    "text": "1.12 Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n1.79\n\n\n-0.23\n0.46\n0.36\n0.50\n\n\n1.56\n-1.27\n0.40\n-1.97\n\n\n0.07\n-0.69\n0.11\n0.70\n\n\n0.13\n-0.45\n-0.56\n-0.47"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-1",
     "href": "intro_curso.html#tipos-de-modelos-1",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\nA\n-0.55\n-1.60\n-0.83\n\n\nC\n-0.02\n0.66\n-0.62\n\n\nB\n-0.58\n-1.87\n-0.29\n\n\nC\n1.07\n0.26\n-0.50\n\n\nA\n1.04\n-0.22\n1.10"
+    "title": "",
+    "section": "1.13 Tipos de Modelos",
+    "text": "1.13 Tipos de Modelos\nSupervisado: Se predice una Y conocida a priori\n\\[ Y = f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\nA\n-0.55\n-1.60\n-0.83\n\n\nC\n-0.02\n0.66\n-0.62\n\n\nB\n-0.58\n-1.87\n-0.29\n\n\nC\n1.07\n0.26\n-0.50\n\n\nA\n1.04\n-0.22\n1.10"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-2",
     "href": "intro_curso.html#tipos-de-modelos-2",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
+    "title": "",
+    "section": "1.14 Tipos de Modelos",
+    "text": "1.14 Tipos de Modelos\nNo supervisado: genera una Y con base en la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\n\nY\nX1\nX2\nX3\n\n\n\n\n?\n-0.56\n1.72\n1.22\n\n\n?\n-0.23\n0.46\n0.36\n\n\n?\n1.56\n-1.27\n0.40\n\n\n?\n0.07\n-0.69\n0.11\n\n\n?\n0.13\n-0.45\n-0.56"
   },
   {
     "objectID": "intro_curso.html#tipos-de-modelos-3",
     "href": "intro_curso.html#tipos-de-modelos-3",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Tipos de Modelos",
-    "text": "Tipos de Modelos\nNo supervisado: ó explora la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n\n\n-0.23\n0.46\n0.36\n\n\n1.56\n-1.27\n0.40\n\n\n0.07\n-0.69\n0.11\n\n\n0.13\n-0.45\n-0.56"
+    "title": "",
+    "section": "1.15 Tipos de Modelos",
+    "text": "1.15 Tipos de Modelos\nNo supervisado: ó explora la estructura de X\n\\[ f(X) \\]\n\n\n\n\n\n\nX1\nX2\nX3\n\n\n\n\n-0.56\n1.72\n1.22\n\n\n-0.23\n0.46\n0.36\n\n\n1.56\n-1.27\n0.40\n\n\n0.07\n-0.69\n0.11\n\n\n0.13\n-0.45\n-0.56"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado\n\n\n¿Existe Y?"
+    "title": "",
+    "section": "1.16 Escogiendo el Modelo Adecuado",
+    "text": "1.16 Escogiendo el Modelo Adecuado\n\n\n¿Existe Y?"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado-1",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-1",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado\n\n\nSi Y existe ¿Es continua o categórica?"
+    "title": "",
+    "section": "1.17 Escogiendo el Modelo Adecuado",
+    "text": "1.17 Escogiendo el Modelo Adecuado\n\n\nSi Y existe ¿Es continua o categórica?"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado-2",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-2",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado\n\n\nSi Y no existe ¿Queremos generarla o solo explorar X?"
+    "title": "",
+    "section": "1.18 Escogiendo el Modelo Adecuado",
+    "text": "1.18 Escogiendo el Modelo Adecuado\n\n\nSi Y no existe ¿Queremos generarla o solo explorar X?"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado-3",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-3",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado"
+    "title": "",
+    "section": "1.19 Escogiendo el Modelo Adecuado",
+    "text": "1.19 Escogiendo el Modelo Adecuado"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado-4",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-4",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado"
+    "title": "",
+    "section": "1.20 Escogiendo el Modelo Adecuado",
+    "text": "1.20 Escogiendo el Modelo Adecuado"
   },
   {
     "objectID": "intro_curso.html#escogiendo-el-modelo-adecuado-5",
     "href": "intro_curso.html#escogiendo-el-modelo-adecuado-5",
-    "title": "Aprendizaje Estadístico, SEP-UCR 2024",
-    "section": "Escogiendo el Modelo Adecuado",
-    "text": "Escogiendo el Modelo Adecuado\n\nInterpretabilidad\n\n\nTomado de Badillo et al 2020"
+    "title": "",
+    "section": "1.21 Escogiendo el Modelo Adecuado",
+    "text": "1.21 Escogiendo el Modelo Adecuado\n\nInterpretabilidad\n\n\nTomado de Badillo et al 2020"
   },
   {
     "objectID": "instructor.html",
@@ -936,5 +936,12 @@
     "title": "Importar y exportar datos en R",
     "section": "Información de la sesión",
     "text": "Información de la sesión\n\n\nR version 4.3.2 (2023-10-31)\nPlatform: x86_64-pc-linux-gnu (64-bit)\nRunning under: Ubuntu 22.04.2 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 \nLAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=en_US.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=en_US.UTF-8    LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=en_US.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=en_US.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: America/Costa_Rica\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] dplyr_1.1.4        tidyr_1.3.1        readxl_1.4.3       kableExtra_1.4.0  \n[5] RColorBrewer_1.1-3 viridis_0.6.5      viridisLite_0.4.2  ggplot2_3.5.1     \n[9] knitr_1.48        \n\nloaded via a namespace (and not attached):\n [1] gtable_0.3.5        jsonlite_1.8.8      highr_0.11         \n [4] crayon_1.5.3        compiler_4.3.2      tidyselect_1.2.1   \n [7] xml2_1.3.6          stringr_1.5.1       gridExtra_2.3      \n[10] systemfonts_1.1.0   scales_1.3.0        yaml_2.3.10        \n[13] fastmap_1.2.0       R6_2.5.1            generics_0.1.3     \n[16] htmlwidgets_1.6.4   tibble_3.2.1        munsell_0.5.1      \n[19] xaringanExtra_0.7.0 svglite_2.1.3       pillar_1.9.0       \n[22] rlang_1.1.4         utf8_1.2.4          stringi_1.8.4      \n[25] xfun_0.47           cli_3.6.3           withr_3.0.1        \n[28] magrittr_2.0.3      digest_0.6.37       grid_4.3.2         \n[31] rstudioapi_0.16.0   remotes_2.5.0       packrat_0.9.2      \n[34] lifecycle_1.0.4     vctrs_0.6.5         evaluate_0.24.0    \n[37] glue_1.7.0          cellranger_1.1.0    sketchy_1.0.3      \n[40] fansi_1.0.6         colorspace_2.1-0    purrr_1.0.2        \n[43] rmarkdown_2.27      tools_4.3.2         pkgconfig_2.0.3    \n[46] htmltools_0.5.8.1"
+  },
+  {
+    "objectID": "intro_curso.html",
+    "href": "intro_curso.html",
+    "title": "",
+    "section": "",
+    "text": "Código\nLoading required package: viridisLite"
   }
 ]

@@ -64,6 +64,8 @@ format:
 
 **Fecha de entrega: 10 de septiembre**
 
+*Deben subir a mediación virtual el código con las respuestas en un archivo .R, .Rmd o .qmd*
+
 1.  Genere un conjunto de datos con 100 observaciones y 5 variables, donde una de ellas sea una variable categórica con 3 niveles. Cada variable cuantitativa debe ser generada con una distriución diferente (e.g. normal,log-normal, gamma, etc)
 
 2.  Cree 100 replicas aleatorias del conjunto de datos del punto 1.
