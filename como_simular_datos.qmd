@@ -280,10 +280,10 @@ Ahora que sabemos cómo simular variables continuas y categóricas. Podemos junt
 grupo <- rep(letters[1:2], each = 3)
 
 # crear variable continuaa
-size <- rnorm(n = 6, mean = 5, sd = 1)
+tamano <- rnorm(n = 6, mean = 5, sd = 1)
 
 # poner juntas en un data frame
-df <- data.frame(grupo, size)
+df <- data.frame(grupo, tamano)
 
 # imprimir
 df
@@ -299,11 +299,11 @@ grupo <- rep(letters[1:2], each = 3)
 individuo <- rep(LETTERS[1:6])
 
 # crear variables continuas
-size <- rnorm(n = 6, mean = 5, sd = 1)
-weight <- rnorm(n = 6, mean = 100, sd = 10)
+tamano <- rnorm(n = 6, mean = 5, sd = 1)
+peso <- rnorm(n = 6, mean = 100, sd = 10)
 
 # poner todo en un data frame
-df <- data.frame(grupo, individuo, size, weight)
+df <- data.frame(grupo, individuo, tamano, peso)
 
 # imprimir
 df

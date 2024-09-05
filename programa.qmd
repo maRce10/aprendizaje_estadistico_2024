@@ -62,9 +62,26 @@ format:
 ::: {.alert .alert-info}
 # Tarea 1
 
+**Fecha de entrega: 10 de septiembre**
+
 1.  Genere un conjunto de datos con 100 observaciones y 5 variables, donde una de ellas sea una variable categórica con 3 niveles. Cada variable cuantitativa debe ser generada con una distriución diferente (e.g. normal,log-normal, gamma, etc)
 
 2.  Cree 100 replicas aleatorias del conjunto de datos del punto 1.
+
+*Pista:* 
+
+```{r, eval = FALSE}
+
+replicate(n = 3, expr = {
+  v1 <- sample(letters, 2)
+  v2 <- runif(3)
+  l1 <- list(v1, v2)
+},
+simplify = FALSE)
+
+```
+
+
 :::
 
 # Día 4

@@ -41,11 +41,12 @@ fill <- list(alert = "#cff4fc", success = "#d1e7dd")
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}
 
-  - Comprender la inferencia estadística a través de los modelos de regresión lineal
+- Comprender la inferencia estadística a través de los modelos de regresión lineal
 
--   Familiarizarse con la construcción de modelos lineales
+- Familiarizarse con la construcción de modelos lineales
 
--   Extender los modelos lineales a diferentes estructuras de datos
+- Extender los modelos lineales a diferentes estructuras de datos
+
 :::
 
  
