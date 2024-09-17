@@ -41,12 +41,11 @@ fill <- list(alert = "#cff4fc", success = "#d1e7dd")
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}
 
-- Comprender la inferencia estadística a través de los modelos de regresión lineal
+-   Comprender la inferencia estadística a través de los modelos de regresión lineal
 
-- Familiarizarse con la construcción de modelos lineales
+-   Familiarizarse con la construcción de modelos lineales
 
-- Extender los modelos lineales a diferentes estructuras de datos
-
+-   Extender los modelos lineales a diferentes estructuras de datos
 :::
 
  
@@ -68,8 +67,7 @@ sketchy::load_packages(
 
 ```
 
-::: {.alert .alert-warning} 
-
+::: {.alert .alert-warning}
 <font size = 6>
 
 <center>Regresión lineal simple</center>
@@ -149,7 +147,6 @@ Por ejemplo, un modelo de regresión con este resultado:
 knitr::include_graphics("./images/model_betas_esp-2.png")
 
 ```
-
 :::
 
  
@@ -589,25 +586,16 @@ summ_xy_mod2$coefficients
 
  
 
--   Keenan EL, Odom KJ, Araya-Salas M, Horton KG, Strimas-Mackey M, Meatte MA, Mann NI, Slater PJ, Price JJ, and Templeton CN. 2020. [**Breeding season length predicts duet coordination and consistency in Neotropical wrens (Troglodytidae)**](https://royalsocietypublishing.org/doi/pdf/10.1098/rspb.2020.2482). *Proceeding of the Royal Society B*. 20202482
+WILKINSON, Richard; PICKETT, Kate; CATO, Molly Scott. The spirit level. Why more equal societies almost always do better. 2009.
+
+Index of: Life expectancy, Math & Literacy, Infant mortality, Homicides, Imprisonment, Teenage births, Trust, Obesity Mental illness, incl. drug & alcohol addiction, Social mobility
 
 ```{r, out.width = "100%", echo = FALSE, fig.align= "center"}
 
-knitr::include_graphics("./images/duets.png")
+knitr::include_graphics("./images/inequality2.jpg")
 
 ```
 
- 
-
-"*... la coordinación y la consistencia de los duetos son mayores en las especies con temporadas de apareamiento especialmente largas.*"
-
-```{r, out.width = "70%", echo = FALSE, fig.align= "center"}
-
-knitr::include_graphics("./images/duet_reg.png")
-
-```
-
- 
 :::
 
  
@@ -702,7 +690,6 @@ plot_model(xy_mod_multp, type = "diag")
 
  
 
-
 Hay un punto importante que es necesario enfatizar aquí: **la regresión múltiple estima el efecto de un predictor después de tener en cuenta el efecto de los demás predictores del modelo**. En otras palabras, los nuevos predictores del modelo tratarán de explicar la variación de los datos que no fue explicada por los otros predictores. Así que **el resultado de la regresión múltiple no es equivalente a los resultados de las regresiones lineales simples** sobre los predictores por separado. Esto puede demostrarse fácilmente corriendo esas regresiones:
 
 ```{r}
@@ -717,7 +704,8 @@ mod_x2 <- lm(y ~ x2, data = xy_datos_multp)
 coef(mod_x2)  # Resumen del modelo de regresión
 ```
 
-Como vemos los tamaños de efecto para el mismo predictor difieren entre la regresión multiple y la simple. Esto se debe a que en **la regresion multiple ajusta los predictores para que se comporten como si fueran ortogonales entre sí**. Esto lo podemos simular sacando los residuales de cada predictor en una regresión contra todos los otros predictores en la regresión multiple. En nuestro caso es fácil ya que solo tenemos 2 predictores:   
+Como vemos los tamaños de efecto para el mismo predictor difieren entre la regresión multiple y la simple. Esto se debe a que en **la regresion multiple ajusta los predictores para que se comporten como si fueran ortogonales entre sí**. Esto lo podemos simular sacando los residuales de cada predictor en una regresión contra todos los otros predictores en la regresión multiple. En nuestro caso es fácil ya que solo tenemos 2 predictores:
+
 ```{r}
 # Regresión de x1 sobre x2 para obtener los residuales
 mod_resid_x1 <- lm(x1 ~ x2, data = xy_datos_multp)
@@ -781,7 +769,6 @@ coef(x1y_mod)
 ```
 
 El estimado de $\beta_1$ fue casi el mismo en la regresión múltiple (`r coef(xy_mod)[2]`) y en la regresión de un solo predictor (`r coef(x1y_mod)[2]`)
-
 
 ::: {.alert .alert-success}
  
