@@ -112,7 +112,7 @@ Algunos consejos básicos para establecer el directorio de trabajo:
 
  
 
-<img src="./images/suggest_folder.gif" alt="Espectro de color" height="150" width="550"/>
+<img src="./images/suggest_folder.gif" alt="Espectro de color" height="100%" width="100%"/>
 
  
 
@@ -201,12 +201,12 @@ Los archivos *.txt* pueden leerse con `read.table`. Descarguemos primero un conj
 setwd("INGRESE LA DIRECCION DE LA CARPETA DONDE ESTAN LOS DATOS")
 
 download.file(
-  "https://raw.githubusercontent.com/maRce10/UCR_ESP_2024/master/pantheria_mammals_data.txt",
+  "https://raw.githubusercontent.com/maRce10/OTS_TBCP_2024/master/data/pantheria_mammals_data.txt",
   destfile = "pantheria_mammals_data.txt"
 )
 ```
 
-*You can also manually download the file from [here](https://raw.githubusercontent.com/maRce10/UCR_ESP_2024/master/pantheria_mammals_data.txt)*
+*Tambien pueden bajarlos de [acá](https://raw.githubusercontent.com/maRce10/OTS_TBCP_2024/master/data/pantheria_mammals_data.txt)*
 
  
 
@@ -214,7 +214,10 @@ El archivo puede introducirse en `R` de la siguiente forma:
 
 ```{r, eval = F, echo= T}
 # leer datos
-datos_pantheria <- read.table("pantheria_mammals_data.txt", stringsAsFactors = FALSE, sep = "\t", header = TRUE)
+datos_pantheria <-
+  read.table("pantheria_mammals_data.txt",
+             sep = "\t",
+             header = TRUE)
 ```
 
 ```{r, eval = T, echo= F}
@@ -222,7 +225,6 @@ datos_pantheria <- read.table("pantheria_mammals_data.txt", stringsAsFactors = F
 datos_pantheria <-
   read.table(
     "pantheria_mammals_data.txt",
-    stringsAsFactors = FALSE,
     sep = "\t",
     header = TRUE
   )
@@ -263,7 +265,13 @@ head(datos_pantheria)
 
 ```{r, eval = T, echo= F}
 # read file
-datos_pantheria <- read.table("pantheria_mammals_data.txt", stringsAsFactors = FALSE, sep = "\t", header = TRUE, na.strings = "-999")
+datos_pantheria <-
+  read.table(
+    "pantheria_mammals_data.txt",
+    sep = "\t",
+    header = TRUE,
+    na.strings = "-999"
+  )
 
 
 # check structure
@@ -278,49 +286,43 @@ knitr::kable(datos_pantheria[1:6, ], row.names = F, escape = FALSE) %>%
 De nuevo, podemos descargar un archivo de ejemplo en línea:
 
 ```{r, eval = F, echo= T}
-# bajar datos en zip
-download.file(
-  "https://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2023/12/Clements-v2023-October-2023-csv.zip",
-  destfile = "clements_bird_list.zip"
-)
 
-# extraer zip
-unzip("clements_bird_list.zip", files = "Clements-v2023-October-2023.csv")
+# bajar datos en csv
+download.file("https://github.com/maRce10/OTS_TBCP_2024/raw/master/data/clements_bird_list.csv", destfile = "clements_bird_list.csv")
 
 # leer datos
-clm_lst <-
-  read.csv("Clements-v2023-October-2023.csv", stringsAsFactors = FALSE)
+clm_lst <- read.csv("clements_bird_list.csv")
 
+# explorarlos
 head(clm_lst)
 ```
 
 ```{r, eval = T, echo= F}
-clm_lst <- read.csv("Clements-v2023-October-2023.csv", stringsAsFactors = FALSE)
+
+clm_lst <- read.csv("./data/clements_bird_list.csv")
 
 # check structure
 knitr::kable(clm_lst[1:6, ], row.names = F, escape = FALSE) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"), full_width = FALSE, font_size = 14)
+
 ```
 
-También puede descargar manualmente el archivo desde [aquí](https://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2023/12/Clements-v2023-October-2023-csv.zip)
+También puede descargar manualmente el archivo desde [aquí](http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2013/03/eBird_Taxonomy_v2017_18Aug2017.csv)
 
  
 
 Como en el ejemplo anterior, podemos decirle a `R` cómo identificar las celdas vacías utilizando el argumento `na.strings`:
 
 ```{r, eval = F, echo= T}
-clm_lst <-
-  read.csv(
-    "Clements-v2023-October-2023.csv",
-    stringsAsFactors = FALSE,
-    na.strings = ""
-  )
+# leer datos
+clm_lst <- read.csv("clements_bird_list.csv", na.strings = "")
 
 head(clm_lst)
 ```
 
 ```{r, eval = T, echo= F}
-clm_lst <- read.csv("Clements-v2023-October-2023.csv", stringsAsFactors = FALSE, na.strings = "")
+
+clm_lst <- read.csv("./data/clements_bird_list.csv", na.strings = "")
 
 # check structure
 knitr::kable(clm_lst[1:6, ], row.names = F, escape = FALSE) %>%
@@ -343,8 +345,11 @@ library(readxl)
 
 Como hicimos anteriormente, descargue un archivo de ejemplo de un repositorio en línea. En este caso es la misma lista de taxonomía de aves de Clements en formato *xlsx*:
 
-```{r, eval = T, echo= T}
-download.file("https://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2023/10/Clements-v2023-October-2023.xlsx", destfile = "clements_bird_list.xlsx")
+
+```{r, eval = F, echo= T}
+
+download.file("https://github.com/maRce10/OTS_TBCP_2024/raw/master/data/clements_bird_list.xlsx", destfile = "clements_bird_list.xlsx")
+
 ```
 
 También puede descargar manualmente el archivo desde [aquí](http://www.birds.cornell.edu/clementschecklist/wp-content/uploads/2017/08/eBird_Taxonomy_v2017_18Aug2017.xlsx)
@@ -352,7 +357,6 @@ También puede descargar manualmente el archivo desde [aquí](http://www.birds.c
  
 
 Ahora podemos utilizar la función `read_excel()` para leer el archivo:
-
 ```{r, eval = F, echo= T}
 # leer archivo
 clm_lst2 <- read_excel("clements_bird_list.xlsx", sheet = 1)
@@ -396,10 +400,10 @@ Todas las funciones predeterminadas para introducir datos en `R` tienen una cont
 
 ```{r, eval = F, echo= F}
 # 1.4
-clm_lst3 <- read.table("clements_bird_list.csv", stringsAsFactors = FALSE, header = TRUE, sep = ",", fill = T)
+clm_lst3 <- read.table("clements_bird_list.csv",  header = TRUE, sep = ",", fill = T)
 
 # 1.7
-clm_lst <- read.csv("clements_bird_list.csv", stringsAsFactors = FALSE, na.strings = c("", "Rheiformes", "Ostriches"))
+clm_lst <- read.csv("clements_bird_list.csv", na.strings = c("", "Rheiformes", "Ostriches"))
 
 # check structure
 knitr::kable(clm_lst[1:6, ], row.names = F, escape = FALSE) %>%

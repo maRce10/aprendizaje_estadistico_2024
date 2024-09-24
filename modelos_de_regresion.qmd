@@ -50,7 +50,7 @@ fill <- list(alert = "#cff4fc", success = "#d1e7dd")
 
  
 
-------------------------------------------------------------------------
+---
 
 Paquetes a utilizar en este manual:
 
@@ -193,7 +193,7 @@ Esto es lo que significan los elementos de la salida:
 
 -   **Llamada** (call): la función y los parámetros que se utilizaron para crear el modelo
 
--   **Residuales** (residuals): distribución de los residuales. Los residuales son la diferencia entre lo que predijo el modelo y el valor real de *y*. Esta es una representación gráfica de los residuales:
+-   **Residuos** (residuals): distribución de los residuos. Los residuos son la diferencia entre lo que predijo el modelo y el valor real de *y*. Esta es una representación gráfica de los residuos:
 
 ```{r, echo = FALSE}
 
@@ -213,7 +213,7 @@ ggplot(trees, aes(x = Girth, y = Height)) +
 
 -   **Coeficientes** (coefficients): contiene los tamaños de efecto ('Estimates'), una medida de su incertidumbre ('Standar error'), la estadística asociada ('t value') y el valor p ('Pr(\>\|t\|)'). Los tamaño de efecto o estimados se dan como el cambio promedio en *y* por cada aumento de 1 unidad en *x*. Para este ejemplo el estimado es de 1,0544 $in / in$. A pesar de que las unidades se anulan (\`1,0544 $in / in$ = 1,0544) tenerlas en cuenta sigue siendo biológicamente significativo. Significan que, en promedio, y un aumento de 1 pulgada en la circunferencia que se espera un aumento de 1,0544 pulgadas en la altura.
 
--   **Error estándar de los residuales** (residual standard error): se explica por sí mismo. El error estándar de los residuales
+-   **Error estándar de los residuos** (residual standard error): se explica por sí mismo. El error estándar de los residuos
 
 -   **R-cuadrado múltiple** (multiple R-squared): el coeficiente de determinación, que pretende ser una medida de lo bien que su modelo se ajusta a los datos
 
@@ -434,7 +434,7 @@ ggplot(ci_df, aes(x=param, y=est)) +
 
  
 
-Deberíamos "diagnosticar" la idoneidad del modelo inspeccionando más de cerca la distribución de los residuales. La función `plot_model()` del paquete `sjPlot` hace un buen trabajo para crear gráficos de diagnóstico para modelos lineales:
+Deberíamos "diagnosticar" la idoneidad del modelo inspeccionando más de cerca la distribución de los residuos. La función `plot_model()` del paquete `sjPlot` hace un buen trabajo para crear gráficos de diagnóstico para modelos lineales:
 
 ```{r, out.width= "80%", fig.height=4}
 
@@ -595,7 +595,6 @@ Index of: Life expectancy, Math & Literacy, Infant mortality, Homicides, Impriso
 knitr::include_graphics("./images/inequality2.jpg")
 
 ```
-
 :::
 
  
@@ -704,30 +703,30 @@ mod_x2 <- lm(y ~ x2, data = xy_datos_multp)
 coef(mod_x2)  # Resumen del modelo de regresión
 ```
 
-Como vemos los tamaños de efecto para el mismo predictor difieren entre la regresión multiple y la simple. Esto se debe a que en **la regresion multiple ajusta los predictores para que se comporten como si fueran ortogonales entre sí**. Esto lo podemos simular sacando los residuales de cada predictor en una regresión contra todos los otros predictores en la regresión multiple. En nuestro caso es fácil ya que solo tenemos 2 predictores:
+Como vemos los tamaños de efecto para el mismo predictor difieren entre la regresión multiple y la simple. Esto se debe a que en **la regresion multiple ajusta los predictores para que se comporten como si fueran ortogonales entre sí**. Esto lo podemos simular sacando los residuos de cada predictor en una regresión contra todos los otros predictores en la regresión multiple. En nuestro caso es fácil ya que solo tenemos 2 predictores:
 
 ```{r}
-# Regresión de x1 sobre x2 para obtener los residuales
+# Regresión de x1 sobre x2 para obtener los residuos
 mod_resid_x1 <- lm(x1 ~ x2, data = xy_datos_multp)
 
-# Obtener los residuales
-xy_datos_multp$residuales_x1 <- resid(mod_resid_x1)  
+# Obtener los residuos
+xy_datos_multp$residuos_x1 <- resid(mod_resid_x1)  
 
-# Regresión de x2 sobre x1 para obtener los residuales
+# Regresión de x2 sobre x1 para obtener los residuos
 mod_resid_x2 <- lm(x2 ~ x1, data = xy_datos_multp)
 
-# Obtener los residuales 
-xy_datos_multp$residuales_x2 <- resid(mod_resid_x2)  
+# Obtener los residuos 
+xy_datos_multp$residuos_x2 <- resid(mod_resid_x2)  
 ```
 
-Ahora si corremos las regresiones simples con estos residuales, los tamaños de efecto coinciden con los obtenidos en la regresión multiple:
+Ahora si corremos las regresiones simples con estos residuos, los tamaños de efecto coinciden con los obtenidos en la regresión multiple:
 
 ```{r}
-# Regresión de Y sobre los residuales de A
-mod_resid_reg_x1 <- lm(y ~ residuales_x1, data = xy_datos_multp)
+# Regresión de Y sobre los residuos de A
+mod_resid_reg_x1 <- lm(y ~ residuos_x1, data = xy_datos_multp)
 
-# Regresión de Y sobre los residuales de B
-mod_resid_reg_x2 <- lm(y ~ residuales_x2, data = xy_datos_multp)
+# Regresión de Y sobre los residuos de B
+mod_resid_reg_x2 <- lm(y ~ residuos_x2, data = xy_datos_multp)
 
 # Resúmenes finales de los modelos para comparar
 coef(xy_mod_multp)[-1]
@@ -1409,33 +1408,33 @@ summary(xy_mod)
 
 Los GLM nos permiten modelar la asociación a variables respuesta que no siguen una distribución normal. Además, permiten modelar distribuciones que se asemejan más al proceso que generó los datos. El siguiente código crea un juego de datos con una respuesta que representa cuentas (por lo tanto, no normal):
 
+
 ```{r}
+# Simulación de datos
+set.seed(123)  # Para reproducibilidad
+n <- 100  # Número de observaciones
+x1 <- rnorm(n)  # Predictor 1: variable normal
+x2 <- rnorm(n)  # Predictor 2: variable normal
 
-# definir semilla
-set.seed(1234)
+# Coeficientes reales para la simulación
+b0 <- 0.5  # Intercepto
+b1 <- 1.2  # Coeficiente para x1
+b2 <- -0.8  # Coeficiente para x2
 
-# numero de muestas
-n <- 50
+# Calcular lambda (tasa de eventos) utilizando la combinación lineal de los predictores
+# En el modelo de Poisson, la tasa esperada lambda está relacionada exponencialmente con los predictores
+log_lambda <- b0 + b1 * x1 + b2 * x2
+lambda <- exp(log_lambda)  # Lambda debe ser positiva, por eso usamos exp()
 
-# coeficientes
-b0 <- 1.2
-b1 <- 1.3
-b2 <- 0
+# Generar la variable respuesta (cuentas) a partir de la distribución de Poisson
+y <- rpois(n, lambda)
 
+# Crear un data frame
+xy_datos_pois <- data.frame(x1 = x1, x2 = x2, y = y)
 
-#generar variables
-y <- rpois(n = n, lambda = 6.5) # lambda = tasa promedio de exitos 
-x2 <- seq(-0.5, 0.5, , length(y))
-x1 <- (log(y) - b0 - b2 * x2) / b1
-
-# crear data frame
-xy_datos_pois <- data.frame(x1, x2, y)
-
+# Mostrar las primeras filas del data frame
 head(xy_datos_pois)
-
 ```
-
- 
 
 También grafiquemos 'x1' *vs* 'y':
 
@@ -1527,12 +1526,10 @@ knitr::include_graphics("./images/butterflies.png")
 ::: {.alert .alert-info}
 <font size="5">Ejercicio 8</font>
 
- 
-
 -   Intente correr el modelo anterior `lm()` (con una distribución gaussiana), compare los resultados y compruebe los residuos (`plot_model(model_name, type = "diag")`)
+
 :::
 
- 
 
 Existen muchas otras funciones de distribución y enlace:
 
@@ -1649,27 +1646,6 @@ summary(mix_eff_mod)
 
 El modelo detectó correctamente el patrón simulado y la estimación de $\beta_1$ (`r round(fixef(mix_eff_mod)[2], 3)`) es muy cercana al valor simulado.
 
- 
-
-::: {.alert .alert-warning}
-<center><font size="5"><b>Caso de estudio</b></font></center>
-
- 
-
--   Araya-Salas M, P González-Gómez, K Wojczulanis-Jakubas, V López III & T Wright. 2018. [**Spatial memory is as important as weapon and body size for territorial ownership in a lekking hummingbird**](https://www.nature.com/articles/s41598-018-20441-x). *Scientific Reports*. 13, e0189969
-
-"*... el tamaño corporal mostró una correlación negativa con la frecuencia baja del canto.*"
-
-```{r, out.width = "80%", echo = FALSE, fig.align= "center"}
-
-knitr::include_graphics("./images/lbh_song_size.png")
-
-```
-
- 
-:::
-
- 
 
 ::: {.alert .alert-success}
  
@@ -1730,7 +1706,23 @@ cbind(interceptos, prom_pobs= prom_pobs[,2])
  
 :::
 
+
+::: {.alert .alert-warning}
+<center><font size="5"><b>Caso de estudio</b></font></center>
+
+-   Araya-Salas M, P González-Gómez, K Wojczulanis-Jakubas, V López III & T Wright. 2018. [**Spatial memory is as important as weapon and body size for territorial ownership in a lekking hummingbird**](https://www.nature.com/articles/s41598-018-20441-x). *Scientific Reports*. 13, e0189969
+
+"*... el tamaño corporal mostró una correlación negativa con la frecuencia baja del canto.*"
+
+```{r, out.width = "80%", echo = FALSE, fig.align= "center"}
+
+knitr::include_graphics("./images/lbh_song_size.png")
+
+```
+
  
+:::
+
 
 ### La paradoja de Simpson
 
@@ -1770,7 +1762,7 @@ knitr::include_graphics("./images/swiss_knife.png")
 
  
 
-Este manual solo pretende sugerir un abordaje estadístico centrado en los modelos de regresión desde el cual se pueden llevar a cabo adecuadamente la mayoría de los análisis estadísticos que usamos en biología. **El manual no tiene como objetivo explicar en detalle las particularidades de los modelos generalizados y mixtos**. Note que estos modelos, principalmente los mixtos, pueden adaptarse a otras estructuras de datos mas complejas no cubiertas aquí, como lo son las pendientes aleatorias, pendientes e interceptos aleatorios, estructuras de correlación (i.e. autocorrelación espacial o temporal, pedigrís o árboles filogenéticos), medidas repetidas y el uso de pseudoreplicas, entre otras.
+Este manual solo pretende sugerir un abordaje estadístico centrado en los modelos de regresión desde el cual se pueden llevar a cabo adecuadamente la mayoría de los análisis estadísticos que usamos en investigación. **El manual no tiene como objetivo explicar en detalle las particularidades de los modelos generalizados y mixtos**. Note que estos modelos, principalmente los mixtos, pueden adaptarse a otras estructuras de datos mas complejas no cubiertas aquí, como lo son las pendientes aleatorias, pendientes e interceptos aleatorios, estructuras de correlación (i.e. autocorrelación espacial o temporal, pedigrís o árboles filogenéticos), medidas repetidas y el uso de pseudoreplicas, entre otras.
 
  
 
@@ -1779,14 +1771,6 @@ Este manual solo pretende sugerir un abordaje estadístico centrado en los model
 ## Referencias
 
 -   [Richard McElreath's Statistical Rethinking book](https://github.com/rmcelreath/stat_rethinking_2022)
-
--   [R's rbinom -- Simulate Binomial or Bernoulli trials](https://www.programmingr.com/examples/neat-tricks/sample-r-function/r-rbinom/)
-
--   [R's rnorm -- selecting values from a normal distribution](https://www.programmingr.com/examples/neat-tricks/sample-r-function/r-rnorm/)
-
--   [R's exp -- Simulating Exponential Distributions](https://www.programmingr.com/examples/neat-tricks/sample-r-function/rexp/)
-
--   [Simulating data in R](https://aosmith.rbind.io/2018/08/29/getting-started-simulating-data/)
 
 -   Spake, R., Bowler, D. E., Callaghan, C. T., Blowes, S. A., Doncaster, C. P., Antao, L. H., ... & Chase, J. M. (2023). [Understanding 'it depends' in ecology: a guide to hypothesising, visualising and interpreting statistical interactions](https://onlinelibrary.wiley.com/doi/full/10.1111/brv.12939). Biological Reviews.
 

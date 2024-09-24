@@ -1,0 +1,271 @@
+---
+title: <font size="7"><b>Regresión logística y multinomial</b></font>
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r,echo=FALSE,message=FALSE}
+
+options("digits"=5)
+options("digits.secs"=3)
+
+```
+
+```{r, echo = FALSE, message=FALSE}
+  
+library(knitr)
+library(ggplot2)
+library(viridis)
+library(lmerTest)
+library(sjPlot)
+library(car)
+
+# ggplot settings
+geom_histogram <- function(...) ggplot2::geom_histogram(..., fill = viridis(10, alpha = 0.5)[8], show.legend = FALSE, bins = 20, color = "black")
+
+geom_smooth <- function(...) ggplot2::geom_smooth(..., color = viridis(10,  alpha = 0.5)[8])
+
+geom_boxplot <- function(...) ggplot2::geom_boxplot(..., fill = viridis(10, alpha = 0.5)[7])
+
+geom_pointrange <- function(...) ggplot2::geom_pointrange(..., show.legend = FALSE, color = viridis(10, alpha = 0.5)[7], size = 2) 
+
+plot_model <- function(...) sjPlot::plot_model(xy_mod, type = "diag", colors = viridis(10, alpha = 0.5)[7])
+
+theme_set(theme_classic(base_size = 20))
+
+
+fill <- list(alert = "#cff4fc", success = "#d1e7dd")
+
+```
+
+ 
+
+::: {.alert .alert-info}
+# Objetivo del manual {.unnumbered .unlisted}
+
+-  Expandir la regresión lineal a otros tipos de variable respuesta
+
+-   Introducir modelos que predicen variables categóricas
+:::
+
+Paquetes a utilizar en este manual:
+
+```{r}
+
+# instalar/cargar paquetes
+
+sketchy::load_packages(
+  c("ggplot2", 
+    "viridis", 
+    "lmerTest", 
+    "sjPlot")
+  )
+
+```
+
+# Regresión logística 
+
+La regresión logística es una técnica utilizada cuando la variable respuesta es binaria (por ejemplo, éxito/fracaso, sí/no). En lugar de modelar directamente la variable respuesta, la regresión logística modela la probabilidad de que ocurra un evento (es decir, P(Y=1)).
+
+<center><font size = 6>$\hat{Y} \sim{(enlace\ logit)}\ \beta_{o} + \beta_{1} * x_{1} + ... \beta_{n} * x_{n}$</font></center>
+
+
+La función de enlace más comúnmente utilizada en la regresión logística es la función logit, que transforma las probabilidades en el rango [0,1] a valores en el rango (−∞,∞), permitiendo que la combinación lineal de predictores pueda tomar cualquier valor real.
+
+## Simular datos
+
+Primero, vamos a simular un conjunto de datos donde la respuesta sea binaria. En este ejemplo, supongamos que tenemos dos variables predictoras: x1 y x2.
+
+```{r}
+# Simulación de datos
+set.seed(123)  # Para reproducibilidad
+n <- 100  # Número de observaciones
+x1 <- rnorm(n)  # Predictor 1: variable normal
+x2 <- rnorm(n)  # Predictor 2: variable normal
+
+# Coeficientes reales para la simulación
+b0 <- -0.5  # Intercepto
+b1 <- 4  # Coeficiente de x1
+b2 <- -3  # Coeficiente de x2
+
+# Calcular la probabilidad usando la función logística
+logit_p <- b0 + b1 * x1 + b2 * x2
+p <- 1 / (1 + exp(-logit_p))
+
+# Generar la respuesta binaria
+y <- rbinom(n, 1, p)
+
+# Crear un data frame
+datos <- data.frame(x1 = x1, x2 = x2, y = y)
+
+# explorar datos
+head(datos)
+
+```
+
+Estos graficos nos muestran las relaciones entre x1, x2 y Y:
+
+
+```{r}
+
+# graficar
+ggplot(datos, aes(x = x1, y = y)) + 
+  geom_point(color = "#3E4A89FF")
+
+ggplot(datos, aes(x = x2, y = y)) + 
+  geom_point(color =  "#1F9E89FF")
+```
+
+
+
+## Ajustar el modelo
+
+Para ajustar el modelo de regresión logística en R, utilizamos la función `glm()` con el argumento `family = binomial`. `glm()` es una función de R básico para ajustar modelos lineales generalizados. 
+
+```{r}
+# Ajustar el modelo de regresión logística
+modelo_log <- glm(y ~ x1 + x2, data = datos, family = binomial)
+
+# Resumen del modelo
+summary(modelo_log)
+
+```
+
+Ahora podemos graficar los datos crudos junto a la curva de mejor ajuste. Para esto debemos estimar los valores predichos por el modelo primero: 
+
+```{r}
+
+# Crear un nuevo data frame con las predicciones para x1
+nuevos_datos <-
+  expand.grid(
+    x1 = seq(min(datos$x1), max(datos$x1), length.out = 100),
+    x2 = seq(min(datos$x2), max(datos$x2), length.out = 100)
+  )
+
+# anadir predicciones
+nuevos_datos$pred_prob <-
+  predict(object = modelo_log,
+          newdata = nuevos_datos,
+          type = "response")
+
+# Crear el gráfico de puntos y la curva de mejor ajuste para x1
+ggplot(datos, aes(x = x1, y = y)) +
+  geom_point(alpha = 0.5, color = "#3E4A89FF") +  # Datos crudos
+  geom_smooth(data = nuevos_datos, aes(y = pred_prob, x = x1), method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  labs(y = "Probabilidad de y = 1") 
+
+# Crear el gráfico de puntos y la curva de mejor ajuste para x2
+ggplot(datos, aes(x = x2, y = y)) +
+  geom_point(alpha = 0.5, color = "#1F9E89FF") +  # Datos crudos
+  geom_smooth(data = nuevos_datos, aes(y = pred_prob, x = x2), method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  labs(y = "Probabilidad de y = 1") 
+
+```
+
+
+
+::: {.alert .alert-success}
+
+## Interpretación del modelo
+
+En el modelo de regresión logística, los coeficientes estan dados como el logaritmo de los chances (log-odds) de que Y = 1:
+
+
+```{r}
+# Obtener los log-chances
+coefs <- coef(modelo_log)
+
+coefs
+```
+
+Los chances ("odds", a veces traducido como probabilidades) se definen como la razón entre la probabilidad de la ocurrencia de un evento y la probabilidad de que ese evento no ocurra:
+
+$$
+\text{Odds} = \frac{\text{Probabilidad de éxito}}{\text{Probabilidad de fracaso}} = \frac{P(E)}{1 - P(E)}
+$$
+
+El  'log-odds' es simplemente el logaritmo natural de ese cociente:
+
+$$
+\text{Log-Odds} = \log(\text{Odds}) = \log\left(\frac{P(E)}{1 - P(E)}\right)
+$$
+
+Esto significa que por cada aumento de una unidad de x1, los 'log-odds' de que Y = 1 aumentan en `r round(coefs[2], 2)`.
+
+Pueden interpretarse mas facilmente en términos de la razón de los chances (odds ratio). Para obtener las razones de chances, simplemente tomamos el exponente de los coeficientes:
+
+```{r}
+# Obtener las razones de probabilidades
+exp_coefs <- exp(coefs)
+
+exp_coefs
+```
+
+Esto quiere decir que el chance de Y=1 aumenta en `r round(exp_coefs[2], 2)` por cada aumento de una unidad de x1. Esto puede ser aun mas intuitivo si lo interpretamos como un porcentaje: un aumento de una unidad de x1 esta asociado con un aumento de aproximadamente `r (round(exp_coefs[2], 2) - 1) * 100`% en los chances de que Y=1.
+
+:::
+
+
+Estos modelos pueden ajustarse a estructuras mas complejas de forma similar a los modelos lineales. Por ejemplo en el siguiente modelo tenemos 2 variables predictoras y su interaccion:
+
+```{r}
+# Simulación de datos
+set.seed(123)  # Para reproducibilidad
+n <- 100  # Número de observaciones
+x1 <- rnorm(n)  # Predictor 1: variable normal
+x2 <- rnorm(n)  # Predictor 2: variable normal
+
+# Coeficientes reales para la simulación
+b0 <- -0.5  # Intercepto
+b1 <- 1.5  # Coeficiente de x1
+b2 <- -2  # Coeficiente de x2
+b3 <- 3 # interaccion
+# Calcular la probabilidad usando la función logística
+logit_p <- b0 + b1 * x1 + b2 * x2 + b3 * x1 * x2
+p <- 1 / (1 + exp(-logit_p))
+
+# Generar la respuesta binaria
+y <- rbinom(n, 1, p)
+
+# Crear un data frame
+datos <- data.frame(x1 = x1, x2 = x2, y = y)
+
+# explorar datos
+head(datos)
+
+```
+
+Estos graficos nos muestran las relaciones entre x1, x2 y Y:
+
+
+```{r}
+
+# graficar
+ggplot(datos, aes(x = x1, y = y)) + 
+  geom_point(color = "#3E4A89FF")
+
+ggplot(datos, aes(x = x2, y = y)) + 
+  geom_point(color =  "#1F9E89FF")
+```
+
+... y ahora ajustamos el modelo de regresión logística conteniendo una interacción entre x1 y x2: 
+
+```{r}
+# Ajustar el modelo de regresión logística
+modelo_log <- glm(y ~ x1 * x2, data = datos, family = binomial)
+
+# Resumen del modelo
+summary(modelo_log)
+
+```
+
+---
+
+
+# Información de la sesión {.unnumbered .unlisted}
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```
