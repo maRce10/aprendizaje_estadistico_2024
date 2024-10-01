@@ -27,7 +27,7 @@ geom_boxplot <- function(...) ggplot2::geom_boxplot(..., fill = viridis(10, alph
 
 geom_pointrange <- function(...) ggplot2::geom_pointrange(..., show.legend = FALSE, color = viridis(10, alpha = 0.5)[7], size = 2) 
 
-plot_model <- function(...) sjPlot::plot_model(xy_mod, type = "diag", colors = viridis(10, alpha = 0.5)[7])
+plot_model <- function(...) sjPlot::plot_model(colors = viridis(10, alpha = 0.5)[7], ...)
 
 theme_set(theme_classic(base_size = 20))
 
@@ -866,9 +866,7 @@ theme(panel.background = element_rect(fill = fill$alert), plot.background = elem
 -   Compare los betas estimados por el modelo con los usados para generar los datos. ¿Es una buena estimación?. También observe los valores de p. ¿Esperaría que fueran significativos?
 :::
 
- 
-
-------------------------------------------------------------------------
+---
 
 ## Añadir un predictor categórico
 

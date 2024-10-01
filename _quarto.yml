@@ -55,6 +55,7 @@ code-line-numbers: false
 highlight-style: pygments
 code-overflow: wrap
 code-copy: true
+embed-resources: true
 date: today
 lang: es
 format:
