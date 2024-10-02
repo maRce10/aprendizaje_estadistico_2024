@@ -406,7 +406,6 @@ summary(modelo_log)
 Podemos evaluar el desempeño del modelo con una matriz de confusión:
 
 ```{r}
-
 # predecir valores
 pred_vals <- predict(object = modelo_log, newdata = datos_tab_titanic, type = "response")
 
@@ -420,7 +419,12 @@ mat_conf <-
 # imprimir resultado
 mat_conf$table
 
+# precision
 mat_conf$overall["Accuracy"]
+```
+
+
+```{r, eval = FALSE}
 
 # convertir a data frame
 conf_df <- as.data.frame(mat_conf$table)
@@ -434,11 +438,7 @@ conf_df$total <-
 # calcular proporciones
 conf_df$proportion <- conf_df$Freq / conf_df$total
 
-
-```
-
-
-```{r, eval = FALSE}
+# graficar
 ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   geom_tile() + 
   coord_equal() + 
@@ -448,7 +448,20 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
 
 ```
 
-```{r, eval = TRUE}
+```{r, eval = TRUE, echo = FALSE}
+
+# convertir a data frame
+conf_df <- as.data.frame(mat_conf$table)
+
+# agregar totales por categoria
+conf_df$total <-
+    sapply(conf_df$Reference, function(x)
+        sum(datos_tab_titanic$Survived ==
+                x))
+
+# calcular proporciones
+conf_df$proportion <- conf_df$Freq / conf_df$total
+
 ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   geom_tile() + 
   coord_equal() + 
