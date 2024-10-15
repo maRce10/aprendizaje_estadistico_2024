@@ -37,11 +37,11 @@ fill <- list(alert = "#cff4fc", success = "#d1e7dd")
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}
 
-- Expandir la regresión lineal a otros tipos de variable respuesta
+-   Expandir la regresión lineal a otros tipos de variable respuesta
 
-- Introducir modelos que predicen variables categóricas
+-   Introducir modelos que predicen variables categóricas
 
-- Familiarizarse con el uso de estos modelos 
+-   Familiarizarse con el uso de estos modelos
 :::
 
 Paquetes a utilizar en este manual:
@@ -54,8 +54,8 @@ sketchy::load_packages(
   c("ggplot2", 
     "viridis", 
     "nnet",
-    "caret",
-    github = "maRce10/PhenotypeSpace")
+    "caret"
+   )
   )
 
 ```
@@ -64,28 +64,24 @@ sketchy::load_packages(
 
 La regresión logística es una técnica utilizada cuando la variable respuesta es binaria (por ejemplo, éxito/fracaso, sí/no). En lugar de modelar directamente la variable respuesta, la regresión logística modela la probabilidad de que ocurra un evento (es decir, P(Y=1)).
 
-<center><font size = 6>$\hat{Y\ binaria} \sim{(enlace\ logit)}\ \beta_{o} + \beta_{1} * x_{1} + ... \beta_{n} * x_{n}$</font></center>
+<center><font size = 4>$\hat{Y\ binaria} \sim{(enlace\ logit)}\ \beta_{o} + \beta_{1} * x_{1} + ... \beta_{n} * x_{n}$</font></center>
 
 La función de enlace más comúnmente utilizada en la regresión logística es la función logit, que transforma las probabilidades en el rango \[0,1\] a valores en el rango (−∞,∞), permitiendo que la combinación lineal de predictores pueda tomar cualquier valor real.
-
-
 
 ::: {.alert .alert-warning}
 ## Ejemplos de uso
 
 En un estudio sobre comportamiento juvenil, los investigadores quieren predecir si los adolescentes se involucran en conductas de riesgo (por ejemplo, consumo de drogas) en función de factores como la influencia de pares, el rendimiento escolar, y el apoyo parental.
 
-- **Variable dependiente**: Conducta riesgosa (1 = Sí, 0 = No).
-- **Variables independientes**: Influencia de pares, rendimiento escolar, apoyo parental.
-- **Aplicación de regresión logística**: Se usa para predecir la probabilidad de que un adolescente participe en conductas riesgosas.
-
+-   **Variable dependiente**: Conducta riesgosa (1 = Sí, 0 = No).
+-   **Variables independientes**: Influencia de pares, rendimiento escolar, apoyo parental.
+-   **Aplicación de regresión logística**: Se usa para predecir la probabilidad de que un adolescente participe en conductas riesgosas.
 
 Un psicólogo quiere predecir si un paciente tiene depresión (Sí/No) en función de factores como el nivel de estrés, la duración del sueño, el historial familiar de trastornos mentales, y la puntuación en un test de ansiedad.
 
-- **Variable dependiente**: Depresión (1 = Sí, 0 = No).
-- **Variables independientes**: Nivel de estrés, horas de sueño, historial familiar de trastornos, puntuación de ansiedad.
-- **Aplicación de regresión logística**: Se usa para predecir si una persona tiene depresión a partir de los predictores.
-
+-   **Variable dependiente**: Depresión (1 = Sí, 0 = No).
+-   **Variables independientes**: Nivel de estrés, horas de sueño, historial familiar de trastornos, puntuación de ansiedad.
+-   **Aplicación de regresión logística**: Se usa para predecir si una persona tiene depresión a partir de los predictores.
 :::
 
 ## Simular datos
@@ -213,9 +209,7 @@ exp_coefs
 Esto quiere decir que el chance de Y=1 aumenta en `r round(exp_coefs[2], 2)` por cada aumento de una unidad de x1. Esto puede ser aun mas intuitivo si lo interpretamos como un porcentaje: un aumento de una unidad de x1 esta asociado con un aumento de aproximadamente `r (round(exp_coefs[2], 2) - 1) * 100`% en los chances de que Y=1.
 :::
 
-
-Una forma intuitiva de evaluar el desempeño de modelos de clasificación (i.e. modelos que predicen categorías) es 
-estimar el número (o proporción) de observaciones que fueron correctamente clasificadas. Este tipo de datos se pueden resumir en una matriz de confusión, que muestra cuántas observaciones fueron clasificadas correctamente y incorrectamente para cada combinación posible de categorías. Para esto usaremos la función `confusionMatrix()` del paquete `caret`:
+Una forma intuitiva de evaluar el desempeño de modelos de clasificación (i.e. modelos que predicen categorías) es estimar el número (o proporción) de observaciones que fueron correctamente clasificadas. Este tipo de datos se pueden resumir en una matriz de confusión, que muestra cuántas observaciones fueron clasificadas correctamente y incorrectamente para cada combinación posible de categorías. Para esto usaremos la función `confusionMatrix()` del paquete `caret`:
 
 ```{r}
 
@@ -261,7 +255,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
 
@@ -269,11 +263,11 @@ Como se mencionó antes la matriz de confusión nos permite observar cuántas ve
 
 La regresión logística no hace suposiciones explícitas sobre la distribución de los residuos (errores), a diferencia de la regresión lineal, que asume que los residuos deben seguir una distribución normal. En la regresión logística, los residuos no son normales ni continuos, porque la variable dependiente es binaria (o multinomial en el caso de la regresión logística multinomial).
 
----
+------------------------------------------------------------------------
 
 Estos modelos pueden ajustarse a estructuras mas complejas de forma similar a los modelos lineales. Por ejemplo en el siguiente modelo tenemos 2 variables predictoras y su interaccion:
 
-```{r} 
+```{r}
 
 # Simulación de datos
 set.seed(123)  # Para reproducibilidad
@@ -360,20 +354,19 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
-
 
 ::: {.alert .alert-info}
 ## Ejercicio 1
 
 Los datos de sobrevivencia de pasajeros del Titanic son ampliamente utilizado para ilustrar modelos de predicción. Contiene información sobre los pasajeros del Titanic, incluyendo variables como:
 
-- Sobrevivencia (Survived): indica si el pasajero sobrevivió o no
-- Clase (Pclass): clase del pasajero (1, 2 o 3)
-- Sexo (Sex): género del pasajero
-- Edad (Age): edad del pasajero
+-   **Sobrevivencia** (*Survived*): indica si el pasajero sobrevivió o no
+-   **Clase** (*Pclass*): clase del pasajero (1, 2 o 3)
+-   **Sexo** (*Sex*): género del pasajero
+-   **Edad** (*Age*): edad del pasajero
 
 Puedes cargarlo directamente en R usando el paquete titanic o manipularlo desde el conjunto de datos base. El siguiente código carga y da formato a los datos para que puedan ser utilizados en una regresión logística:
 
@@ -418,11 +411,7 @@ mat_conf <-
 
 # imprimir resultado
 mat_conf$table
-
-# precision
-mat_conf$overall["Accuracy"]
 ```
-
 
 ```{r, eval = FALSE}
 
@@ -444,11 +433,12 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
 
-```{r, eval = TRUE, echo = FALSE}
+
+```{r, eval = TRUE, echo = FALSE, out.width = "100%", out.height = "100%"}
 
 # convertir a data frame
 conf_df <- as.data.frame(mat_conf$table)
@@ -467,7 +457,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") + theme(
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") + theme(
   panel.background = element_rect(fill = "#cff4fc", color = "#cff4fc"),  # Panel background color
   plot.background = element_rect(fill = "#cff4fc", color = "#cff4fc"),    # Plot background color
   legend.background = element_rect(fill = "#cff4fc", color = "#cff4fc"), # Change legend background color
@@ -476,24 +466,24 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
 
 ```
 
+```{r}
+# precision
+mat_conf$overall["Accuracy"]
+```
+-   1.1 Construya un modelo de regresión logística que prediga la sobrevivencia de los pasajeros del Titanic en función de su género. ¿Cuál es la precisión del modelo?
 
-- 1.1 Construya un modelo de regresión logística que prediga la sobrevivencia de los pasajeros del Titanic en función de su género. ¿Cuál es la precisión del modelo?
+-   1.2 Añada una variable predictora mas a la vez (e.g. Survived \~ Sex; Survived \~ Sex + Class; Survived \~ Sex + Class + Age) y a cada nuevo modelo evalue su precisión.
 
-- 1.2 Añada una variable predictora mas a la vez (e.g. Survived ~ Sex; Survived ~ Sex + Class; Survived ~ Sex + Class + Age) y a cada nuevo modelo evalue su precisión.
-
-- 1.3 ¿Qué modelo tiene la mejor precisión? ¿Qué variables parecen ser más importantes para predecir la sobrevivencia de los pasajeros del Titanic?
-
+-   1.3 ¿Qué modelo tiene la mejor precisión? ¿Qué variables parecen ser más importantes para predecir la sobrevivencia de los pasajeros del Titanic?
 :::
 
-
-
---- 
+------------------------------------------------------------------------
 
 # Regresión multinomial
 
 La regresión multinomial es una técnica estadística utilizada cuando la variable dependiente tiene más de dos categorías y no hay un orden natural entre ellas. A diferencia de la regresión logística binaria, que se utiliza cuando la variable dependiente es dicotómica (es decir, tiene solo dos posibles resultados), la regresión multinomial maneja resultados con múltiples categorías nominales. Intenta **modelar la probabilidad de pertenecer a cada categoría de una variable dependiente con múltiples clases**. También se puede usar para predecir la categoría más probable para nuevas observaciones basadas en los valores de las variables independientes.
 
-<center><font size = 6>$\hat{Y}\text{multinomial} \sim{(enlace\ logit)}\ \beta_{o} + \beta_{1} * x_{1} + ... \beta_{n} * x_{n}$</font></center>
+<center><font size = 4>$\hat{Y}\text{multinomial} \sim{(enlace\ logit)}\ \beta_{o} + \beta_{1} * x_{1} + ... \beta_{n} * x_{n}$</font></center>
 
 La variable dependiente debe ser categórica y contener más de dos categorías. Además se asume que no existe un orden inherente entre las categorías de la variable dependiente (en cuyo caso, se utilizaría una regresión ordinal) y que las categorías son exhaustivas y mutuamente excluyentes; es decir, cada observación pertenece a una sola categoría.
 
@@ -502,22 +492,20 @@ La variable dependiente debe ser categórica y contener más de dos categorías.
 
 Un psiquiatra quiere predecir a qué tipo de trastorno mental padece un paciente (por ejemplo, depresión, ansiedad o trastorno bipolar) en función de factores como el historial familiar, nivel de estrés, horas de sueño, y puntuaciones en diversos tests psicológicos.
 
-- **Variable dependiente**: Tipo de trastorno mental (1 = Depresión, 2 = Ansiedad, 3 = Trastorno Bipolar).
-- **Variables independientes**: Historial familiar, nivel de estrés, horas de sueño, puntuaciones en tests psicológicos.
-- **Aplicación de la regresión multinomial**: Se utiliza para predecir la probabilidad de pertenecer a una de las tres categorías diagnósticas.
+-   **Variable dependiente**: Tipo de trastorno mental (1 = Depresión, 2 = Ansiedad, 3 = Trastorno Bipolar).
+-   **Variables independientes**: Historial familiar, nivel de estrés, horas de sueño, puntuaciones en tests psicológicos.
+-   **Aplicación de la regresión multinomial**: Se utiliza para predecir la probabilidad de pertenecer a una de las tres categorías diagnósticas.
 
 Una empresa de alimentos quiere predecir qué tipo de envase (plástico, vidrio o biodegradable) preferirán los consumidores para sus productos, en función de factores como el precio del producto, la percepción ambiental y la facilidad de uso.
 
-- **Variable dependiente**: Tipo de envase preferido (1 = Plástico, 2 = Vidrio, 3 = Biodegradable).
-- **Variables independientes**: Precio del producto, percepción ambiental, facilidad de uso.
-- **Aplicación de la regresión multinomial**: Permite predecir qué tipo de envase es más probable que prefieran los consumidores, basado en sus actitudes y características.
-
+-   **Variable dependiente**: Tipo de envase preferido (1 = Plástico, 2 = Vidrio, 3 = Biodegradable).
+-   **Variables independientes**: Precio del producto, percepción ambiental, facilidad de uso.
+-   **Aplicación de la regresión multinomial**: Permite predecir qué tipo de envase es más probable que prefieran los consumidores, basado en sus actitudes y características.
 :::
 
-## Simular datos  
+## Simular datos
 
-Para ilustrar cómo funciona la regresión multinomial, vamos a simular un conjunto de datos con tres categorías     posibles para la variable dependiente.
-
+Para ilustrar cómo funciona la regresión multinomial, vamos a simular un conjunto de datos con tres categorías posibles para la variable dependiente.
 
 ```{r}
 
@@ -548,19 +536,20 @@ head(datos_multin)
 ## Explorar datos
 
 Categorias de Y en el espacio X1 vs X2
+
 ```{r}
 
 ggplot(datos_multin, aes(x = x1, y = x2, color = y)) +
   geom_point() +
-  scale_color_viridis_d(option = "C") +
+  scale_color_viridis_d(option = "G", begin = 0.4, end = 0.9) +
   labs(x = "x1", y = "x2", color = "Categoría")
 
 ```
 
-
 ## Ajustar el modelo
 
 El siguiente paso es ajustar un modelo de regresión multinomial a los datos simulados utilizando la función `multinom()` del paquete `nnet`.
+
 ```{r}
 
 # Ajustar el modelo de regresión multinomial
@@ -570,7 +559,6 @@ modelo_multinom <- multinom(y ~ x1 + x2, data = datos_multin)
 summary(modelo_multinom)
 
 ```
-
 
  
 
@@ -598,16 +586,14 @@ coefs <- cbind(coefs, p_x1, p_x2)
 coefs
 ```
 
--   El modelo encontró que $\beta_1b$ es `r coefs[1, 2]` y que no es significativamente diferente de 0 (p = `r coefs[1, 4]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "b" comparado con la categoría "a". 
+-   El modelo encontró que $\beta_1b$ es `r coefs[1, 2]` y que no es significativamente diferente de 0 (p = `r coefs[1, 4]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "b" comparado con la categoría "a".
 
--   El modelo encontró que $\beta_1c$ es `r coefs[2, 2]` y que es significativamente diferente de 0 (p = `r coefs[2, 4]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "c" comparado con la categoría "a". 
+-   El modelo encontró que $\beta_1c$ es `r coefs[2, 2]` y que es significativamente diferente de 0 (p = `r coefs[2, 4]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "c" comparado con la categoría "a".
 
--   También se encontró que el $\beta_2b$ es `r coefs[1, 3]` y que es significativamente diferente de 0 (p = `r coefs[1, 5]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "b" comparado con la categoría "a". 
+-   También se encontró que el $\beta_2b$ es `r coefs[1, 3]` y que es significativamente diferente de 0 (p = `r coefs[1, 5]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "b" comparado con la categoría "a".
 
--   También se encontró que el $\beta_2c$ es `r coefs[2, 3]` y que también es significativamente diferente de 0 (p = `r coefs[2, 5]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "c" comparado con la categoría "a". 
-
+-   También se encontró que el $\beta_2c$ es `r coefs[2, 3]` y que también es significativamente diferente de 0 (p = `r coefs[2, 5]`). Es decir, cuanto aumentan la razón de los chances de pertenecer a la categoría "c" comparado con la categoría "a".
 :::
-
 
 ## Visualización de resultados
 
@@ -626,17 +612,20 @@ nuevo_data <- data.frame(x1 = x1_nuevo, x2 = 0)
 # Obtener las probabilidades predichas para el nuevo conjunto de datos
 prob_predichas <- predict(modelo_multinom, newdata = nuevo_data, type = "probs")
 
+# definir colores
+cols <- mako(3, begin = 0.4, end = 0.9)
+
 # Graficar las probabilidades predichas
-matplot(x1_nuevo, prob_predichas, type = "l", lty = 1, col = 1:3,
+matplot(x1_nuevo, prob_predichas, type = "l", lty = 1, col = cols,
         xlab = "x1", ylab = "Probabilidad predicha",
         main = "Probabilidades predichas para cada categoría")
-legend("topright", legend = levels(datos_multin$y), col = 1:3, lty = 1)
+legend("topright", legend = levels(datos_multin$y), col = cols, lty = 1)
+
+
 
 ```
 
-
 Este gráfico muestra cómo varían las probabilidades predichas de pertenecer a cada categoría conforme el valor de x1 cambia, con x2 fijo en 0. Las líneas de diferentes colores corresponden a las diferentes categorías de la variable dependiente.
-
 
 ### Matriz de confusión
 
@@ -685,7 +674,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 
 
@@ -700,13 +689,12 @@ Para este ejercicio puedo utilizar el código del ejercicio 1 para la evaluació
 
 2.2 Añada un segundo predictor (e.g. largo del sépalo) y evalúe la precisión del modelo.
 
-2.3 Ahora use todas las variables como predictoras y evalúe la precisión del modelo. 
+2.3 Ahora use todas las variables como predictoras y evalúe la precisión del modelo.
 
 2.4 ¿Cual es el modelo con el mejor desempeño? ¿Qué variables parecen ser más importantes para predecir la especie de la flor?
-
 :::
 
----
+------------------------------------------------------------------------
 
 # Información de la sesión {.unnumbered .unlisted}
 
