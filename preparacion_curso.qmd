@@ -70,6 +70,7 @@ load_packages(
     "psych",
     "lme4",
     "caret",
+    "glmnet",
     "lmerTest",
     "sjPlot",
     "car",
