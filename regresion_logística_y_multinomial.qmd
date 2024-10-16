@@ -382,6 +382,7 @@ datos_tab_titanic <- do.call(rbind, lapply(1:nrow(datos_titanic), function(x) da
 datos_tab_titanic$Freq <- NULL
 
 # explorar datos
+head(datos_tab_titanic, 10)
 
 ```
 
