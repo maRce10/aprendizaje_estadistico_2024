@@ -55,8 +55,8 @@ sketchy::load_packages(
     "viridis", 
     "nnet",
     "caret"
+   )
   )
-)
 
 ```
 
@@ -255,7 +255,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
 
@@ -354,7 +354,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
 
@@ -363,10 +363,10 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
 
 Los datos de sobrevivencia de pasajeros del Titanic son ampliamente utilizado para ilustrar modelos de predicción. Contiene información sobre los pasajeros del Titanic, incluyendo variables como:
 
--   Sobrevivencia (Survived): indica si el pasajero sobrevivió o no
--   Clase (Pclass): clase del pasajero (1, 2 o 3)
--   Sexo (Sex): género del pasajero
--   Edad (Age): edad del pasajero
+-   **Sobrevivencia** (*Survived*): indica si el pasajero sobrevivió o no
+-   **Clase** (*Pclass*): clase del pasajero (1, 2 o 3)
+-   **Sexo** (*Sex*): género del pasajero
+-   **Edad** (*Age*): edad del pasajero
 
 Puedes cargarlo directamente en R usando el paquete titanic o manipularlo desde el conjunto de datos base. El siguiente código carga y da formato a los datos para que puedan ser utilizados en una regresión logística:
 
@@ -411,9 +411,6 @@ mat_conf <-
 
 # imprimir resultado
 mat_conf$table
-
-# precision
-mat_conf$overall["Accuracy"]
 ```
 
 ```{r, eval = FALSE}
@@ -436,11 +433,12 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 ```
 
-```{r, eval = TRUE, echo = FALSE}
+
+```{r, eval = TRUE, echo = FALSE, out.width = "100%", out.height = "100%"}
 
 # convertir a data frame
 conf_df <- as.data.frame(mat_conf$table)
@@ -459,13 +457,18 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") + theme(
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") + theme(
   panel.background = element_rect(fill = "#cff4fc", color = "#cff4fc"),  # Panel background color
   plot.background = element_rect(fill = "#cff4fc", color = "#cff4fc"),    # Plot background color
   legend.background = element_rect(fill = "#cff4fc", color = "#cff4fc"), # Change legend background color
   panel.border = element_rect(color = "#cff4fc", fill = NA, linewidth = 0),  # Border of the plot area
 )
 
+```
+
+```{r}
+# precision
+mat_conf$overall["Accuracy"]
 ```
 
 -   1.1 Construya un modelo de regresión logística que prediga la sobrevivencia de los pasajeros del Titanic en función de su género. ¿Cuál es la precisión del modelo?
@@ -539,7 +542,7 @@ Categorias de Y en el espacio X1 vs X2
 
 ggplot(datos_multin, aes(x = x1, y = x2, color = y)) +
   geom_point() +
-  scale_color_viridis_d(option = "C") +
+  scale_color_viridis_d(option = "G", begin = 0.4, end = 0.9) +
   labs(x = "x1", y = "x2", color = "Categoría")
 
 ```
@@ -610,11 +613,16 @@ nuevo_data <- data.frame(x1 = x1_nuevo, x2 = 0)
 # Obtener las probabilidades predichas para el nuevo conjunto de datos
 prob_predichas <- predict(modelo_multinom, newdata = nuevo_data, type = "probs")
 
+# definir colores
+cols <- mako(3, begin = 0.4, end = 0.9)
+
 # Graficar las probabilidades predichas
-matplot(x1_nuevo, prob_predichas, type = "l", lty = 1, col = 1:3,
+matplot(x1_nuevo, prob_predichas, type = "l", lty = 1, col = cols,
         xlab = "x1", ylab = "Probabilidad predicha",
         main = "Probabilidades predichas para cada categoría")
-legend("topright", legend = levels(datos_multin$y), col = 1:3, lty = 1)
+legend("topright", legend = levels(datos_multin$y), col = cols, lty = 1)
+
+
 
 ```
 
@@ -667,7 +675,7 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
   coord_equal() + 
   scale_fill_distiller(palette = "Greens", direction = 1) + 
   geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
-  labs(x = "Observado", y = "Predicho") 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
 
 
 
