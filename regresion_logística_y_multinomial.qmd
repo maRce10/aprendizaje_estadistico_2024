@@ -438,7 +438,6 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
 
 ```
 
-
 ```{r, eval = TRUE, echo = FALSE, out.width = "100%", out.height = "100%"}
 
 # convertir a data frame
@@ -622,8 +621,6 @@ matplot(x1_nuevo, prob_predichas, type = "l", lty = 1, col = cols,
         xlab = "x1", ylab = "Probabilidad predicha",
         main = "Probabilidades predichas para cada categoría")
 legend("topright", legend = levels(datos_multin$y), col = cols, lty = 1)
-
-
 
 ```
 

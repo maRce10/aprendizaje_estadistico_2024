@@ -1,5 +1,5 @@
 ---
-title: <font size="7"><b>Entrenamiento y evaluación de modelos</b></font>
+title: <font size="7"><b>Evaluación de modelos</b></font>
 editor_options: 
   chunk_output_type: console
 ---
@@ -18,6 +18,9 @@ library(ggplot2)
 library(viridis)
 library(glmnet)
 library(caret)
+library(pROC)
+library(nnet)
+library(Metrics)
 
 theme_set(theme_classic(base_size = 20))
 
@@ -27,8 +30,8 @@ theme_set(theme_classic(base_size = 20))
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}
 
-- 
-
+-   Familiarizarse con las metricas de evaluación de modelos de aprendizaje estadístico
+-   Ser capaz de evaluar modelos de regresión y clasificación en R
 :::
 
 Paquetes a utilizar en este manual:
@@ -42,460 +45,435 @@ sketchy::load_packages(
     "viridis", 
     "nnet",
     "caret",
-    "glmnet")
+    "glmnet",
+    "pROC",
+    "nnet",
+    "Metrics")
   )
 
 ```
 
-# Evaluacion de modelos 
+::: grid
+::: g-col-8
+La evaluación del desempeño de un modelo estadístico se basa en comparar las predicciones del modelo con los valores observados para determinar qué tan bien el modelo está capturando la relación entre las variables. Esta comparación se realiza utilizando diversas métricas de desempeño que cuantifican el grado de coincidencia entre las predicciones y las observaciones reales.
+:::
 
+::: g-col-4
+![](images/dart_target.png){fig-align="right"}
+:::
+:::
 
-En este tutorial exploraremos los métodos y métricas utilizadas para evaluar el desempeño de los modelos de regresión. Evaluar correctamente los modelos permite entender qué tan bien el modelo se ajusta a los datos y si sus predicciones son útiles para datos no vistos.
+La idea es evaluar la capacidad del modelo para hacer predicciones precisas y generalizar bien a datos no vistos. Por lo tanto, evaluar correctamente los modelos permite entender qué tan bien el modelo se ajusta a los datos e idealmente, entender si sus predicciones son útiles para datos no vistos. La naturaleza de la métrica depende de la estructura de los datos predichos (si estos son continuos o categóricos):
 
-En modelos de regresión (i.e. cuando la variable respuesta Y es continua) el propósito de la evaluación consiste en medir qué tan cerca están las predicciones del modelo (y^) con respecto a los valores reales observados (y). En modelos de regresión, esto implica cuantificar el error entre los valores predichos y los valores verdaderos.
-2. Principales Métricas de Evaluación para Regresión
-
-    Error Absoluto Medio (MAE)
-    Mide el promedio de las diferencias absolutas entre los valores reales y los predichos.
-    MAE=1n∑i=1n∣yi−y^i∣
-    MAE=n1​i=1∑n​∣yi​−y^​i​∣
-        Interpretación: Cuanto más bajo sea el MAE, mejor es el desempeño del modelo.
-        Ejemplo en R:
-
-        R
-
-    mae <- mean(abs(y_real - y_pred))
-    print(mae)
-
-Error Cuadrático Medio (MSE)
-Calcula la media de los cuadrados de los errores entre los valores reales y los predichos.
-MSE=1n∑i=1n(yi−y^i)2
-MSE=n1​i=1∑n​(yi​−y^​i​)2
-
-    Interpretación: Penaliza más los errores grandes que el MAE.
-    Ejemplo en R:
-
-    R
-
-    mse <- mean((y_real - y_pred)^2)
-    print(mse)
-
-Raíz del Error Cuadrático Medio (RMSE)
-Es la raíz cuadrada del MSE y tiene la misma unidad que la variable de respuesta.
-RMSE=MSE
-RMSE=MSE
-​
-
-    Ejemplo en R:
-
-    R
-
-    rmse <- sqrt(mse)
-    print(rmse)
-
-Coeficiente de Determinación (R2R2)
-Indica qué proporción de la variabilidad en los datos de la variable dependiente es explicada por el modelo.
-R2=1−∑i=1n(yi−y^i)2∑i=1n(yi−yˉ)2
-R2=1−∑i=1n​(yi​−yˉ​)2∑i=1n​(yi​−y^​i​)2​
-
-    Interpretación: R2R2 cercano a 1 indica un buen ajuste.
-    Ejemplo en R:
-
-    R
-
-        r2 <- 1 - sum((y_real - y_pred)^2) / sum((y_real - mean(y_real))^2)
-        print(r2)
-
-3. Técnicas de Validación del Modelo
-
-    División de Conjuntos de Datos
-    Se divide el dataset en dos partes:
-        Entrenamiento: Se usa para ajustar el modelo.
-        Prueba: Se usa para evaluar su desempeño en datos no vistos.
-
-    Ejemplo en R:
-
-    R
-
-set.seed(123)
-train_indices <- sample(1:nrow(data), size = 0.7 * nrow(data))
-train_data <- data[train_indices, ]
-test_data <- data[-train_indices, ]
-
-Validación Cruzada K-Fold
-El dataset se divide en K partes. El modelo se entrena K−1K−1 veces y se prueba en la parte restante. Se repite el proceso para cada una de las divisiones, y al final se calcula la métrica promedio.
-
-Ejemplo en R con caret:
-
-```{r}
-
-library(caret)
-train_control <- trainControl(method = "cv", number = 10)
-model <- train(y ~ x1 + x2, data = data, method = "lm", trControl = train_control)
-print(model)
-
-```
-
-
-Leave-One-Out Cross-Validation (LOOCV)
-Es un caso especial de validación cruzada donde el número de folds es igual al número de observaciones. Se usa para datasets pequeños.
-
-Ejemplo en R:
-
-```{r}
-
-    loocv_control <- trainControl(method = "LOOCV")
-    model <- train(y ~ x1 + x2, data = data, method = "lm", trControl = loocv_control)
-    print(model)
-
-```
-
-4. Consideraciones Importantes al Evaluar Modelos de Regresión
-
-    Sobreajuste vs Subajuste: Un modelo muy complejo puede ajustarse demasiado a los datos de entrenamiento (sobreajuste), mientras que un modelo muy simple puede no capturar bien las relaciones importantes (subajuste).
-    Regularización: Aplicar técnicas como Ridge o Lasso para reducir la complejidad del modelo y mejorar la generalización.
-    Outliers: Valores atípicos pueden afectar negativamente las métricas como el MSE o RMSE.
-    Distribución de los Errores: Se espera que los residuos sean independientes, con media cero y varianza constante.
-
-5. Ejemplo Completo en R: Evaluación de un Modelo de Regresión Lineal
-
-```{r}
-
-# Simulación de datos
-set.seed(123)
-x <- rnorm(100)
-y <- 3 * x + rnorm(100)
-
-# Ajustar modelo de regresión lineal
-modelo <- lm(y ~ x)
-
-# Predicciones
-y_pred <- predict(modelo)
-
-# Cálculo de métricas
-mae <- mean(abs(y - y_pred))
-mse <- mean((y - y_pred)^2)
-rmse <- sqrt(mse)
-r2 <- 1 - sum((y - y_pred)^2) / sum((y - mean(y))^2)
-
-# Imprimir resultados
-cat("MAE:", mae, "\n")
-cat("MSE:", mse, "\n")
-cat("RMSE:", rmse, "\n")
-cat("R^2:", r2, "\n")
-
-
-```
-
-Interpretación:
-
-    El MAE indica el error promedio absoluto en las predicciones.
-    El MSE y RMSE penalizan más los errores grandes.
-    El R2R2 muestra qué proporción de la variabilidad en yy es explicada por xx.
-
-
-Evaluar el desempeño de los modelos de regresión es crucial para determinar su capacidad de hacer predicciones útiles. Utilizar métricas adecuadas, como MAE, MSE, RMSE y R2R2, junto con técnicas de validación cruzada, garantiza que los modelos no solo se ajusten bien a los datos de entrenamiento, sino que también generalicen bien en datos nuevos.
-
-## Pros y contras
-
-Cada métrica de evaluación en modelos de regresión tiene sus ventajas y desventajas, y su idoneidad depende del contexto del problema, la naturaleza de los datos y los objetivos del análisis. A continuación, se describen los contextos en los que cada métrica es mejor o peor:
-1. Error Absoluto Medio (MAE)
-
-    Ventajas:
-        Es fácil de interpretar, ya que mide el error promedio en las mismas unidades que la variable de respuesta.
-        Es robusto ante outliers, ya que trata cada error de manera lineal (sin cuadrar los errores).
-    Desventajas:
-        No penaliza más los errores grandes, por lo que puede no ser adecuado si los errores grandes son especialmente problemáticos en el contexto.
-    Contexto en que es mejor:
-        Es útil cuando se prefiere una medida que trate todos los errores por igual, como en situaciones en las que los errores pequeños y grandes son igualmente importantes.
-        Es apropiado para datos con ruido que no contienen outliers significativos.
-    Contexto en que es peor:
-        No es adecuado en aplicaciones donde los errores grandes deben ser penalizados más fuertemente, como en predicciones financieras o en problemas de ingeniería con altos costos asociados a grandes errores.
-
-2. Error Cuadrático Medio (MSE)
-
-    Ventajas:
-        Penaliza más los errores grandes, ya que los errores se elevan al cuadrado. Esto lo hace útil para detectar errores grandes que podrían ser problemáticos.
-        Es diferenciable, lo cual lo convierte en una métrica favorable para la optimización en algoritmos de aprendizaje automático.
-    Desventajas:
-        Es sensible a outliers, ya que los errores grandes tienen un impacto más significativo en el resultado.
-        La interpretación es menos intuitiva porque está en las unidades cuadradas de la variable de respuesta.
-    Contexto en que es mejor:
-        En aplicaciones donde los errores grandes son mucho más costosos o críticos que los pequeños, como la predicción de precios de bienes de lujo o en control de calidad.
-        Es adecuado para tareas de optimización en algoritmos que minimizan el MSE.
-    Contexto en que es peor:
-        No es ideal cuando existen muchos outliers en los datos, ya que puede hacer que el modelo sea muy sensible a estos valores atípicos.
-        Si el objetivo es una interpretación sencilla de los errores en las mismas unidades de la variable de respuesta.
-
-3. Raíz del Error Cuadrático Medio (RMSE)
-
-    Ventajas:
-        Tiene las mismas unidades que la variable de respuesta, lo que facilita la interpretación.
-        Penaliza más los errores grandes, similar al MSE.
-    Desventajas:
-        Como el MSE, es sensible a outliers, lo que puede distorsionar la métrica en presencia de valores atípicos.
-    Contexto en que es mejor:
-        Es útil cuando se necesita una métrica con las mismas unidades que la variable de respuesta, pero que también penalice errores grandes.
-        En situaciones donde los errores grandes son particularmente perjudiciales y deben ser evitados.
-    Contexto en que es peor:
-        No es adecuado para datos con outliers extremos, ya que puede llevar a conclusiones erróneas sobre el desempeño del modelo.
-        No es ideal cuando todos los errores deben ser tratados por igual, independientemente de su magnitud.
-
-4. Coeficiente de Determinación (R2R2)
-
-    Ventajas:
-        Proporciona una medida de la proporción de la variabilidad explicada por el modelo, lo cual es útil para evaluar la calidad general del ajuste.
-        Es fácil de interpretar como un porcentaje de variabilidad explicada.
-    Desventajas:
-        No es una buena métrica para modelos no lineales, ya que puede no reflejar bien la calidad del ajuste en estos casos.
-        Puede ser engañoso si los datos contienen outliers o si la varianza de la variable de respuesta es baja.
-    Contexto en que es mejor:
-        En modelos de regresión lineal donde se busca evaluar qué tan bien el modelo explica la variabilidad en los datos.
-        Cuando se desea una métrica estandarizada para comparar la calidad del ajuste entre diferentes modelos.
-    Contexto en que es peor:
-        Para modelos no lineales, el R2R2 no siempre refleja la calidad real del ajuste.
-        En problemas con una variable de respuesta que tiene poca variabilidad, un alto R2R2 puede no ser muy informativo.
-
-
-# Entrenamiento de modelos de aprendizaje estadístico
-
-
-
-La lógica detrás de cualquier método de entrenamiento de modelos estadísticos se centra en ajustar un modelo a un conjunto de datos con el fin de capturar la relación entre las variables predictoras y la variable de respuesta. El objetivo principal es aprender patrones subyacentes en los datos para hacer predicciones precisas o interpretar la relación entre las variables.
-
-
-## Pasos Fundamentales en el Entrenamiento de Modelos Estadísticos:
 
 ```{mermaid}
 
 flowchart LR
-    A(Definir el Modelo) --> B("Especificar la\nFunción de Pérdida")
-    B --> C("Optimización\ndel Modelo")
-    C --> D("Regularización")
-    D --> E("Evaluación\ndel Modelo")
-    E --> F("¿Es el rendimiento\nsatisfactorio?")
-    F -->|"Sí"| G(Modelo\nFinal)
-    F -->|No| H("Realizar Ajustes\ne Iteración")
-    H --> A
+    classDef largeText font-size:18px, padding:15px;
 
+    A(Evaluación de modelos) --> B(Respuesta continua)
+    A --> C("Respuesta categórica")
+    B --> D(RMSE)
+    B --> E(R cuadrado)
+    C --> F("Matriz de confusión")
+    C --> G("Precisión, Recall, F1")
+    C --> H("Pérdida logarítmica")
+
+    style A fill:#40498E66, stroke:#000, stroke-width:2px, color:#FFF, width:180px
+    style B fill:#348AA666, stroke:#000, stroke-width:2px, color:#FFF 
+    style C fill:#348AA666, stroke:#000, stroke-width:2px, color:#FFF
+    style D fill:#49C1AD66, stroke:#000, stroke-width:2px, color:#000
+    style E fill:#49C1AD66, stroke:#000, stroke-width:2px, color:#000
+    style F fill:#49C1AD66, stroke:#000, stroke-width:2px, color:#000
+    style G fill:#49C1AD66, stroke:#000, stroke-width:2px, color:#000
+    style H fill:#49C1AD66, stroke:#000, stroke-width:2px, color:#000
 ```
 
+# Evaluación para variables respuesta continuas
 
+Cuando la variable respuesta $\text{Y}$ es continua el propósito de la evaluación consiste en medir qué tan cerca están las predicciones del modelo ($\hat{Y}$) con respecto a los valores reales observados ($\text{Y}$). Esto implica cuantificar el error entre los valores predichos y los valores observados en una escala que permita comparar la métrica entre modelos.
 
-- **Definir el Modelo**: Seleccionar el tipo de modelo estadístico (regresión lineal, regresión logística, árboles de decisión, etc.) que se ajusta a la naturaleza del problema y a la estructura de los datos. El modelo define la forma de la función que relaciona las variables predictoras X con la variable de respuesta Y.
+## Raíz del Error Cuadrático Medio (RMSE)
 
-- **Especificar una Función de Pérdida (o Costo)**: La función de pérdida mide la diferencia entre las predicciones del modelo y los valores reales de la variable de respuesta. En los modelos de regresión, un ejemplo común es el error cuadrático medio (MSE), mientras que en clasificación, la entropía cruzada o el logaritmo de la verosimilitud son más adecuados.
-
-- **Optimización del Modelo**: El entrenamiento implica minimizar (o maximizar, dependiendo del enfoque) la función de pérdida ajustando los parámetros del modelo. Por ejemplo, en regresión lineal, se busca encontrar los coeficientes que minimicen la suma de los errores cuadráticos entre las predicciones y los valores observados. Métodos comunes para optimización incluyen el descenso de gradiente, la maximización de la verosimilitud y algoritmos especializados como el algoritmo EM.
-
-- **Regularización (en caso necesario)**: La regularización añade un término de penalización a la función de pérdida para evitar el sobreajuste. Ayuda a mantener el modelo más simple, controlando la magnitud de los coeficientes o reduciendo el número de variables seleccionadas.
-
-- **Evaluación del Modelo**: Una vez entrenado, el modelo se evalúa utilizando datos de prueba o técnicas de validación cruzada para estimar su rendimiento en datos no vistos. Las métricas de evaluación, como la precisión, el error absoluto medio o el índice F1, ayudan a determinar si el modelo generaliza bien.
-
-- **Ajustes e Iteración: Basado en la evaluación del modelo, puede ser necesario ajustar hiperparámetros, cambiar la arquitectura del modelo o realizar preprocesamiento adicional en los datos. Se itera sobre el proceso hasta que se logre un rendimiento satisfactorio.
-
-
-## Principios Clave:
-
-    Generalización: La capacidad del modelo para realizar predicciones precisas en nuevos datos.
-    Equilibrio entre sobreajuste y subajuste: El modelo debe ser lo suficientemente complejo para capturar patrones relevantes, pero no tan complejo que capture ruido específico del conjunto de entrenamiento.
-    Interpretabilidad vs. Complejidad: Modelos más complejos pueden proporcionar mejores predicciones, pero suelen ser más difíciles de interpretar.
-
-En resumen, el entrenamiento de modelos estadísticos consiste en ajustar un modelo para que describa con precisión los datos observados y sea capaz de hacer predicciones precisas en nuevos datos, equilibrando la complejidad del modelo y su capacidad de generalización.
-
-# Validación Cruzada en Regresión Lineal
-
-La validación cruzada se utiliza para evaluar el rendimiento de un modelo de regresión lineal, ayudando a identificar el nivel de ajuste adecuado y a prevenir el sobreajuste. Las técnicas de validación cruzada más comunes son:
-
-k-Fold Cross-Validation: Se divide el conjunto de datos en k subconjuntos (folds). En cada iteración, se entrena el modelo con k-1 subconjuntos y se prueba en el subconjunto restante. El proceso se repite k veces, promediando el error para obtener una estimación del error de generalización.
-
-Leave-One-Out Cross-Validation (LOOCV): Cada observación se usa como conjunto de prueba, y las restantes n-1 observaciones se utilizan para entrenar el modelo. Es útil en conjuntos de datos pequeños, pero puede ser costoso computacionalmente para grandes volúmenes de datos.
-
-Ejemplo en R:
+La raíz cuadrada del error cuadrático medio (RMSE por sus siglas en inglés) es quizás la medida mas comunmente utilizada para medir la precisión en la predicción de una variable continua. Las unidades de esta métrica son las mismas que la variable de respuesta. La podemos calcular fácilmente:
 
 ```{r}
 
 # Generar datos simulados
-set.seed(42)
+set.seed(123)
 x <- rnorm(100)
 y <- 3 * x + rnorm(100, sd = 0.5)
 
 # Crear un marco de datos
 datos <- data.frame(x = x, y = y)
 
-# Configuración de validación cruzada 10-fold
-control <- trainControl(method = "cv", number = 10)
+# correr modelo
+mod <- lm(y ~ x, data = datos)
 
-# Entrenamiento del modelo con validación cruzada
-modelo_cv <- train(y ~ x, data = datos, method = "lm", trControl = control)
-print(modelo_cv)
+# Step 2: Obtener predicciones
+y_pred <- predict(mod)
+
+# Step 3: Calcular RMSE
+sqrt(mean((datos$y - y_pred)^2))
 
 ```
 
-# Técnicas de Remuestreo
+La raíz cuadrada del error cuadrático medio penaliza más los errores grandes, ya que los errores se elevan al cuadrado. Esto lo hace útil para detectar errores grandes que podrían ser problemáticos. Sin embargo, es sensible a outliers, ya que los errores grandes tienen un impacto más significativo en el resultado.
 
-El remuestreo permite evaluar la variabilidad del modelo al entrenarlo varias veces con diferentes subconjuntos del conjunto de datos original. Estas técnicas son útiles cuando el conjunto de datos es pequeño o cuando se desea evaluar la robustez del modelo.
+## Coeficiente de determinación R^2^
 
-Bootstrap: Es una técnica de remuestreo con reemplazo. Se crean múltiples subconjuntos de datos a partir del original y se entrena el modelo en cada uno de ellos. Permite estimar la incertidumbre de los coeficientes del modelo.
-
-Ejemplo en R con Bootstrap:
+El R^2^ indica qué proporción de la variabilidad en la variable respuesta es explicada por el modelo. Se calcula así:
 
 ```{r}
-
-# Configuración para el bootstrap
-control_boot <- trainControl(method = "boot", number = 100)
-
-# Entrenamiento del modelo con bootstrap
-modelo_boot <- train(y ~ x, data = datos, method = "lm", trControl = control_boot)
-print(modelo_boot)
-
+r2 <- 1 - sum((datos$y - y_pred)^2) / sum((datos$y - mean(datos$y))^2)
+    
+# imprimir R^2
+r2
 ```
 
-# Uso de Validación Cruzada para Evaluar Modelos
-
-En regresión lineal, se utilizan medidas de error como el error cuadrático medio (MSE) o el error absoluto medio (MAE) para evaluar el rendimiento del modelo durante la validación cruzada. La validación cruzada permite identificar si el modelo es demasiado complejo (sobreajuste) o demasiado simple (subajuste).
-Ejemplo en R calculando el MSE:
+Este es el mismo valor que se obtiene al evaluar el modelo con la función `summary`:
 
 ```{r}
-
-# Calcular el MSE en el conjunto de prueba
-predicciones <- predict(modelo_cv, datos)
-mse <- mean((datos$y - predicciones)^2)
-cat("Error cuadrático medio (MSE):", mse, "\n")
+summary(mod)$r.squared
 
 ```
 
-
-# Validación Cruzada y Técnicas de Remuestreo
-
-Validación cruzada es una técnica que permite evaluar el rendimiento de un modelo al dividir los datos en varios subconjuntos (folds), entrenando el modelo en algunos y evaluándolo en otros:
-
-- **k-Fold Cross-Validation**: Los datos se dividen en k subconjuntos, y el modelo se entrena k veces, usando k-1 conjuntos para el entrenamiento y uno para la prueba en cada iteración.
-- **Leave-One-Out Cross-Validation (LOOCV)**: Cada instancia de los datos se usa como conjunto de prueba, mientras que el resto se usa para el entrenamiento.
-- **Bootstrap**: Involucra el remuestreo de los datos con reemplazo para crear múltiples subconjuntos de entrenamiento.
-
-Ejemplo en R:
-
-```{r}
-
-# Cargar librería caret para validación cruzada
-library(caret)
-
-# Generar datos simulados
-set.seed(123)
-x <- matrix(rnorm(100 * 20), 100, 20)
-y <- factor(sample(c("A", "B"), 100, replace = TRUE))
-
-datos_log <- data.frame(x, y)
-
-# Configuración de validación cruzada 10-fold
-control <- trainControl(method = "cv", number = 10)
-
-# Entrenamiento del modelo con validación cruzada
-modelo_cv <- train(y ~ ., data = datos_log, method = "glm", family = binomial, trControl = control)
-print(modelo_cv)
-
-summary(modelo_cv)
-```
-
-# Uso de Validación Cruzada para Evaluar Modelos
-
-La validación cruzada es utilizada para obtener una estimación del error del modelo. A través de la técnica de validación cruzada se busca identificar la configuración de hiperparámetros que minimiza el error en el conjunto de prueba.
-Ejemplo en R:
-
-```{r}
-
-# Configuración para validación cruzada con ajuste de hiperparámetros
-control_tune <- trainControl(method = "repeatedcv", number = 10, repeats = 3)
-
-# Entrenamiento con diferentes hiperparámetros para el modelo de regresión logística
-grid <- expand.grid(lambda = seq(0, 1, by = 0.1), alpha = seq(0, 1, by = 0.1))
-modelo_tune <- train(y ~ ., data = datos_log, method = "glmnet", trControl = control_tune, tuneGrid = grid)
-print(modelo_tune)
-```
-
-# Medidas de Evaluación
-
-Las siguientes son medidas comunes para evaluar el rendimiento de un modelo:
-
-Matriz de Confusión: Resume el rendimiento del modelo en términos de verdaderos positivos, falsos positivos, verdaderos negativos y falsos negativos.
-
-Precisión: Proporción de predicciones correctas sobre el total de predicciones.
-Precisión=TPTP+FP
-Precisión=TP+FPTP​
-
-$$
-\text{Odds} = \frac{\text{Probabilidad de éxito}}{\text{Probabilidad de fracaso}} = \frac{P(E)}{1 - P(E)}
-$$
-
-
-Recall (Sensibilidad): Proporción de verdaderos positivos sobre el total de casos positivos.
-Recall=TPTP+FN
-Recall=TP+FNTP​
-
-Índice F1: Es la media armónica de la precisión y el recall.
-F1=2×Precisioˊn×RecallPrecisioˊn+Recall
-F1=2×Precisioˊn+RecallPrecisioˊn×Recall​
-
-Ejemplo en R:
-
-```{r}
-
-# Crear una matriz de confusión
-pred <- predict(modelo_cv, datos_log)
-confusion <- confusionMatrix(pred, datos_log$y)
-print(confusion)
-
-# Obtener precisión, recall e índice F1
-precision <- confusion$byClass["Pos Pred Value"]
-recall <- confusion$byClass["Sensitivity"]
-f1_score <- 2 * ((precision * recall) / (precision + recall))
-
-cat("Precisión:", precision, "\n")
-cat("Recall:", recall, "\n")
-cat("Índice F1:", f1_score, "\n")
-
-```
-
-4. Validación Cruzada y División de Conjuntos de Datos
-
-Para evaluar correctamente un modelo, se suele dividir el conjunto de datos en:
-
-Conjunto de entrenamiento: Usado para entrenar el modelo.
-Conjunto de validación: Utilizado para la selección de hiperparámetros.
-Conjunto de prueba: Usado para evaluar el rendimiento final.
-
-Ejemplo en R:
-
-```{r}
-
-# División de los datos en conjunto de entrenamiento y prueba
-set.seed(123)
-trainIndex <- createDataPartition(datos_log$y, p = 0.8)[[1]]
-x_train <- datos_log[trainIndex, ]
-y_train <- datos_log$y[trainIndex]
-x_test <- datos_log[-trainIndex, ]
-y_test <- datos_log$y[-trainIndex]
-
-# Entrenar un modelo en los datos de entrenamiento
-modelo_final <- train(x_train, y_train, method = "glm", family = binomial)
-
-# Evaluar en el conjunto de prueba
-pred_test <- predict(modelo_final, x_test)
-confusion_test <- confusionMatrix(pred_test, y_test)
-print(confusion_test)
-```
-
-
-Esta clase abarca los conceptos de validación cruzada y técnicas de remuestreo, el uso de la validación cruzada para evaluar modelos, las medidas de evaluación (matriz de confusión, precisión, recall, índice F1) y la división de conjuntos de datos. Los ejemplos en R proporcionan un enfoque práctico para cada concepto, ayudando a comprender la importancia de una evaluación adecuada en el aprendizaje estadístico.
+Entre R^2^ sea mas cercano a 1 indica el modelo tiene mejor ajuste. Sin embargo, es importante tener en cuenta que un R^2^ alto no garantiza que el modelo sea útil o que generalice bien a nuevos datos. No es una buena métrica para modelos no lineales, ya que puede no reflejar bien la calidad del ajuste en estos casos.
 
 ::: {.alert .alert-info}
-## Ejercicio 1
+### Ejercicio 1 {.unnumbered}
 
+Los datos `mtcars` se tomaron de la revista Motor Trend US de 1974, y contienen informacion sobre 10 características del diseño y desempeño de 32 marcas de carros.
+
+```{r}
+# cargar datos
+data(mtcars)
+```
+
+
+1.  Ajusta un modelo de regresión lineal con los datos de `mtcars` donde la variable respuesta sea `mpg` (millas por galón) y las variables predictoras sean `hp` (caballos de fuerza) y `wt` (peso).
+
+```{r solucion del ejercicio 1.1}
+#| eval: false
+#| echo: false
+
+# cargar datos
+data(mtcars)
+
+# ajustar modelo
+mod_mtcars <- lm(mpg ~ hp + wt, data = mtcars)
+
+# imprimir resumen
+summary(mod_mtcars)
+```
+
+2. Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el paso 1.
+
+3.  Compare los modelos generados en los puntos 1 y 2 usando la raíz cuadrada del error cuadrático medio (RMSE) y el R^2^.
+
+```{r solucion del ejercicio 1.2}
+#| eval: false
+#| echo: false
+
+# obtener predicciones
+pred_mtcars <- predict(mod_mtcars)
+
+# calcular RMSE
+rmse_mtcars <- sqrt(mean((mtcars$mpg - pred_mtcars)^2))
+
+# calcular R^2^
+r2_mtcars <- summary(mod_mtcars)$r.squared
+
+```
 
 :::
 
----
+# Evaluación para variables respuesta categóricas
+
+Para demostrar las métricas de evalución para estos modelos utilizaremos un modelo de regresión con los datos del titanic similar al del tutorial de regresión logística. 
+
+```{r}
+# cargar datos
+data("Titanic")
+
+# dar formato con una observacion por fila
+datos_titanic <- as.data.frame(Titanic)
+datos_titanic <- datos_titanic[datos_titanic$Freq > 0, ]
+
+datos_tab_titanic <- do.call(rbind, lapply(1:nrow(datos_titanic), function(x) datos_titanic[rep(x, datos_titanic$Freq[x]),]))
+
+# Ajustar el modelo de regresión logística
+modelo_log <- glm(Survived ~ Class + Sex, data = datos_tab_titanic, family = binomial)
+
+```
+
+Ahora podemos predecir la variable respuesta con este modelo:
+
+```{r}
+# predecir valores
+pred_vals <- predict(object = modelo_log, newdata = datos_tab_titanic, type = "response")
+
+# binarizar
+pred_cat <- ifelse(pred_vals > 0.5, "Yes", "No")
+
+```
+
+##  Matriz de confusión
+
+La matriz de confusión organiza las predicciones y los resultados observados en categorías que indican si el valor predicho es una ocurrencia del evento (positivo vs negativo) y si coincide o no con el valor observado (verdadero vs falso).
+
+```{r}
+#| echo: false
+
+outcomes <- c("Verdadero Positivos\n(VP)", "Falso Positivos\n(FP)", "Falso Negativos\n(FN)", "Verdadero Negativos\n(VN)")
+
+# Crear los datos para la matriz de confusión
+confusion_matrix <- data.frame(
+  Predicted = rep(c("Positivo", "Negativo"), each = 2),
+  Actual = rep(c("Positivo", "Negativo"), 2),
+  Count = c(50, 10, 5, 35),  # Ejemplo de números
+  Outcome = outcomes
+)
+
+cols <- mako(2, begin = 0.4, end  = 0.9, alpha = 0.7)[c(1, 2, 2, 1)]
+names(cols) <- outcomes
+
+# Crear el gráfico con ggplot
+ggplot(confusion_matrix, aes(x = Actual, y = Predicted, fill = Outcome)) +
+  geom_tile(color = "white", linewidth = 0.7) +
+  geom_text(aes(label = Outcome), color = "black", size = 5) +
+  scale_fill_manual(values = cols, guide = "none") +
+  labs(
+    x = "Valores observados",
+    y = "Valores predichos"
+  ) +
+  theme_minimal() +
+  theme(
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    plot.title = element_text(hjust = 0.5, size = 16),
+    panel.grid = element_blank()
+  )
+
+```
+
+Esta matriz la podemos estimar usando la función `confusionMatrix` del paquete `caret`:
+```{r}
+
+# hacer la matriz de confusion
+mat_conf <-
+    confusionMatrix(factor(pred_cat), factor(datos_tab_titanic$Survived))
+
+# imprimir resultado
+mat_conf$table
+
+```
+
+Podemos graficar esta matriz con un gradiente de colores donde los valores esten dado como proporciones, lo cual mas fácil su interpretación:
+
+```{r}
+
+# convertir a data frame
+conf_df <- as.data.frame(mat_conf$table)
+
+# agregar totales por categoria
+conf_df$total <-
+    sapply(conf_df$Reference, function(x)
+        sum(datos_tab_titanic$Survived ==
+                x))
+
+# calcular proporciones
+conf_df$proportion <- conf_df$Freq / conf_df$total
+
+# graficar
+ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
+  geom_tile() + 
+  coord_equal() + 
+  scale_fill_distiller(palette = "Greens", direction = 1) + 
+  geom_text(aes(label = round(proportion, 2)), color = "black", size = 3) + 
+  labs(x = "Observado", y = "Predicho", fill = "Proporción") 
+
+```
+
+
+Varias métricas se derivan de los valores contenidos en la matriz de confusion.
+
+## Exactitud (Accuracy)
+
+La exactitud es la proporción de predicciones correctas en relación con el total de predicciones.
+
+La fórmula es:
+
+<center><font size = 5>
+$\frac{VP + VN}{VP + VN + FP + FN}$
+</font></center>
+
+Esta también es estimada por la función `confusionMatrix`:
+
+```{r}
+
+mat_conf$overall["Accuracy"]
+
+```
+
+
+## Precisión (Precision) y Sensibilidad (Sensitivity o Recall)
+
+La precisión es la proporción de verdaderos positivos entre todas las predicciones positivas:
+
+<center><font size = 5>
+$\frac{VP}{VP + FP}$
+</font></center>
+
+La sensibilidad es la proporción de verdaderos positivos entre todas las observaciones positivas:
+
+<center><font size = 5>
+$\frac{VP}{VP + FN}$
+</font></center>
+
+Ambas son estimadas por la función `confusionMatrix`:
+
+```{r}
+
+mat_conf$byClass[c("Precision", "Sensitivity")]
+
+```
+
+## Índice F1 (o F-Score)
+
+El índice F1 es la media armónica entre la precisión y la sensibilidad:
+
+<center><font size = 5>
+$2 \times \frac{\text{Precisión} \times \text{Sensibilidad}}{\text{Precisión} + \text{Sensibilidad}}$
+</font></center>
+
+```{r}
+precision <- mat_conf$byClass["Precision"]
+sensitivity <- mat_conf$byClass["Sensitivity"]
+
+
+f1_score <- (2 * precision * sensitivity) / (precision + sensitivity)
+
+f1_score
+
+```
+
+Tambien lo podemos extraer del resultado de la función `confusionMatrix`:
+
+```{r}
+ mat_conf$byClass["F1"]
+```
+
+## Área Bajo la Curva ROC (AUC-ROC)
+
+El AUC métrica originalmente diseñada para evaluar la precision en la predicción de variables binarias. Esta mide la capacidad del modelo para discriminar entre clases. Se calcula basándose en la curva ROC (Receiver Operating Characteristic). La curva ROC compara la tasa de verdaderos positivos contra la tasa de falsos positivos a diferentes umbrales.La curva ROC  es una representación gráfica que evalúa el desempeño de un modelo de clasificación binaria. La curva muestra la relación entre la Tasa de Verdaderos Positivos (True Positive Rate, TPR), también llamada sensibilidad, y la Tasa de Falsos Positivos (False Positive Rate, FPR) para diferentes umbrales de decisión. Los umbrales de decisión son los valores que determinan si una observación se clasifica como positiva o negativa. Podemos ejemplificar su uso con el modelo de regresión logística ajustado mas arriba:
+
+
+```{r}
+#| message: false
+
+# estimar las probabilidades
+pred_vals <- predict(object = modelo_log, newdata = datos_tab_titanic, type = "response")
+
+# Curva ROC
+roc_curve <- roc(datos_tab_titanic$Survived, pred_vals)
+
+# Extraer los datos de la curva ROC
+roc_data <- data.frame(
+  tpr = roc_curve$sensitivities, # True Positive Rate (Sensibilidad)
+  fpr = 1 - roc_curve$specificities, # False Positive Rate (1 - Especificidad)
+  thresholds = roc_curve$thresholds
+)
+
+# Graficar la curva ROC con ggplot2
+ggplot(roc_data, aes(x = fpr, y = tpr)) +
+  geom_line(color = "red") +
+  geom_abline(linetype = "dashed", color = "gray") + # Línea diagonal
+  labs(
+    x = "Tasa de Falsos Positivos (FPR)",
+    y = "Tasa de Verdaderos Positivos (TPR)"
+  ) +
+  scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Limitar el eje X entre 0 y 1
+  scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Limitar el eje Y entre 0 y 
+  theme_classic() +
+  theme(panel.grid = element_blank()) # Remover cuadrícula
+
+```
+
+Podemos estimar el área bajo la curva con la función `auc` del paquete `pROC`:
+
+```{r}
+# estimar AUC
+pROC::auc(roc_curve)
+
+```
+
+Valores mas cercanos a 1 indican un mejor desempeño del modelo en discriminar entre clases tomando en cuenta la incertidumbre relacionada a la escogencia de un umbral de decisión.  
+
+En los modelos que predicen más de dos categorías (clasificación multiclase), no se puede aplicar la curva ROC directamente como en el caso binario. Aun así, hay métodos extendidos para calcular una métrica similar a la AUC para clasificación multiclase. Esta métrica se puede extender para modelos que predicen multiples clases. Por ejemplo el metodo de "uno vs el resto" (one vs rest) calcula una curva ROC para cada categoría de manera binaria, considerando una clase como "positiva" y las demás como "negativas". Luego, se calcula el AUC para cada una de estas curvas ROC y se promedia. Para ejemplificar el uso de este método usaremos una regresión multinomial para predecir la especie de las observaciones del juego de datos iris:
+
+```{r}
+# Ajustar el modelo de regresión multinomial
+modelo_multinom <- multinom(Species ~ ., data = iris)
+
+# Predecir las probabilidades para cada clase
+pred_prob <- predict(modelo_multinom, newdata = iris, type = "prob")
+
+# Aplicar multiclass.roc (One-vs-Rest)
+roc_multiclass <- multiclass.roc(iris$Species, pred_prob)
+
+# Ver resultados
+roc_multiclass
+
+```
+
+## Pérdida logarítmica (log-loss)
+
+Mide el rendimiento de un modelo de clasificación al penalizar predicciones erróneas basadas en la probabilidad que asigna el modelo a cada clase.
+
+<center><font size = 5>
+$-\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]$
+</font></center>
+
+Donde ${y_i}$ es el valor real (0 o 1) y ${p_i}$ es la probabilidad asignada a la clase positiva. Es útil cuando se desea medir la confianza del modelo en sus predicciones y no solo si acierta o falla. Aunque puede ser más complejo de interpretar en comparación con otras métricas.
+  
+```{r}
+
+# Convertir las etiquetas reales a una matriz de indicadores (one-hot encoding)
+y_obs <- model.matrix(~Species-1, data = iris)
+
+# Calcular el log-loss
+log_loss_value <- logLoss(y_obs, pred_prob)
+log_loss_value
+```
+  
+El valor del pérdida logarítmica representa qué tan bien o mal el modelo predice las clases correctas. Un valor más bajo (mas cerano a 0) indica un mejor ajuste, mientras que un valor alto sugiere que el modelo está asignando bajas probabilidades a las clases correctas. El valor de pérdida logarítmica puede tomar cualquier valor real no negativo, y en general se encuentra entre 0 y ∞.
+
+
+::: {.alert .alert-info}
+## Ejercicio 2 {.unnumbered}
+
+1. Ajusta un modelo de regresión logística con los datos de `mtcars` donde la variable respuesta sea `am` (automático vs manual) y las variables predictoras `hp` (caballos de fuerza) y `wt` (peso).
+
+```{r solucion del ejercicio 2.1}
+#| eval: false
+
+# ajustar modelo
+mod_mtcars_log <- glm(am ~ hp + wt, data = mtcars, family = binomial)
+
+```
+
+2. Calcule la matriz de confusión, la exactitud, precisión, indice F1, area bajo la curva y pérdida logarítmica para el modelo del punto anterior.
+
+3. Grafique el area bajo la curva para el modelo del punto 1.
+
+4. Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el punto 1 de este ejercicio.
+
+5. Compare los modelos generados en los puntos 1 y 4 usando las mismas métricas calculadas en el punto 2.
+
+:::
+
+------------------------------------------------------------------------
 
 # Información de la sesión {.unnumbered .unlisted}
 
