@@ -65,7 +65,6 @@ La evaluación del desempeño de un modelo estadístico se basa en comparar las 
 
 La idea es evaluar la capacidad del modelo para hacer predicciones precisas y generalizar bien a datos no vistos. Por lo tanto, evaluar correctamente los modelos permite entender qué tan bien el modelo se ajusta a los datos e idealmente, entender si sus predicciones son útiles para datos no vistos. La naturaleza de la métrica depende de la estructura de los datos predichos (si estos son continuos o categóricos):
 
-
 ```{mermaid}
 
 flowchart LR
@@ -150,7 +149,6 @@ Los datos `mtcars` se tomaron de la revista Motor Trend US de 1974, y contienen 
 data(mtcars)
 ```
 
-
 1.  Ajusta un modelo de regresión lineal con los datos de `mtcars` donde la variable respuesta sea `mpg` (millas por galón) y las variables predictoras sean `hp` (caballos de fuerza) y `wt` (peso).
 
 ```{r solucion del ejercicio 1.1}
@@ -167,7 +165,7 @@ mod_mtcars <- lm(mpg ~ hp + wt, data = mtcars)
 summary(mod_mtcars)
 ```
 
-2. Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el paso 1.
+2.  Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el paso 1.
 
 3.  Compare los modelos generados en los puntos 1 y 2 usando la raíz cuadrada del error cuadrático medio (RMSE) y el R^2^.
 
@@ -185,12 +183,11 @@ rmse_mtcars <- sqrt(mean((mtcars$mpg - pred_mtcars)^2))
 r2_mtcars <- summary(mod_mtcars)$r.squared
 
 ```
-
 :::
 
 # Evaluación para variables respuesta categóricas
 
-Para demostrar las métricas de evalución para estos modelos utilizaremos un modelo de regresión con los datos del titanic similar al del tutorial de regresión logística. 
+Para demostrar las métricas de evalución para estos modelos utilizaremos un modelo de regresión con los datos del titanic similar al del tutorial de regresión logística.
 
 ```{r}
 # cargar datos
@@ -218,7 +215,7 @@ pred_cat <- ifelse(pred_vals > 0.5, "Yes", "No")
 
 ```
 
-##  Matriz de confusión
+## Matriz de confusión
 
 La matriz de confusión organiza las predicciones y los resultados observados en categorías que indican si el valor predicho es una ocurrencia del evento (positivo vs negativo) y si coincide o no con el valor observado (verdadero vs falso).
 
@@ -258,6 +255,7 @@ ggplot(confusion_matrix, aes(x = Actual, y = Predicted, fill = Outcome)) +
 ```
 
 Esta matriz la podemos estimar usando la función `confusionMatrix` del paquete `caret`:
+
 ```{r}
 
 # hacer la matriz de confusion
@@ -295,7 +293,6 @@ ggplot(conf_df, aes(x = Reference, y = Prediction, fill = proportion)) +
 
 ```
 
-
 Varias métricas se derivan de los valores contenidos en la matriz de confusion.
 
 ## Exactitud (Accuracy)
@@ -304,9 +301,7 @@ La exactitud es la proporción de predicciones correctas en relación con el tot
 
 La fórmula es:
 
-<center><font size = 5>
-$\frac{VP + VN}{VP + VN + FP + FN}$
-</font></center>
+<center><font size = 5> $\frac{VP + VN}{VP + VN + FP + FN}$ </font></center>
 
 Esta también es estimada por la función `confusionMatrix`:
 
@@ -316,20 +311,15 @@ mat_conf$overall["Accuracy"]
 
 ```
 
-
 ## Precisión (Precision) y Sensibilidad (Sensitivity o Recall)
 
 La precisión es la proporción de verdaderos positivos entre todas las predicciones positivas:
 
-<center><font size = 5>
-$\frac{VP}{VP + FP}$
-</font></center>
+<center><font size = 5> $\frac{VP}{VP + FP}$ </font></center>
 
 La sensibilidad es la proporción de verdaderos positivos entre todas las observaciones positivas:
 
-<center><font size = 5>
-$\frac{VP}{VP + FN}$
-</font></center>
+<center><font size = 5> $\frac{VP}{VP + FN}$ </font></center>
 
 Ambas son estimadas por la función `confusionMatrix`:
 
@@ -343,9 +333,7 @@ mat_conf$byClass[c("Precision", "Sensitivity")]
 
 El índice F1 es la media armónica entre la precisión y la sensibilidad:
 
-<center><font size = 5>
-$2 \times \frac{\text{Precisión} \times \text{Sensibilidad}}{\text{Precisión} + \text{Sensibilidad}}$
-</font></center>
+<center><font size = 5> $2 \times \frac{\text{Precisión} \times \text{Sensibilidad}}{\text{Precisión} + \text{Sensibilidad}}$ </font></center>
 
 ```{r}
 precision <- mat_conf$byClass["Precision"]
@@ -366,8 +354,7 @@ Tambien lo podemos extraer del resultado de la función `confusionMatrix`:
 
 ## Área Bajo la Curva ROC (AUC-ROC)
 
-El AUC métrica originalmente diseñada para evaluar la precision en la predicción de variables binarias. Esta mide la capacidad del modelo para discriminar entre clases. Se calcula basándose en la curva ROC (Receiver Operating Characteristic). La curva ROC compara la tasa de verdaderos positivos contra la tasa de falsos positivos a diferentes umbrales.La curva ROC  es una representación gráfica que evalúa el desempeño de un modelo de clasificación binaria. La curva muestra la relación entre la Tasa de Verdaderos Positivos (True Positive Rate, TPR), también llamada sensibilidad, y la Tasa de Falsos Positivos (False Positive Rate, FPR) para diferentes umbrales de decisión. Los umbrales de decisión son los valores que determinan si una observación se clasifica como positiva o negativa. Podemos ejemplificar su uso con el modelo de regresión logística ajustado mas arriba:
-
+El AUC métrica originalmente diseñada para evaluar la precision en la predicción de variables binarias. Esta mide la capacidad del modelo para discriminar entre clases. Se calcula basándose en la curva ROC (Receiver Operating Characteristic). La curva ROC compara la tasa de verdaderos positivos contra la tasa de falsos positivos a diferentes umbrales.La curva ROC es una representación gráfica que evalúa el desempeño de un modelo de clasificación binaria. La curva muestra la relación entre la Tasa de Verdaderos Positivos (True Positive Rate, TPR), también llamada sensibilidad, y la Tasa de Falsos Positivos (False Positive Rate, FPR) para diferentes umbrales de decisión. Los umbrales de decisión son los valores que determinan si una observación se clasifica como positiva o negativa. Podemos ejemplificar su uso con el modelo de regresión logística ajustado mas arriba:
 
 ```{r}
 #| message: false
@@ -408,7 +395,7 @@ pROC::auc(roc_curve)
 
 ```
 
-Valores mas cercanos a 1 indican un mejor desempeño del modelo en discriminar entre clases tomando en cuenta la incertidumbre relacionada a la escogencia de un umbral de decisión.  
+Valores mas cercanos a 1 indican un mejor desempeño del modelo en discriminar entre clases tomando en cuenta la incertidumbre relacionada a la escogencia de un umbral de decisión.
 
 En los modelos que predicen más de dos categorías (clasificación multiclase), no se puede aplicar la curva ROC directamente como en el caso binario. Aun así, hay métodos extendidos para calcular una métrica similar a la AUC para clasificación multiclase. Esta métrica se puede extender para modelos que predicen multiples clases. Por ejemplo el metodo de "uno vs el resto" (one vs rest) calcula una curva ROC para cada categoría de manera binaria, considerando una clase como "positiva" y las demás como "negativas". Luego, se calcula el AUC para cada una de estas curvas ROC y se promedia. Para ejemplificar el uso de este método usaremos una regresión multinomial para predecir la especie de las observaciones del juego de datos iris:
 
@@ -431,12 +418,10 @@ roc_multiclass
 
 Mide el rendimiento de un modelo de clasificación al penalizar predicciones erróneas basadas en la probabilidad que asigna el modelo a cada clase.
 
-<center><font size = 5>
-$-\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]$
-</font></center>
+<center><font size = 5> $-\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(p_i) + (1 - y_i) \log(1 - p_i) \right]$ </font></center>
 
 Donde ${y_i}$ es el valor real (0 o 1) y ${p_i}$ es la probabilidad asignada a la clase positiva. Es útil cuando se desea medir la confianza del modelo en sus predicciones y no solo si acierta o falla. Aunque puede ser más complejo de interpretar en comparación con otras métricas.
-  
+
 ```{r}
 
 # Convertir las etiquetas reales a una matriz de indicadores (one-hot encoding)
@@ -446,14 +431,13 @@ y_obs <- model.matrix(~Species-1, data = iris)
 log_loss_value <- logLoss(y_obs, pred_prob)
 log_loss_value
 ```
-  
-El valor del pérdida logarítmica representa qué tan bien o mal el modelo predice las clases correctas. Un valor más bajo (mas cerano a 0) indica un mejor ajuste, mientras que un valor alto sugiere que el modelo está asignando bajas probabilidades a las clases correctas. El valor de pérdida logarítmica puede tomar cualquier valor real no negativo, y en general se encuentra entre 0 y ∞.
 
+El valor del pérdida logarítmica representa qué tan bien o mal el modelo predice las clases correctas. Un valor más bajo (mas cerano a 0) indica un mejor ajuste, mientras que un valor alto sugiere que el modelo está asignando bajas probabilidades a las clases correctas. El valor de pérdida logarítmica puede tomar cualquier valor real no negativo, y en general se encuentra entre 0 y ∞.
 
 ::: {.alert .alert-info}
 ## Ejercicio 2 {.unnumbered}
 
-1. Ajusta un modelo de regresión logística con los datos de `mtcars` donde la variable respuesta sea `am` (automático vs manual) y las variables predictoras `hp` (caballos de fuerza) y `wt` (peso).
+1.  Ajusta un modelo de regresión logística con los datos de `mtcars` donde la variable respuesta sea `am` (automático vs manual) y las variables predictoras `hp` (caballos de fuerza) y `wt` (peso).
 
 ```{r solucion del ejercicio 2.1}
 #| eval: false
@@ -463,14 +447,13 @@ mod_mtcars_log <- glm(am ~ hp + wt, data = mtcars, family = binomial)
 
 ```
 
-2. Calcule la matriz de confusión, la exactitud, precisión, indice F1, area bajo la curva y pérdida logarítmica para el modelo del punto anterior.
+2.  Calcule la matriz de confusión, la exactitud, precisión, indice F1, area bajo la curva y pérdida logarítmica para el modelo del punto anterior.
 
-3. Grafique el area bajo la curva para el modelo del punto 1.
+3.  Grafique el area bajo la curva para el modelo del punto 1.
 
-4. Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el punto 1 de este ejercicio.
+4.  Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el punto 1 de este ejercicio.
 
-5. Compare los modelos generados en los puntos 1 y 4 usando las mismas métricas calculadas en el punto 2.
-
+5.  Compare los modelos generados en los puntos 1 y 4 usando las mismas métricas calculadas en el punto 2.
 :::
 
 ------------------------------------------------------------------------

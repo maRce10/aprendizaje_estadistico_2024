@@ -33,6 +33,8 @@ website:
           href: modelos_de_regresion.qmd
         - text: "Regresión logística y multinomial"
           href: regresion_logística_y_multinomial.qmd
+        - text: "Evaluación de modelos"
+          href: evaluacion_de_modelos.qmd
         - text: "Gráficos con ggplot2"
           href: ggplot2.qmd
         #- text: "Reportes dinámicos"
