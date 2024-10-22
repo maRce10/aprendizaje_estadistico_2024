@@ -75,7 +75,7 @@ flowchart LR
     B --> D(RMSE)
     B --> E(R cuadrado)
     C --> F("Matriz de confusión")
-    C --> G("Precisión, Recall, F1")
+    C --> G("Precisión, sensibilidad, F1")
     C --> H("Pérdida logarítmica")
 
     style A fill:#40498E66, stroke:#000, stroke-width:2px, color:#FFF, width:180px
