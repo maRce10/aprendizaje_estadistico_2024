@@ -56,14 +56,9 @@ sketchy::load_packages(
 
 ```
 
-Funciones personalizadas a utilizar en este manual:
+Funcion personalizada a utilizar en este manual:
 
 ```{r}
-
-rmse_lm <- function(model, data, response = "y"){
-  pred <- predict(model, newdata = data)
-  sqrt(mean((data[, response] - pred)^2))
-}
 
 r2_lm <- function(model, data, response = "y"){
   pred <- predict(model, newdata = data)
@@ -115,9 +110,6 @@ resultados_lista <- lapply(1:(ncol(datos) - 1), function(z) {
   modelo <-
     lm(y ~ ., data = datos_entren[, c("y", paste0("x", 1:z))])
   
-# Calcular raiz del error cuadrático medio
-  rmse_entren <- rmse_lm(modelo, datos_entren, response = "y")
-  rmse_prueba <- rmse_lm(modelo, datos_prueba, response = "y")
   r2_entren <- r2_lm(modelo, datos_entren)
   r2_prueba <- r2_lm(modelo, datos_prueba)
   
@@ -153,7 +145,7 @@ ggplot(resultados_promedio, aes(x = n_predictores, y = r2, color = Tipo)) +
   scale_x_continuous(breaks = seq(0, p, 1)) +
   scale_color_viridis_d(end = 0.9) +
   labs(x = "Número de predictores",
-       y = bquote('Coeficiente de\ndeterminación' ~ R ^ 2)) +
+       y = bquote('Coeficiente de determinación' ~ R ^ 2)) +
   theme(
     legend.background = element_rect(fill = "#fff3cd"),
     legend.position = c(0.5, 0.2),
@@ -196,9 +188,6 @@ resultados_lista <- lapply(1:(ncol(datos) - 1), function(z) {
   modelo <-
     lm(y ~ ., data = datos_entren[, c("y", paste0("x", 1:z))])
   
-# Calcular raiz del error cuadrático medio
-  rmse_entren <- rmse_lm(modelo, datos_entren, response = "y")
-  rmse_prueba <- rmse_lm(modelo, datos_prueba, response = "y")
   r2_entren <- r2_lm(modelo, datos_entren)
   r2_prueba <- r2_lm(modelo, datos_prueba)
   
@@ -233,7 +222,7 @@ ggplot(resultados_promedio_aleatorio, aes(x = n_predictores, y = r2, color = Tip
   scale_x_continuous(breaks = seq(0, p, 1)) +
   scale_color_viridis_d(end = 0.9) +
   labs(x = "Número de predictores",
-       y = bquote('Coeficiente de\ndeterminación' ~ R ^ 2)) +
+       y = bquote('Coeficiente de determinación' ~ R ^ 2)) +
   theme(
     legend.background = element_rect(fill = "#fff3cd"),
     legend.position = c(0.7, 0.2),
