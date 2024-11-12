@@ -339,13 +339,7 @@ colnames(datos) <- paste0("x", 1:p)
 
 
 # Crear variable de respuesta no asociada a los predictores
-datos$y <-rnorm(n, 0, 2)
-
-# Dividir en conjunto de entrenamiento y prueba
-entren_indice <- createDataPartition(datos$y, p = 0.9, list = FALSE)
-datos_entren <- datos[entren_indice, ]
-datos_prueba <- datos[-entren_indice, ]
-
+datos$y <- rnorm(n, 0, 2)
 
 resultados_lista <- lapply(1:(ncol(datos) - 1), function(z) {
   # Ajustar modelo de regresión lineal
