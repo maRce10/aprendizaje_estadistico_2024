@@ -94,7 +94,7 @@ Cuando la variable respuesta $\text{Y}$ es continua el propósito de la evaluaci
 
 ## Raíz del Error Cuadrático Medio (RMSE)
 
-La raíz cuadrada del error cuadrático medio (RMSE por sus siglas en inglés) es quizás la medida mas comunmente utilizada para medir la precisión en la predicción de una variable continua. Las unidades de esta métrica son las mismas que la variable de respuesta. La podemos calcular fácilmente:
+La raíz del error cuadrático medio (RMSE por sus siglas en inglés) es quizás la medida mas comunmente utilizada para medir la precisión en la predicción de una variable continua. Las unidades de esta métrica son las mismas que la variable de respuesta. La podemos calcular fácilmente:
 
 ```{r}
 
@@ -117,7 +117,7 @@ sqrt(mean((datos$y - y_pred)^2))
 
 ```
 
-La raíz cuadrada del error cuadrático medio penaliza más los errores grandes, ya que los errores se elevan al cuadrado. Esto lo hace útil para detectar errores grandes que podrían ser problemáticos. Sin embargo, es sensible a outliers, ya que los errores grandes tienen un impacto más significativo en el resultado.
+La raíz del error cuadrático medio penaliza más los errores grandes, ya que los errores se elevan al cuadrado. Esto lo hace útil para detectar errores grandes que podrían ser problemáticos. Sin embargo, es sensible a outliers, ya que los errores grandes tienen un impacto más significativo en el resultado.
 
 ## Coeficiente de determinación R^2^
 
@@ -167,7 +167,7 @@ summary(mod_mtcars)
 
 2.  Ajuste 2 modelos más, cada uno con 2 variables predictoras más que el modelo ajustado en el paso 1.
 
-3.  Compare los modelos generados en los puntos 1 y 2 usando la raíz cuadrada del error cuadrático medio (RMSE) y el R^2^.
+3.  Compare los modelos generados en los puntos 1 y 2 usando la raíz del error cuadrático medio (RMSE) y el R^2^.
 
 ```{r solucion del ejercicio 1.2}
 #| eval: false
@@ -363,18 +363,17 @@ El AUC métrica originalmente diseñada para evaluar la precision en la predicci
 pred_vals <- predict(object = modelo_log, newdata = datos_tab_titanic, type = "response")
 
 # Curva ROC
-roc_curve <- roc(datos_tab_titanic$Survived, pred_vals)
+roc_curve <- roc(datos_tab_titanic$Survived, pred_vals, smooth = TRUE)
 
 # Extraer los datos de la curva ROC
 roc_data <- data.frame(
   tpr = roc_curve$sensitivities, # True Positive Rate (Sensibilidad)
-  fpr = 1 - roc_curve$specificities, # False Positive Rate (1 - Especificidad)
-  thresholds = roc_curve$thresholds
+  fpr = 1 - roc_curve$specificities # False Positive Rate (1 - Especificidad)
 )
 
 # Graficar la curva ROC con ggplot2
 ggplot(roc_data, aes(x = fpr, y = tpr)) +
-  geom_line(color = "red") +
+  geom_line(color = "tomato") +
   geom_abline(linetype = "dashed", color = "gray") + # Línea diagonal
   labs(
     x = "Tasa de Falsos Positivos (FPR)",
@@ -383,8 +382,13 @@ ggplot(roc_data, aes(x = fpr, y = tpr)) +
   scale_x_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Limitar el eje X entre 0 y 1
   scale_y_continuous(limits = c(0, 1), expand = c(0, 0)) +  # Limitar el eje Y entre 0 y 
   theme_classic() +
-  theme(panel.grid = element_blank()) # Remover cuadrícula
-
+  theme(panel.grid = element_blank()) +# Remover cuadrícula
+  # add polygon showin area under the curve
+  geom_polygon(data = roc_data, aes(x = fpr, y = tpr), fill = "tomato", alpha = 0.3) + 
+# add polygon coloring lower diagonal 
+  geom_polygon(data = data.frame(x = c(0, 1, 1), y = c(0, 0, 1)), aes(x = x, y = y), fill = "tomato", alpha = 0.3) +
+  annotate("text", x = 0.5, y = 0.5, label = paste("AUC = ", round(pROC::auc(roc_curve), 2)), size = 6)
+  
 ```
 
 Podemos estimar el área bajo la curva con la función `auc` del paquete `pROC`:

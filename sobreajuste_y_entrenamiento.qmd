@@ -1,0 +1,337 @@
+---
+title: <font size="7"><b>Sobreajuste y entrenamiento de modelos</b></font>
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| warning: false
+#| echo: false
+ 
+options("digits"=5)
+options("digits.secs"=3)
+library(knitr)
+library(ggplot2)
+library(viridis)
+library(nnet)
+
+# ggplot settings
+geom_histogram <- function(...) ggplot2::geom_histogram(..., fill = viridis(10, alpha = 0.5)[8], show.legend = FALSE, bins = 20, color = "black")
+
+geom_smooth <- function(...) ggplot2::geom_smooth(..., color = viridis(10,  alpha = 0.5)[8])
+
+geom_boxplot <- function(...) ggplot2::geom_boxplot(..., fill = viridis(10, alpha = 0.5)[7])
+
+geom_pointrange <- function(...) ggplot2::geom_pointrange(..., show.legend = FALSE, color = viridis(10, alpha = 0.5)[7], size = 2) 
+
+theme_set(theme_classic(base_size = 20))
+
+
+fill <- list(alert = "#cff4fc", success = "#d1e7dd")
+
+```
+
+::: {.alert .alert-info}
+# Objetivo del manual {.unnumbered .unlisted}
+
+-   
+:::
+
+Paquetes a utilizar en este manual:
+
+```{r}
+
+# instalar/cargar paquetes
+
+sketchy::load_packages(
+  c("ggplot2", 
+    "viridis", 
+    "caret"
+   )
+  )
+
+```
+
+Funciones personalizadas a utilizar en este manual:
+```{r}
+
+rmse_lm <- function(model, data, response = "y"){
+  pred <- predict(model, newdata = data)
+  sqrt(mean((data[, response] - pred)^2))
+}
+
+r2_lm <- function(model, data, response = "y"){
+  summary(model)$r.squared
+  }
+
+```
+
+# Entrenamiento de modelos
+
+El objetivo de los modelos de aprendizaje estadístico es el de obtener patrones de los datos de entrenamiento para predecir o inferir correctamente los patrones en la población original de donde provienen esos datos de entrenamiento. Es decir, la clave esta en obtener patrones generales que sean extrapolables a nuevos datos. La idea principal del entrenamiento es ajustar el modelo a los datos de entrenamiento para aprender patrones que se puedan generalizar a datos nuevos. Sin embargo, parte de este proceso implica estrategias para evitar tanto el sobreajuste como el subajuste.
+
+
+::: {.alert .alert-warning}
+
+## Sobreajuste
+
+
+El sobreajuste ocurre cuando un modelo se ajusta demasiado bien a los datos de entrenamiento, capturando tanto los patrones verdaderos como el ruido o variaciones aleatorias de los datos. Como resultado, el modelo funciona bien en el conjunto de entrenamiento, pero tiene un rendimiento deficiente en nuevos datos (pobre capacidad de generalización).  **El sobreajuste se refiere a cuando modelo está tan ajustado a los datos de entrenamiento que afecta su capacidad de generalización**. El sobreajuste se produce cuando un sistema de aprendizaje automático se entrena demasiado o con datos (levemente) sesgados, que hace que el algoritmo **aprenda** patrones que no son generales. Aprende características especificas pero no los patrones generales, el concepto.
+
+Una forma de evaluar la capacidad de generalización de un modelo es mediante la división de los datos en dos conjuntos: entrenamiento y prueba. El modelo se ajusta a los datos de entrenamiento y se evalúa en los datos de prueba. El sobreajuste se puede detectar cuando el error en los datos de prueba es mucho mayor que el error en los datos de entrenamiento. 
+
+Los modelos más complejos tienden a sobreajustar más que lo modelos más simples. Además, ante un mismo modelo, a menor cantidad de datos es más posible que ese modelo se sobreajuste. Existen varios métodos para evaluar cuándo un modelo está sobreajustando. En la simulacion que se muestra a continuación, se ajusta un modelo de regresión lineal con diferentes cantidades de predictores (p). Se calcula el error cuadrático medio en los datos de entrenamiento y en los datos de prueba.
+```{r}
+#| warning: false
+
+# Generar datos sintéticos
+set.seed(6)
+n <- 200  # Número de observaciones
+p <- 5   # Número de predictores
+
+# Crear variables predictoras aleatorias
+datos <- as.data.frame(matrix(rnorm(n * p), n, p))
+colnames(datos) <- paste0("x", 1:p)
+
+# Crear variable de respuesta con una combinación de algunas variables
+datos$y <-
+  3 * datos$x1 - 2 * datos$x2 + 1 * datos$x3 + rnorm(n, 0, 2)
+
+# Dividir en conjunto de entrenamiento y prueba
+entren_indice <- createDataPartition(datos$y, p = 0.7, list = FALSE)
+datos_entren <- datos[entren_indice,]
+datos_prueba <- datos[-entren_indice,]
+
+
+resultados_lista <- lapply(1:(ncol(datos) - 1), function(z) {
+  # Ajustar modelo de regresión lineal
+  modelo_entren <-
+    lm(y ~ ., data = datos_entren[, c("y", paste0("x", 1:z))])
+  
+  # Ajustar modelo de regresión lineal
+  modelo_prueba <-
+    lm(y ~ ., data = datos_prueba[, c("y", paste0("x", 1:z))])
+  
+  
+  # Calcular raiz del error cuadrático medio
+  rmse_entren <- rmse_lm(modelo_entren, datos_entren, response = "y")
+  rmse_prueba <- rmse_lm(modelo_prueba, datos_prueba, response = "y")
+  r2_entren <- r2_lm(modelo_entren)
+  r2_prueba <- r2_lm(modelo_prueba)
+  
+  resultados <-
+    data.frame(
+      n_predictores = z,
+      Tipo = c("Prueba", "Entrenamiendo"),
+      rmse = c(rmse_prueba, rmse_entren),
+      r2 = c(r2_prueba, r2_entren)
+    )
+  
+  return(resultados)
+  
+})
+
+resultados_df <- do.call(rbind, resultados_lista)
+
+# grafico de resultados
+ggplot(resultados_df, aes(x = n_predictores, y = rmse, color = Tipo)) +
+  geom_line(lwd = 2) +
+  scale_x_continuous(breaks = seq(0, p, 1)) +
+  scale_color_viridis_d(end = 0.9) +
+  labs(x = "Número de predictores", y = "RMSE") + 
+  theme(legend.background = element_rect(fill = "#fff3cd"),
+                          # legend in the midlle of the graph
+                          legend.position = c(0.5, 0.7), 
+    panel.background = element_rect(fill = "#fff3cd"),
+    plot.background = element_rect(fill = "#fff3cd", colour = NA))
+    
+```
+
+Podemos ver como la raíz del error cuadrático medio en los datos de prueba aumenta a medida que se aumenta el número de predictores. En cambio, el error en los datos de entrenamiento disminuye a medida que se aumenta el número de predictores. Esto es un claro indicio de sobreajuste.
+
+El mismo patrón se observa en el coeficiente de determinación (R^2^). A medida que se aumenta el número de predictores, el R^2^ en los datos de entrenamiento aumenta, mientras que en los datos de prueba disminuye.
+```{r}
+#| warning: false
+
+ggplot(resultados_df, aes(x = n_predictores, y = r2, color = Tipo)) +
+  geom_line(lwd = 2) +
+  scale_x_continuous(breaks = seq(0, p, 1)) +
+  scale_color_viridis_d(end = 0.9) +
+  labs(x = "Número de predictores",
+       y = bquote('Coeficiente de determinación' ~ R ^ 2)) +
+  theme(
+    legend.background = element_rect(fill = "#fff3cd"),
+    legend.position = c(0.5, 0.7),
+    panel.background = element_rect(fill = "#fff3cd"),
+    plot.background = element_rect(fill = "#fff3cd", colour = NA)
+  )
+
+```
+
+El aparente aumento en el poder predictivo del modelo en los datos de entrenamiento no se traduce en una mejora en los datos de prueba. Esto ocurre incluso en ausencia de variables informacion en los predictores que ayude a explicar la variable respuesta. Esto se vuelve aun mas evidente cuando se simulamos datos donde ninguno de los predictores esta asociado a la variable respuesta:
+```{r}
+#| warning: false
+
+# Generar datos sintéticos
+set.seed(6)
+n <- 200  # Número de observaciones
+p <- 20   # Número de predictores
+
+# Crear variables predictoras aleatorias
+datos_aleat <- as.data.frame(matrix(rnorm(n * p), n, p))
+colnames(datos_aleat) <- paste0("x", 1:p)
+
+# Crear variable de respuesta
+datos_aleat$y <- rnorm(n, 0, 2)
+
+# Dividir en conjunto de entrenamiento y prueba
+entren_indice <- createDataPartition(datos_aleat$y, p = 0.7, list = FALSE)
+datos_aleat_entren <- datos_aleat[entren_indice,]
+datos_aleat_prueba <- datos_aleat[-entren_indice,]
+
+
+resultados_lista <- lapply(1:(ncol(datos_aleat) - 1), function(z) {
+  # Ajustar modelo de regresión lineal
+  modelo_entren <-
+    lm(y ~ ., data = datos_aleat_entren[, c("y", paste0("x", 1:z))])
+  
+  # Ajustar modelo de regresión lineal
+  modelo_prueba <-
+    lm(y ~ ., data = datos_aleat_prueba[, c("y", paste0("x", 1:z))])
+  
+  
+  # Calcular raiz del error cuadrático medio
+  rmse_entren <- rmse_lm(modelo_entren, datos_aleat_entren, response = "y")
+  rmse_prueba <- rmse_lm(modelo_prueba, datos_aleat_prueba, response = "y")
+  r2_entren <- r2_lm(modelo_entren)
+  r2_prueba <- r2_lm(modelo_prueba)
+  
+  resultados <-
+    data.frame(
+      n_predictores = z,
+      Tipo = c("Prueba", "Entrenamiendo"),
+      rmse = c(rmse_prueba, rmse_entren),
+      r2 = c(r2_prueba, r2_entren)
+    )
+  
+  return(resultados)
+  
+})
+
+resultados_df <- do.call(rbind, resultados_lista)
+
+ggplot(resultados_df, aes(x = n_predictores, y = r2, color = Tipo)) +
+  geom_line(lwd = 2) +
+  scale_x_continuous(breaks = seq(0, p, 1)) +
+  scale_color_viridis_d(end = 0.9) +
+  labs(x = "Número de predictores",
+       y = bquote('Coeficiente de determinación' ~ R ^ 2)) +
+  theme(
+    legend.background = element_rect(fill = "#fff3cd"),
+    legend.position = c(0.5, 0.7),
+    panel.background = element_rect(fill = "#fff3cd"),
+    plot.background = element_rect(fill = "#fff3cd", colour = NA)
+  )
+
+```
+
+:::
+
+
+# AIC
+
+Datos con 3 predictores asociados:
+```{r}
+#| warning: false
+
+resultados_lista <- lapply(1:(ncol(datos) - 1), function(z) {
+  # Ajustar modelo de regresión lineal
+  modelo <-
+    lm(y ~ ., data = datos[, c("y", paste0("x", 1:z))])
+
+  # modelos nulos
+  modelo_nulo <- lm(y ~ 1, data = datos[, c("y", paste0("x", 1:z))])
+
+  # Calcular AIC
+  aics <- AIC(modelo, modelo_nulo)
+ aics$delta.aic <- aics$AIC - min(aics$AIC)
+
+  resultados <-
+    data.frame(
+      n_predictores = z,
+      delta_AIC = c(aics["modelo_nulo", "delta.aic"])
+                    )
+  
+  return(resultados)
+  
+})
+
+resultados_df <- do.call(rbind, resultados_lista)
+
+ggplot(resultados_df, aes(x = n_predictores, y = delta_AIC)) +
+  geom_line(lwd = 2, color = viridis(1)) +
+  scale_x_continuous(breaks = seq(0, p, 1)) +
+  labs(x = "Número de predictores",
+       y = "Delta AIC") + 
+  theme(legend.position = c(0.5, 0.7)) +
+      scale_y_reverse()
+
+
+```
+
+Datos donde ningun predictor está asociado:
+```{r}
+#| warning: false
+
+resultados_lista <- lapply(1:(ncol(datos_aleat) - 1), function(z) {
+  # Ajustar modelo de regresión lineal
+  modelo <-
+    lm(y ~ ., data = datos_aleat[, c("y", paste0("x", 1:z))])
+
+  # modelos nulos
+  modelo_nulo <- lm(y ~ 1, data = datos_aleat[, c("y", paste0("x", 1:z))])
+
+  # Calcular AIC
+  aics <- AIC(modelo, modelo_nulo)
+ aics$delta.aic <- aics$AIC - min(aics$AIC)
+
+  resultados <-
+    data.frame(
+      n_predictores = z,
+      delta_AIC = c(aics["modelo_nulo", "delta.aic"])
+                    )
+  
+  return(resultados)
+  
+})
+
+resultados_df <- do.call(rbind, resultados_lista)
+
+ggplot(resultados_df, aes(x = n_predictores, y = delta_AIC)) +
+  geom_line(lwd = 2, color = viridis(1)) +
+  scale_x_continuous(breaks = seq(0, p, 1)) +
+  labs(x = "Número de predictores",
+       y = "Delta AIC") + 
+  theme(legend.position = c(0.5, 0.7)) +
+      scale_y_reverse()
+
+
+```
+
+
+
+::: {.alert .alert-info}
+## Ejercicio 1
+
+1.1
+:::
+
+------------------------------------------------------------------------
+
+# Información de la sesión {.unnumbered .unlisted}
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

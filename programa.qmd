@@ -70,7 +70,7 @@ format:
 
 2.  Cree 100 replicas aleatorias del conjunto de datos del punto 1.
 
-*Pista:* 
+*Pista:*
 
 ```{r, eval = FALSE}
 
@@ -82,8 +82,6 @@ replicate(n = 3, expr = {
 simplify = FALSE)
 
 ```
-
-
 :::
 
 # Día 4
@@ -150,7 +148,7 @@ simplify = FALSE)
 
 # Día 9
 
-**Métodos Basados en Árboles **<a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Métodos Basados en Árboles** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Árboles de decisión: construcción e interpretación
 -   Random forest: fundamentos y aplicaciones
@@ -184,7 +182,6 @@ simplify = FALSE)
 -   Video: [Convolutional Neural Networks (CNNs) explained](https://youtu.be/YRhxdVk_sIs?si=cc-mNGXup0q4brhj)
 
 -   Video: [Neural Network In 5 Minutes](https://youtu.be/bfmFfD2RIcg?si=3NdeH6UU2EJmF1pA)
-
 :::
 
 # Día 11
