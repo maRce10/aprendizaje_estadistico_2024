@@ -78,7 +78,7 @@ El sobreajuste ocurre cuando un modelo se ajusta demasiado bien a los datos de e
 
 Una forma de evaluar la capacidad de generalización de un modelo es mediante la división de los datos en dos conjuntos: entrenamiento y prueba. El modelo se ajusta a los datos de entrenamiento y se evalúa en los datos de prueba. El sobreajuste se puede detectar cuando el error en los datos de prueba es mucho mayor que el error en los datos de entrenamiento.
 
-Los modelos más complejos tienden a sobreajustar más que lo modelos más simples. Además, ante un mismo modelo, a menor cantidad de datos es más posible que ese modelo se sobreajuste. Existen varios métodos para evaluar cuándo un modelo está sobreajustando. En la simulacion que se muestra a continuación, se ajusta un modelo de regresión lineal con diferentes cantidades de predictores (p). Se calcula el error cuadrático medio en los datos de entrenamiento y en los datos de prueba.
+Los modelos más complejos tienden a sobreajustar más que lo modelos más simples. Además, ante un mismo modelo, a menor cantidad de datos es más posible que ese modelo se sobreajuste. Existen varios métodos para evaluar cuándo un modelo está sobreajustando. En la simulación que se muestra a continuación, se ajusta un modelo de regresión lineal con diferentes cantidades de predictores (p). Se calcula el error cuadrático medio en los datos de entrenamiento y en los datos de prueba.
 
 ```{r}
 #| warning: false
@@ -231,7 +231,7 @@ ggplot(resultados_promedio_aleatorio, aes(x = n_predictores, y = r2, color = Tip
   )    
 ```
 
-Sin embargo, el R^2^ calculado sobre datos de prueba se mantiene constante.
+Sin embargo, el R^2^ calculado sobre datos de prueba se mantiene constante. 
 
 :::
 
@@ -320,7 +320,6 @@ p <- 20  # Número de predictores
 
 expr <- expression({
 # Generar datos sintéticos
-
 
 # Crear variables predictoras aleatorias
 datos <- as.data.frame(matrix(rnorm(n * p), n, p))

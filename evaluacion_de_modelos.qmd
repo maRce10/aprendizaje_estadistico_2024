@@ -456,7 +456,6 @@ str(datos_mate)
 
 ```
 
-
 1.  Ajuste un modelo de regresión lineal con los datos de `datos_mate` donde la variable respuesta sea `G3`. Utilice su conocimiento del sistema (como estudiante) para escoger las variables predictoras que usted espere tengan un mayor efecto sobre el desempeño académico. Calcule el R^2^ para este modelo.
 
 ```{r solucion del ejercicio 1}
@@ -472,8 +471,7 @@ summary(mod_mate)
 
 ```
 
-
-2. Ajuste un modelo de regresión multinomial análogo al del punto anterior (e.g. mismos predictores y misma respuesta).
+2.  Ajuste un modelo de regresión multinomial análogo al del punto anterior (e.g. mismos predictores y misma respuesta).
 
 ```{r}
 #| eval: false
@@ -482,7 +480,6 @@ summary(mod_mate)
 mod_mult <- multinom(G3 ~ school + sex + age + address + famsize + Pstatus, data = datos_mate)
 
 ```
-
 
 3.  Calcule la matriz de confusión, la exactitud, el área bajo la curva y pérdida logarítmica para el modelo del punto anterior.
 
@@ -529,7 +526,6 @@ roc_multiclass <- multiclass.roc(datos_mate$G3, pred_prob)
 roc_multiclass
 ```
 
-
 El siguiente código binariza la variable respuesta `G3`. Si la calificación es menor a 9, se considera que el estudiante reprobó (`Reprobado`), de lo contrario, se considera que aprobó (`Aprobado`):
 
 ```{r}
@@ -538,8 +534,7 @@ datos_mate$G3_bin <- ifelse(datos_mate$G3 < 9, 0, 1)
 
 ```
 
-
-4.  Utilizando la variable binaria `G3_bin` como respuesta, ajuste un modelo de regresión logística con las mismas variables predictoras que el modelo ajustado en el punto 2. 
+4.  Utilizando la variable binaria `G3_bin` como respuesta, ajuste un modelo de regresión logística con las mismas variables predictoras que el modelo ajustado en el punto 2.
 
 ```{r}
 #| eval: false
@@ -585,10 +580,9 @@ roc_curve
 
 ```
 
+6.  Compare los modelos generados en los puntos 2 y 4. ¿Cual modelo parece tener un mejor desempeño? ¿Por qué?
 
-6. Compare los modelos generados en los puntos 2 y 4. ¿Cual modelo parece tener un mejor desempeño? ¿Por qué?
-
-7. Explore la sensibilidad de los modelos multinomial (punto 2) y logístico (punto 4). Para esto puede  simplemente imprimir en la consola el resultado de la función `confusionMatrix`. ¿Cómo difieren los valores y la forma en que estos se estructuran entre los 2 modelos?
+7.  Explore la sensibilidad de los modelos multinomial (punto 2) y logístico (punto 4). Para esto puede simplemente imprimir en la consola el resultado de la función `confusionMatrix`. ¿Cómo difieren los valores y la forma en que estos se estructuran entre los 2 modelos?
 :::
 
 # Referencias
