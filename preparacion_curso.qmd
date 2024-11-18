@@ -78,6 +78,7 @@ load_packages(
     "neuralnet",
     "randomForest",
     "dimRed",
+    "MuMIn"
     github = "maRce10/sketchy"
   )
 )
