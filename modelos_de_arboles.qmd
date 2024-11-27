@@ -378,14 +378,16 @@ El modelo logístico puede mostrar mayor o menor precisión dependiendo de la re
 
 El método de *Random Forest* es una extensión de los árboles de decisión que utiliza una combinación de múltiples árboles para mejorar la precisión y la robustez del modelo. Cada árbol se ajusta utilizando una muestra aleatoria con reemplazo (*bootstrap*) de los datos de entrenamiento, y en cada división del árbol se selecciona un subconjunto aleatorio de predictores. Esta estrategia reduce la correlación entre los árboles, mejorando el rendimiento general. A diferencia de un único árbol de decisión, los *Random Forest* son menos propensos a sobreajustar los datos.
 
-En esta sección, utilizaremos el conjunto de datos `heart` para clasificar si un paciente tiene enfermedad cardíaca (`enfermo`) basada en variables clínicas como el colesterol, la frecuencia cardíaca máxima, entre otras. El conjunto de datos incluye observaciones categóricas y numéricas, lo que lo hace ideal para ilustrar la flexibilidad de *Random Forest*.
+En esta sección, utilizaremos el conjunto de datos `heart` para clasificar si un paciente tiene enfermedad cardíaca (`sick`) basada en variables clínicas como el colesterol, la frecuencia cardíaca máxima, entre otras. El conjunto de datos incluye observaciones categóricas y numéricas, lo que lo hace ideal para ilustrar la flexibilidad de *Random Forest*.
 
 ## Ajuste de un modelo Random Forest
 
 Primero ajustamos un modelo *Random Forest* a los datos:
 
 ```{r}
-
+#| eval: false
+#| echo: false
+#| 
 # leer
 heart <- read.csv(
   "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data",
@@ -409,15 +411,23 @@ names(heart) <- c(
   "slope",
   "ca",
   "thal",
-  "enfermo"
+  "sick"
 )
 
+write.csv(heart, "./data/heart_data.csv", row.names = FALSE)
 
-#Nueva Columna
-heart$enfermo <- ifelse(heart$enfermo == 0, "No", "Si")
+```
+
+
+```{r}
+
+heart <- read.csv("https://raw.githubusercontent.com/maRce10/aprendizaje_estadistico_2024/refs/heads/master/data/heart_data.csv")
+
+# Nueva Columna
+heart$sick <- ifelse(heart$sick == 0, "No", "Si")
 
 # hacerlo factor para q sea interpretado como categorico
-heart$enfermo <- factor(heart$enfermo)
+heart$sick <- factor(heart$sick)
 
 # Eliminar datos faltantes
 heart <- na.omit(heart)
@@ -429,7 +439,7 @@ Ahora podemos ajustar el modelo de random forest a los datos:
 # Ajustar modelo Random Forest
 set.seed(42) # Para reproducibilidad
 modelo_rf <- randomForest(
-  enfermo ~ ., 
+  sick ~ ., 
   data = heart, 
   importance = TRUE,  # Para calcular la importancia de las variables
   ntree = 500         # Número de árboles
