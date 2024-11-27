@@ -326,7 +326,7 @@
     "href": "sobreajuste_y_entrenamiento.html",
     "title": "Sobreajuste y entrenamiento de modelos",
     "section": "",
-    "text": "Entender el concepto de sobreajuste en modelos de aprendizaje estadístico.\nAprender a detectar sobreajuste en modelos de aprendizaje estadístico.\nAplicar metodos estadisticos para evitar el sobreajuste en modelos de aprendizaje estadístico.\nPaquetes a utilizar en este manual:\nCódigo\n# instalar/cargar paquetes\nsketchy::load_packages(\n  c(\"ggplot2\", \n    \"viridis\", \n    \"caret\"\n   )\n  )\nFuncion personalizada a utilizar en este manual:\nCódigo\nr2_lm &lt;- function(model, data, response = \"y\"){\n  pred &lt;- predict(model, newdata = data)\n  caret::R2(pred, data[, response])\n  }"
+    "text": "Entender el concepto de sobreajuste en modelos de aprendizaje estadístico\nAprender a detectar sobreajuste en modelos de aprendizaje estadístico\nAplicar métodos estadisticos para evitar el sobreajuste\nPaquetes a utilizar en este manual:\nCódigo\n# instalar/cargar paquetes\nsketchy::load_packages(\n  c(\"ggplot2\", \n    \"viridis\", \n    \"caret\",\n    \"MuMIn\",\n    \"nnet\"\n   )\n  )\nFuncion personalizada a utilizar en este manual:\nCódigo\nr2_lm &lt;- function(model, data, response = \"y\"){\n  pred &lt;- predict(model, newdata = data)\n  caret::R2(pred, data[, response])\n  }"
   },
   {
     "objectID": "sobreajuste_y_entrenamiento.html#sobreajuste",
@@ -1195,5 +1195,68 @@
     "title": "Gráficos con ggplot2",
     "section": "0.9 References",
     "text": "0.9 References\n\nLemon J (2006) Plotrix: a package in the red light district of R. R-News 6(4):8–12\nWarnes GR, Bolker B, Bonebakker L, Gentleman R, Liaw WHA, Lumley T, Maechler M, Magnusson A, Moeller S, Schwartz M, Venables B (2015) gplots: various R programming tools for plotting data. R package version 2.17.0. https://CRAN.R-project.org/package=gplots\nWickham H (2010) A layered grammar of graphics. J Comput Graph Stat 19(1):3–28\nWilkinson L (2005) The grammar of graphics. Statistics and computing, 2nd edn. Springer, New York\n\n\n\nInformación de la sesión\n\n\nR version 4.4.1 (2024-06-14)\nPlatform: x86_64-pc-linux-gnu\nRunning under: Ubuntu 22.04.4 LTS\n\nMatrix products: default\nBLAS:   /usr/lib/x86_64-linux-gnu/blas/libblas.so.3.10.0 \nLAPACK: /usr/lib/x86_64-linux-gnu/lapack/liblapack.so.3.10.0\n\nlocale:\n [1] LC_CTYPE=en_US.UTF-8       LC_NUMERIC=C              \n [3] LC_TIME=es_CR.UTF-8        LC_COLLATE=en_US.UTF-8    \n [5] LC_MONETARY=es_CR.UTF-8    LC_MESSAGES=en_US.UTF-8   \n [7] LC_PAPER=es_CR.UTF-8       LC_NAME=C                 \n [9] LC_ADDRESS=C               LC_TELEPHONE=C            \n[11] LC_MEASUREMENT=es_CR.UTF-8 LC_IDENTIFICATION=C       \n\ntime zone: America/Costa_Rica\ntzcode source: system (glibc)\n\nattached base packages:\n[1] stats     graphics  grDevices utils     datasets  methods   base     \n\nother attached packages:\n[1] scales_1.3.0       viridis_0.6.5      viridisLite_0.4.2  MASS_7.3-61       \n[5] RColorBrewer_1.1-3 ggplot2_3.5.1      knitr_1.48         kableExtra_1.4.0  \n\nloaded via a namespace (and not attached):\n [1] Matrix_1.7-0      gtable_0.3.5      jsonlite_1.8.9    dplyr_1.1.4      \n [5] compiler_4.4.1    tidyselect_1.2.1  xml2_1.3.6        stringr_1.5.1    \n [9] gridExtra_2.3     textshaping_0.4.0 splines_4.4.1     systemfonts_1.1.0\n[13] yaml_2.3.10       fastmap_1.2.0     lattice_0.22-6    R6_2.5.1         \n[17] labeling_0.4.3    generics_0.1.3    isoband_0.2.7     htmlwidgets_1.6.4\n[21] tibble_3.2.1      munsell_0.5.1     svglite_2.1.3     pillar_1.9.0     \n[25] rlang_1.1.4       utf8_1.2.4        stringi_1.8.4     xfun_0.48        \n[29] cli_3.6.3         mgcv_1.9-1        withr_3.0.1       magrittr_2.0.3   \n[33] digest_0.6.37     grid_4.4.1        rstudioapi_0.16.0 nlme_3.1-165     \n[37] lifecycle_1.0.4   vctrs_0.6.5       evaluate_1.0.1    glue_1.8.0       \n[41] farver_2.1.2      ragg_1.3.2        fansi_1.0.6       colorspace_2.1-1 \n[45] rmarkdown_2.28    tools_4.4.1       pkgconfig_2.0.3   htmltools_0.5.8.1"
+  },
+  {
+    "objectID": "modelos_de_arboles.html",
+    "href": "modelos_de_arboles.html",
+    "title": "Modelos basados en árboles",
+    "section": "",
+    "text": "Entender como se construyen los árboles de decisión\nFamiliarizarse con los principales métodos de regresión y clasificación basados en árboles\nAprender a aplicar estos estos métodos en R\nPaquetes a utilizar en este manual:\nCódigo\n# instalar/cargar paquetes\nsketchy::load_packages(\n  c(\"ggplot2\", \n    \"viridis\", \n    \"caret\",\n    \"ISLR\",\n    \"rpart\",\n    \"rpart.plot\",\n    \"tree\"\n   )\n  )\n\n\nLoading required package: caret\n\n\nLoading required package: lattice\nLos métodos basados en árboles estratifican o subdividen el espacio predictor en en una serie de regiones simples. Dado que el conjunto de reglas de división utilizadas para segmentar el espacio predictor puede representarse en un árbol, este tipo de enfoques se conocen como métodos de árboles de decisión. Los árboles de decisión se utilizan tanto para clasificación como para regresión. Su ventaja radica en la simplicidad de interpretación y en su capacidad para capturar interacciones no lineales entre predictores."
+  },
+  {
+    "objectID": "modelos_de_arboles.html#ejercicio-1",
+    "href": "modelos_de_arboles.html#ejercicio-1",
+    "title": "Modelos basados en árboles",
+    "section": "2.6 Ejercicio 1",
+    "text": "2.6 Ejercicio 1"
+  },
+  {
+    "objectID": "modelos_de_arboles.html#validación-cruzada",
+    "href": "modelos_de_arboles.html#validación-cruzada",
+    "title": "Modelos basados en árboles",
+    "section": "1.1 Validación cruzada",
+    "text": "1.1 Validación cruzada\nAfortunadamente la librería caret nos permite realizar validación cruzada para encontrar el mejor valor de cp para nuestro modelo. Podemos utilzar cualquiera de los métodos vistos en el manual de “sobreajuste y entrenamiento de modelos”. En este caso usamos el método de “dejar uno afuera” (LOOCV) para optimizar el valor de cp:\n\n\nCódigo\n# Configuración de validación cruzada\nset.seed(42) # Para reproducibilidad\n# Validación cruzada\ntrain_control &lt;- trainControl(method = \"LOOCV\")\n\n# Entrenar el modelo de árbol usando caret\nmodelo_arbol &lt;- train(\n  LogSalary ~ Years + Hits,\n  data = Hitters,\n  method = \"rpart\", # Árbol de decisión\n  trControl = train_control,\n  tuneLength = 10 # Número de combinaciones de parámetros a probar\n)         \n\n# Resumen del modelo ajustado\nprint(modelo_arbol)\n\n\nCART \n\n263 samples\n  2 predictor\n\nNo pre-processing\nResampling: Leave-One-Out Cross-Validation \nSummary of sample sizes: 262, 262, 262, 262, 262, 262, ... \nResampling results across tuning parameters:\n\n  cp         RMSE     Rsquared  MAE    \n  0.0042120  0.60271  0.547947  0.43523\n  0.0046796  0.59658  0.555573  0.42811\n  0.0085782  0.59364  0.557312  0.42568\n  0.0096474  0.59458  0.554649  0.42884\n  0.0110721  0.59198  0.558190  0.42732\n  0.0169020  0.58909  0.562176  0.43504\n  0.0183127  0.59250  0.555813  0.44211\n  0.0444602  0.62855  0.501931  0.47958\n  0.1145455  0.71442  0.361503  0.58884\n  0.4445745  0.97762  0.016381  0.87625\n\nRMSE was used to select the optimal model using the smallest value.\nThe final value used for the model was cp = 0.016902.\n\n\nEl mejor valor de cp encontrado por la validación cruzada es 0.00421 y un valor de RMSE de 0.60271. Podemos extraer y visualizar el árbol final asi:\n\n\nCódigo\n# extraer mejor modelo\nmejor_modelo &lt;- modelo_arbol$finalModel\n\n# Visualizar el árbol final\nrpart.plot(mejor_modelo, extra = 101)"
+  },
+  {
+    "objectID": "modelos_de_arboles.html#comparación-con-modelos-lineales",
+    "href": "modelos_de_arboles.html#comparación-con-modelos-lineales",
+    "title": "Modelos basados en árboles",
+    "section": "1.2 Comparación con modelos lineales",
+    "text": "1.2 Comparación con modelos lineales\nCon el siguiente gráfico podemos comparar el comportamiento de un modelo lineal con el de un árbol de regresión, usando un ejemplo de clasificación en dos dimensiones. En este ejemplo en el que la verdadera frontera de decisión es lineal, y está indicada por las regiones sombreadas. En la fila superior se ilustra como un enfoque clásico que asume una frontera lineal (izquierda) superará a un árbol de decisión que realiza divisiones paralelas a los ejes (derecha). En la fila inferior la verdadera frontera de decisión es no lineal. En este caso, un modelo lineal no puede capturar la verdadera frontera de decisión (izquierda), mientras que un árbol de decisión tiene éxito (derecha).\n\nTomado de Gareth et al 2013"
+  },
+  {
+    "objectID": "modelos_de_arboles.html#construcción-de-un-árbol-de-clasificación",
+    "href": "modelos_de_arboles.html#construcción-de-un-árbol-de-clasificación",
+    "title": "Modelos basados en árboles",
+    "section": "2.1 Construcción de un Árbol de Clasificación",
+    "text": "2.1 Construcción de un Árbol de Clasificación\nAjustaremos un árbol de clasificación simple utilizando la librería rpart y visualizaremos el árbol generado.\n\n\nCódigo\n# Ajustar un árbol de clasificación\narbol_clasificacion &lt;- rpart(High ~ Price + Advertising + ShelveLoc + Age, \n                             data = Carseats, \n                             method = \"class\")\n\n# Visualizar el árbol\nrpart.plot(arbol_clasificacion, extra = 104, fallen.leaves = TRUE, shadow.col = \"gray\")\n\n\n\n\n\n\n\n\n\nEl árbol resultante muestra cómo los datos se dividen en regiones basadas en los predictores. Por ejemplo, el predictor más importante puede ser Price, donde precios más bajos están asociados con mayores ventas.\n\n2.1.1 Interpretación\nEn el gráfico del árbol: - Los nodos terminales indican la clase predicha (Yes o No) y el porcentaje de datos que pertenecen a esa clase. - Las divisiones están basadas en reglas como Price &lt; 92.5."
+  },
+  {
+    "objectID": "modelos_de_arboles.html#podado-del-árbol",
+    "href": "modelos_de_arboles.html#podado-del-árbol",
+    "title": "Modelos basados en árboles",
+    "section": "2.2 Podado del Árbol",
+    "text": "2.2 Podado del Árbol\nA menudo, el árbol inicial puede ser demasiado grande, lo que lleva a sobreajuste. Podamos el árbol para limitar su complejidad:\n\n\nCódigo\n# Podar el árbol usando el valor óptimo de cp\nset.seed(42)\narbol_podado &lt;- prune(arbol_clasificacion, cp = 0.02)\n\n# Visualizar el árbol podado\nrpart.plot(arbol_podado, extra = 104)\n\n\n\n\n\n\n\n\n\nAl podar el árbol, reducimos su complejidad, haciendo que sea más interpretable y menos propenso al sobreajuste."
+  },
+  {
+    "objectID": "modelos_de_arboles.html#evaluación-del-árbol-de-clasificación",
+    "href": "modelos_de_arboles.html#evaluación-del-árbol-de-clasificación",
+    "title": "Modelos basados en árboles",
+    "section": "2.3 Evaluación del Árbol de Clasificación",
+    "text": "2.3 Evaluación del Árbol de Clasificación\nPara evaluar el desempeño del modelo, dividiremos los datos en conjuntos de entrenamiento y prueba y generaremos una matriz de confusión:\n\n\nCódigo\n# Dividir en conjunto de entrenamiento y prueba\nset.seed(42)\ntrain_index &lt;- sample(seq_len(nrow(Carseats)), size = 0.7 * nrow(Carseats))\ntrain_data &lt;- Carseats[train_index, ]\ntest_data &lt;- Carseats[-train_index, ]\n\n# Ajustar árbol con datos de entrenamiento\narbol_train &lt;- rpart(High ~ Price + Advertising + ShelveLoc + Age, \n                     data = train_data, \n                     method = \"class\")\n\n# Predicciones en el conjunto de prueba\npredicciones &lt;- predict(arbol_train, test_data, type = \"class\")\n\n# Matriz de confusión\nmatriz_confusion &lt;- table(test_data$High, predicciones)\nprint(matriz_confusion)\n\n\n     predicciones\n      No Yes\n  No  64  10\n  Yes 16  30\n\n\nLa matriz de confusión muestra el desempeño del modelo en términos de precisión y tasa de error. Por ejemplo:\n\nVerdaderos positivos (Yes): matriz_confusion[\"Yes\", \"Yes\"]\nFalsos positivos (Yes): matriz_confusion[\"No\", \"Yes\"]\n\nPodemos calcular métricas adicionales como la precisión o el F1-score si es necesario."
+  },
+  {
+    "objectID": "modelos_de_arboles.html#validación-cruzada-1",
+    "href": "modelos_de_arboles.html#validación-cruzada-1",
+    "title": "Modelos basados en árboles",
+    "section": "2.4 Validación Cruzada",
+    "text": "2.4 Validación Cruzada\nPara seleccionar el mejor valor de cp, usamos validación cruzada con la librería caret:\n\n\nCódigo\n# Configuración de validación cruzada\nset.seed(42)\ncontrol &lt;- trainControl(method = \"cv\", number = 10)\n\n# Ajustar modelo con validación cruzada\nmodelo_cv &lt;- train(\n  High ~ Price + Advertising + ShelveLoc + Age, \n  data = train_data,\n  method = \"rpart\",\n  trControl = control,\n  tuneLength = 10\n)\n\n# Mostrar los resultados\nprint(modelo_cv)\n\n\nCART \n\n280 samples\n  4 predictor\n  2 classes: 'No', 'Yes' \n\nNo pre-processing\nResampling: Cross-Validated (10 fold) \nSummary of sample sizes: 252, 252, 252, 253, 251, 253, ... \nResampling results across tuning parameters:\n\n  cp        Accuracy  Kappa   \n  0.000000  0.70293   0.381306\n  0.028249  0.70599   0.381204\n  0.056497  0.67383   0.325415\n  0.084746  0.66680   0.291874\n  0.112994  0.66668   0.274257\n  0.141243  0.66668   0.274257\n  0.169492  0.66668   0.274257\n  0.197740  0.66668   0.274257\n  0.225989  0.66668   0.274257\n  0.254237  0.60375   0.089011\n\nAccuracy was used to select the optimal model using the largest value.\nThe final value used for the model was cp = 0.028249.\n\n\nCódigo\n# Visualizar el árbol final\nrpart.plot(modelo_cv$finalModel, extra = 104)\n\n\n\n\n\n\n\n\n\nEl valor óptimo de cp es 0.02825. El árbol final representa la mejor combinación de simplicidad y precisión según la validación cruzada."
+  },
+  {
+    "objectID": "modelos_de_arboles.html#comparación-con-modelos-lineales-1",
+    "href": "modelos_de_arboles.html#comparación-con-modelos-lineales-1",
+    "title": "Modelos basados en árboles",
+    "section": "2.5 Comparación con Modelos Lineales",
+    "text": "2.5 Comparación con Modelos Lineales\nAl igual que con los árboles de regresión, podemos comparar el desempeño de un árbol de clasificación con un modelo lineal o logístico:\n\n\nCódigo\n# Ajustar un modelo logístico\nmodelo_logistico &lt;- glm(High ~ Price + Advertising + ShelveLoc + Age, \n                        data = train_data, \n                        family = \"binomial\")\n\n# Predicciones\npred_log &lt;- predict(modelo_logistico, test_data, type = \"response\")\npred_log_clas &lt;- ifelse(pred_log &gt; 0.5, \"Yes\", \"No\")\n\n# Matriz de confusión para el modelo logístico\nmatriz_conf_log &lt;- table(test_data$High, pred_log_clas)\nprint(matriz_conf_log)\n\n\n     pred_log_clas\n      No Yes\n  No  64  10\n  Yes 11  35\n\n\nEl modelo logístico puede mostrar mayor o menor precisión dependiendo de la relación entre las variables predictoras y la variable respuesta.\n\n\n2.5.1 Ejercicio Propuesto\n\nAjusta un árbol de clasificación utilizando otras variables predictoras (por ejemplo, Income o Population).\nRealiza validación cruzada con un enfoque distinto (por ejemplo, validación LOOCV).\nCompara los resultados con un modelo K-Vecinos más Cercanos (kNN).\n\n\nCon este esquema puedes cubrir los conceptos clave y realizar análisis detallados para árboles de clasificación. ¿Te gustaría que amplíe alguna sección o incluya más gráficos?"
   }
 ]

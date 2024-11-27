@@ -1,0 +1,552 @@
+---
+title: <font size="7"><b>Modelos basados en árboles</b></font>
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| warning: false
+#| echo: false
+ 
+options("digits"=5)
+options("digits.secs"=3)
+library(knitr)
+library(ggplot2)
+library(viridis)
+library(ISLR)
+library(rpart)
+library(rpart.plot)
+library(tree)
+library(randomForest)
+
+# ggplot settings
+geom_histogram <- function(...) ggplot2::geom_histogram(..., fill = viridis(10, alpha = 0.5)[8], show.legend = FALSE, bins = 20, color = "black")
+
+geom_smooth <- function(...) ggplot2::geom_smooth(..., color = viridis(10,  alpha = 0.5)[8])
+
+geom_boxplot <- function(...) ggplot2::geom_boxplot(..., fill = viridis(10, alpha = 0.5)[7])
+
+geom_pointrange <- function(...) ggplot2::geom_pointrange(..., show.legend = FALSE, color = viridis(10, alpha = 0.5)[7], size = 2) 
+
+theme_set(theme_classic(base_size = 20))
+
+
+fill <- list(alert = "#cff4fc", success = "#d1e7dd")
+
+```
+
+::: {.alert .alert-info}
+# Objetivo del manual {.unnumbered .unlisted}
+
+- Entender como se construyen los árboles de decisión
+
+- Familiarizarse con los principales métodos de regresión y clasificación basados en árboles
+
+- Aprender a aplicar estos estos métodos en R
+
+:::
+
+Paquetes a utilizar en este manual:
+
+```{r}
+
+# instalar/cargar paquetes
+sketchy::load_packages(
+  c("ggplot2", 
+    "viridis", 
+    "caret",
+    "ISLR",
+    "rpart",
+    "rpart.plot",
+    "tree",
+    "randomForest"
+   )
+  )
+
+```
+
+
+Los métodos basados en árboles estratifican o subdividen el espacio predictor en en una serie de regiones simples. Dado que el conjunto de reglas de división utilizadas para segmentar el espacio predictor puede representarse en un árbol, este tipo de enfoques se conocen como métodos de árboles de decisión. Los árboles de decisión se utilizan tanto para clasificación como para regresión. Su ventaja radica en la simplicidad de interpretación y en su capacidad para capturar interacciones no lineales entre predictores. 
+
+# Árboles de regresión
+
+Usaremos el conjunto de datos `Hitters` para predecir el salario de un jugador de béisbol basado en los años ("Years", el número de años que ha jugado en las grandes ligas) y "Hits" (el número de hits que realizó en el año anterior). Primero eliminamos las observaciones que tienen valores de salario faltantes ("Salary") y aplicamos una transformación logarítmica al salario para que su distribución tenga una forma más típica de campana.
+
+La siguiente figura muestra un árbol de regresión ajustado a estos datos. Consiste en una serie de reglas de división, comenzando desde la parte superior del árbol. La división superior asigna las observaciones con años < 4.5 a la rama izquierda. El salario predicho para estos jugadores se da por el valor promedio de respuesta para los jugadores en el conjunto de datos con años < 4.5. Para tales jugadores, el salario logarítmico medio es 5.107, por lo que hacemos una predicción de e^5.107 miles de dólares, es decir, $165,174, para estos jugadores. Los jugadores con Años >= 4.5 son asignados a la rama derecha, y luego ese grupo se subdivide aún más por "Hits". 
+
+```{r}
+
+# cargar datos
+data(Hitters)
+
+# Eliminar observaciones con valores faltantes en Salary
+Hitters <- na.omit(Hitters)
+
+# Transformar la variable Salary al logaritmo natural
+Hitters$LogSalary <- log(Hitters$Salary)
+
+# Ajustar un árbol de regresión con un número limitado de nodos terminales
+set.seed(42) # Para reproducibilidad
+modelo_arbol <- tree(LogSalary ~ Years + Hits,
+                   data = Hitters)
+
+# Podar el árbol para limitarlo a 3 nodos terminales (si es necesario)
+modelo_podado <- prune.tree(modelo_arbol, best = 3)
+
+# Graficar el árbol
+plot(modelo_podado)
+text(modelo_podado, pretty = 0) # Agrega etiquetas legibles
+
+```
+
+En general, el árbol divide  a los jugadores en tres regiones del espacio de predictores: jugadores que han jugado durante cuatro años o menos, jugadores que han jugado durante cinco años o más y que hicieron menos de 118 hits el año pasado, y jugadores que han jugado durante cinco años o más y que hicieron al menos 118 hits el año pasado. Estas tres regiones se pueden escribir como R1 = {X | Años < 4.5}, R2 = {X | Años >= 4.5, Hits < 117.5}, y R3 = {X | Años >= 4.5, Hits >= 117.5}. La Figura 8.2 ilustra las regiones como función de los Años y Hits. Los salarios predichos para estos tres grupos son $1,000 × e^5.107 = $165,174, $1,000 × e^5.999 = $402,834, y $1,000 × e^6.740 = $845,346 respectivamente.
+
+```{r}
+#| echo: false
+
+# Crear el gráfico de regiones R1, R2 y R3
+# Configurar los límites de los ejes y plotear los datos
+plot(
+  Hitters$Years,
+  Hitters$Hits,
+  col = "#38AAAC80",
+  pch = 19,
+  xlab = "Años",
+  ylab = "Hits",
+  xlim = c(1, 24),
+  ylim = c(1, 238)
+)
+
+#Línea vertical
+abline(v = 4.5, col = "#3B2F5E80", lwd = 2)
+
+# linea horizontal
+lines(c(4.5, 30),
+      c(117.5, 117.5),
+      col = "#3B2F5E80",
+      lwd = 2)
+
+# Agregar etiquetas para las regiones
+text(2, 200, "R1", cex = 1.2)
+text(10, 50, "R2", cex = 1.2)
+text(10, 200, "R3", cex = 1.2)
+
+```
+
+Siguiendo con la analogía del árbol, las regiones R1, R2 y R3 se conocen como nodos terminales o hojas del árbol. Los puntos a lo largo del árbol donde se divide el espacio del predictor se denominan nodos internos. En el árbol graficado mas arriba los dos nodos internos están indicados por el texto "Years < 4.5" y "Hits < 117.5". Nos referimos a los segmentos del árbol que conectan los nodos como ramas.
+
+Podríamos interpretar el árbol de regresión mostrado mas arriba de la siguiente manera: Los años son el factor más importante para determinar el salario, y los jugadores con menos experiencia ganan salarios más bajos que los jugadores más experimentados. Dado que un jugador tiene menos experiencia, parece que el número de hits que realizó en el año anterior juega un papel poco relevante en su salario. Pero entre los jugadores que han estado en las grandes ligas durante cinco años o más, el número de hits realizados en el año anterior sí afecta al salario, y los jugadores que hicieron más hits el año pasado tienden a tener salarios más altos. El árbol de regresión mostrado arriba es una sobre-simplificación de la verdadera relación entre hits, años y salario. Sin embargo, tiene ventajas sobre otros tipos de modelos de regresión ya que es más fácil de interpretar y tiene una representación gráfica atractiva.
+
+El árbol que ajustamos a estos datos en realidad es mucho mas complejo y contiene mas divisiones de los datos en mas estratos. Los paquetes `rpart` y `rpart.plot` nos permite ajustra y visualizar estos modelos de una forma muy amigable: 
+
+```{r}
+
+# Ajustar un árbol de regresión
+arbol_regresion <- rpart(LogSalary ~ Years + Hits, data = Hitters)
+
+# Visualizar el árbol
+rpart.plot(arbol_regresion, extra = 101)
+
+```
+
+La complejidad del árbol la podemos controlar mediante el parámetro `cp`. Un valor más alto de `cp` resulta en un árbol más simple (con menos divisiones o reglas), mientras que un valor más bajo permite árboles más grandes y complejos. El objetivo es encontrar un equilibrio entre un árbol que sea suficientemente complejo para capturar patrones importantes en los datos, pero no tan complejo que incurra en sobreajuste. Por ejemplo este es un árbol con un valor de `cp` de 0.05:
+
+```{r}
+
+arbol_cp.05 <- rpart(LogSalary ~ Years + Hits,
+                     data = Hitters,
+                     control = rpart.control(cp = 0.05))
+
+rpart.plot(arbol_cp.05, extra = 101)
+
+```
+
+Este en cambio tiene un valor de `cp` de 0.001:
+```{r}
+
+arbol_cp.001 <- rpart(LogSalary ~ Years + Hits, data = Hitters, control = rpart.control(cp = 0.001))
+
+rpart.plot(arbol_cp.001, extra = 101)
+
+```
+
+## Validación cruzada
+
+Afortunadamente la librería `caret` nos permite realizar validación cruzada para encontrar el mejor valor de `cp` para nuestro modelo. Podemos utilzar cualquiera de los métodos vistos en el manual de "sobreajuste y entrenamiento de modelos". En este caso usamos el método de "dejar uno afuera" (LOOCV) para optimizar el valor de `cp`:
+
+```{r}
+
+# Configuración de validación cruzada
+set.seed(42) # Para reproducibilidad
+# Validación cruzada
+train_control <- trainControl(method = "LOOCV")
+
+# Entrenar el modelo de árbol usando caret
+modelo_arbol <- train(
+  LogSalary ~ Years + Hits,
+  data = Hitters,
+  method = "rpart", # Árbol de decisión
+  trControl = train_control,
+  tuneLength = 10 # Número de combinaciones de parámetros a probar
+)         
+
+# Resumen del modelo ajustado
+print(modelo_arbol)
+```
+
+El mejor valor de `cp` encontrado por la validación cruzada es `r modelo_arbol$results$cp[1]` y un valor de RMSE de `r modelo_arbol$results$RMSE[1]`. Podemos extraer y visualizar el árbol final asi:
+
+```{r}
+
+# extraer mejor modelo
+mejor_modelo <- modelo_arbol$finalModel
+
+# Visualizar el árbol final
+rpart.plot(mejor_modelo, extra = 101)
+
+```
+
+
+## Comparación con modelos lineales
+
+Con el siguiente gráfico podemos comparar el comportamiento de un modelo lineal con el de un árbol de regresión, usando un ejemplo de clasificación en dos dimensiones. En este ejemplo en el que la verdadera frontera de decisión es lineal, y está indicada por las regiones sombreadas. En la fila superior se ilustra como un enfoque clásico que asume una frontera lineal (izquierda) superará a un árbol de decisión que realiza divisiones paralelas a los ejes (derecha). En la fila inferior la verdadera frontera de decisión es no lineal. En este caso, un modelo lineal no puede capturar la verdadera frontera de decisión (izquierda), mientras que un árbol de decisión tiene éxito (derecha).
+
+
+![](images/arbol_vs_lineal.png)
+
+_Tomado de Gareth et al 2013_
+
+::: {.alert .alert-info}
+## Ejercicio 1
+
+:::
+
+
+# Árboles de clasificación
+
+Al igual que los modelos de regresión con árboles de decisión, los árboles de clasificación dividen el espacio predictor en una serie de regiones simples utilizando reglas de decisión, con el objetivo de predecir una clase o categoría como resultado. Este enfoque es similar al de los árboles de regresión, pero el criterio de división optimiza una métrica asociada con la clasificación, como la **entropía** o el **índice de Gini**.
+
+Usaremos el conjunto de datos `Carseats` para predecir si las ventas son altas (High = "Yes") o bajas (High = "No") en función de varias características del conjunto de datos, como precio (`Price`) o publicidad (`Advertising`). 
+
+```{r}
+# explorar
+head(Carseats)
+
+```
+
+
+Primero preprocesamos los datos para crear la variable objetivo binaria:
+
+```{r}
+# Cargar datos
+data(Carseats)
+
+# Crear variable de respuesta binaria
+Carseats$High <- ifelse(Carseats$Sales > 8, "Yes", "No")
+Carseats$High <- factor(Carseats$High)  # Convertir a factor
+
+# Eliminar la variable 'Sales' para evitar colinealidad
+Carseats$Sales <- NULL
+```
+
+Ajustaremos un árbol de clasificación simple utilizando la librería `rpart` y visualizaremos el árbol generado.
+
+```{r}
+# Ajustar un árbol de clasificación
+arbol_clasificacion <- rpart(High ~ Price + Advertising + ShelveLoc + Age, 
+                             data = Carseats, 
+                             method = "class")
+
+# Visualizar el árbol
+rpart.plot(arbol_clasificacion, extra = 104, fallen.leaves = TRUE, shadow.col = "gray")
+```
+
+El árbol resultante muestra cómo los datos se dividen en regiones basadas en los predictores. Por ejemplo, el predictor más importante puede ser `Price`, donde precios más bajos están asociados con mayores ventas.
+
+En el gráfico del árbol:
+- Los **nodos terminales** indican la clase predicha (`Yes` o `No`) y el porcentaje de datos que pertenecen a esa clase.
+- Las divisiones están basadas en reglas como `Price < 92.5`.
+
+## Podado
+
+A menudo, el árbol inicial puede ser demasiado grande, lo que lleva a sobreajuste. Podamos el árbol para limitar su complejidad:
+
+```{r}
+# Podar el árbol usando el valor óptimo de cp
+set.seed(42)
+arbol_podado <- prune(arbol_clasificacion, cp = 0.02)
+
+# Visualizar el árbol podado
+rpart.plot(arbol_podado, extra = 104)
+```
+
+Al podar el árbol, reducimos su complejidad, haciendo que sea más interpretable y menos propenso al sobreajuste.
+
+## Evaluación
+
+Para evaluar el desempeño del modelo, dividiremos los datos en conjuntos de entrenamiento y prueba y generaremos una matriz de confusión:
+
+```{r}
+# Dividir en conjunto de entrenamiento y prueba
+set.seed(42)
+train_index <- sample(seq_len(nrow(Carseats)), size = 0.7 * nrow(Carseats))
+train_data <- Carseats[train_index, ]
+test_data <- Carseats[-train_index, ]
+
+# Ajustar árbol con datos de entrenamiento
+arbol_train <- rpart(High ~ Price + Advertising + ShelveLoc + Age, 
+                     data = train_data, 
+                     method = "class")
+
+# Predicciones en el conjunto de prueba
+predicciones <- predict(arbol_train, test_data, type = "class")
+
+# Matriz de confusión
+matriz_confusion <- table(test_data$High, predicciones)
+print(matriz_confusion)
+```
+
+La matriz de confusión muestra el desempeño del modelo en términos de precisión y tasa de error. Por ejemplo:
+
+- **Verdaderos positivos (Yes):** `matriz_confusion["Yes", "Yes"]`
+- **Falsos positivos (Yes):** `matriz_confusion["No", "Yes"]`
+
+Podemos calcular métricas adicionales como la precisión o el F1-score si es necesario.
+
+## Validación Cruzada
+
+Para seleccionar el mejor valor de `cp`, usamos validación cruzada con la librería `caret`:
+
+```{r}
+# Configuración de validación cruzada
+set.seed(42)
+control <- trainControl(method = "cv", number = 10)
+
+# Ajustar modelo con validación cruzada
+modelo_cv <- train(
+  High ~ Price + Advertising + ShelveLoc + Age, 
+  data = train_data,
+  method = "rpart",
+  trControl = control,
+  tuneLength = 10
+)
+
+# Mostrar los resultados
+print(modelo_cv)
+
+# Visualizar el árbol final
+rpart.plot(modelo_cv$finalModel, extra = 104)
+```
+
+El valor óptimo de `cp` es `r modelo_cv$bestTune$cp`. El árbol final representa la mejor combinación de simplicidad y precisión según la validación cruzada.
+
+## Comparación con Modelos Lineales
+
+Al igual que con los árboles de regresión, podemos comparar el desempeño de un árbol de clasificación con un modelo lineal o logístico:
+
+```{r}
+# Ajustar un modelo logístico
+modelo_logistico <- glm(High ~ Price + Advertising + ShelveLoc + Age,  data = train_data, 
+                        family = "binomial")
+
+# Predicciones
+pred_log <- predict(modelo_logistico, test_data, type = "response")
+pred_log_clas <- ifelse(pred_log > 0.5, "Yes", "No")
+
+# Matriz de confusión para el modelo logístico
+matriz_conf_log <- table(test_data$High, pred_log_clas)
+print(matriz_conf_log)
+```
+
+El modelo logístico puede mostrar mayor o menor precisión dependiendo de la relación entre las variables predictoras y la variable respuesta.
+
+---
+
+
+::: {.alert .alert-info}
+## Ejercicio 2
+
+1. Ajusta un árbol de clasificación utilizando otras variables predictoras (por ejemplo, `Income` o `Population`).
+2. Realiza validación cruzada con un enfoque distinto (por ejemplo, validación LOOCV).
+3. Compara los resultados con un modelo K-Vecinos más Cercanos (`kNN`).
+
+
+:::
+
+
+# Random Forest
+
+El método de *Random Forest* es una extensión de los árboles de decisión que utiliza una combinación de múltiples árboles para mejorar la precisión y la robustez del modelo. Cada árbol se ajusta utilizando una muestra aleatoria con reemplazo (*bootstrap*) de los datos de entrenamiento, y en cada división del árbol se selecciona un subconjunto aleatorio de predictores. Esta estrategia reduce la correlación entre los árboles, mejorando el rendimiento general. A diferencia de un único árbol de decisión, los *Random Forest* son menos propensos a sobreajustar los datos.
+
+En esta sección, utilizaremos el conjunto de datos `heart` para clasificar si un paciente tiene enfermedad cardíaca (`enfermo`) basada en variables clínicas como el colesterol, la frecuencia cardíaca máxima, entre otras. El conjunto de datos incluye observaciones categóricas y numéricas, lo que lo hace ideal para ilustrar la flexibilidad de *Random Forest*.
+
+## Ajuste de un modelo Random Forest
+
+Primero ajustamos un modelo *Random Forest* a los datos:
+
+```{r}
+
+# leer
+heart <- read.csv(
+  "https://archive.ics.uci.edu/ml/machine-learning-databases/heart-disease/processed.cleveland.data",
+  header = FALSE,
+  sep = ",",
+  na.strings = '?'
+)
+
+# renombrar columnas
+names(heart) <- c(
+  "age",
+  "sex",
+  "cp",
+  "trestbps",
+  "chol",
+  "fbs",
+  "restecg",
+  "thalach",
+  "exang",
+  "oldpeak",
+  "slope",
+  "ca",
+  "thal",
+  "enfermo"
+)
+
+
+#Nueva Columna
+heart$enfermo <- ifelse(heart$enfermo == 0, "No", "Si")
+
+# hacerlo factor para q sea interpretado como categorico
+heart$enfermo <- factor(heart$enfermo)
+
+# Eliminar datos faltantes
+heart <- na.omit(heart)
+```
+
+Ahora podemos ajustar el modelo de random forest a los datos:
+```{r}
+
+# Ajustar modelo Random Forest
+set.seed(42) # Para reproducibilidad
+modelo_rf <- randomForest(
+  enfermo ~ ., 
+  data = heart, 
+  importance = TRUE,  # Para calcular la importancia de las variables
+  ntree = 500         # Número de árboles
+)
+
+# Resumen del modelo
+print(modelo_rf)
+```
+
+El resultado muestra la tasa de error para cada clase, así como el error general (*Out-of-Bag error*, OOB). Este error se calcula al predecir observaciones no incluidas en la muestra *bootstrap* utilizada para construir cada árbol, lo que proporciona una estimación interna de la precisión del modelo.
+
+## Importancia de las variables
+
+Una ventaja de los *Random Forest* es que pueden calcular automáticamente la importancia de cada predictor en la clasificación o predicción. Esto se mide mediante la reducción en la pureza del nodo (*Gini index*) o la precisión del modelo al permutar aleatoriamente los valores de cada predictor.
+
+```{r}
+# Importancia de las variables
+importancia <- importance(modelo_rf)
+print(importancia)
+
+# Visualización de importancia
+varImpPlot(modelo_rf, main = "Importancia de las variables")
+```
+
+La gráfica de importancia muestra las variables que contribuyen más al modelo. En este ejemplo, podemos observar que `MaxHR` y `Chol` son especialmente importantes para predecir si un paciente tiene enfermedad cardíaca.
+
+## Ajuste del modelo con validación cruzada
+
+Podemos usar el paquete `caret` para realizar una búsqueda de hiperparámetros en *Random Forest*, optimizando el número de predictores considerados en cada división del árbol (`mtry`) mediante validación cruzada.
+
+```{r}
+library(caret)
+
+# Configuración de validación cruzada
+set.seed(42)
+train_control <- trainControl(method = "cv", number = 10) # Validación cruzada 10-fold
+
+# Entrenar modelo usando caret
+modelo_rf_caret <- train(
+  AHD ~ ., 
+  data = heart, 
+  method = "rf", 
+  trControl = train_control, 
+  tuneLength = 10 # Número de combinaciones de parámetros a probar
+)
+
+# Resultados
+print(modelo_rf_caret)
+
+# Mejor valor de mtry
+mejor_mtry <- modelo_rf_caret$bestTune$mtry
+cat("El mejor valor de mtry es:", mejor_mtry, "\n")
+```
+
+El resultado muestra el mejor valor de `mtry` encontrado por validación cruzada y la precisión asociada. Este valor puede ser utilizado para ajustar un modelo final.
+
+## Visualización del error Out-of-Bag (OOB)
+
+El *Random Forest* proporciona una estimación del error OOB durante el ajuste, lo que permite analizar cómo se comporta el modelo conforme aumentan los árboles.
+
+```{r}
+# Error OOB
+plot(
+  modelo_rf, 
+  main = "Error OOB en Random Forest",
+  col = viridis(10)[3]
+)
+```
+
+Este gráfico muestra cómo se estabiliza el error conforme se incrementa el número de árboles, lo que ayuda a determinar si se ha utilizado un número suficiente.
+
+## Comparación con otros modelos
+
+Podemos comparar la precisión de un modelo *Random Forest* con otros enfoques, como árboles de decisión simples o modelos lineales, utilizando un conjunto de prueba.
+
+```{r}
+# Dividir datos en entrenamiento y prueba
+set.seed(42)
+train_idx <- createDataPartition(heart$AHD, p = 0.7, list = FALSE)
+train_data <- heart[train_idx, ]
+test_data <- heart[-train_idx, ]
+
+# Ajustar modelo Random Forest
+modelo_rf_final <- randomForest(
+  AHD ~ ., 
+  data = train_data, 
+  importance = TRUE,
+  ntree = 500,
+  mtry = mejor_mtry # Mejor valor de mtry
+)
+
+# Predicciones en conjunto de prueba
+predicciones <- predict(modelo_rf_final, newdata = test_data)
+
+# Matriz de confusión
+confusion <- confusionMatrix(predicciones, test_data$AHD)
+print(confusion)
+```
+
+La matriz de confusión muestra las métricas de evaluación del modelo, como precisión, sensibilidad y especificidad. En este caso, podemos comparar estas métricas con otros modelos para seleccionar el enfoque más adecuado.
+
+::: {.alert .alert-info}
+## Ejercicio 3
+
+:::
+
+---
+
+# Referencias {.unnumbered .unlisted}
+
+Gareth, J., Daniela, W., Trevor, H., & Robert, T. (2013). _An introduction to statistical learning: with applications in R_. Spinger.
+
+
+# Información de la sesión {.unnumbered .unlisted}
+
+```{r session info, echo=F}
+
+sessionInfo()
+
+```

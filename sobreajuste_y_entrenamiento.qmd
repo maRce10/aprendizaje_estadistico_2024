@@ -37,12 +37,11 @@ fill <- list(alert = "#cff4fc", success = "#d1e7dd")
 ::: {.alert .alert-info}
 # Objetivo del manual {.unnumbered .unlisted}
 
-- Entender el concepto de sobreajuste en modelos de aprendizaje estadístico.
+-   Entender el concepto de sobreajuste en modelos de aprendizaje estadístico
 
-- Aprender a detectar sobreajuste en modelos de aprendizaje estadístico.
+-   Aprender a detectar sobreajuste en modelos de aprendizaje estadístico
 
-- Aplicar metodos estadisticos para evitar el sobreajuste en modelos de aprendizaje estadístico.
-
+-   Aplicar métodos estadisticos para evitar el sobreajuste
 :::
 
 Paquetes a utilizar en este manual:
@@ -53,7 +52,9 @@ Paquetes a utilizar en este manual:
 sketchy::load_packages(
   c("ggplot2", 
     "viridis", 
-    "caret"
+    "caret",
+    "MuMIn",
+    "nnet"
    )
   )
 
@@ -181,7 +182,6 @@ ggplot(resultados_promedio, aes(x = n_predictores, y = r2, color = Tipo)) +
   )    
 ```
 
-
 Podemos ver como en ambos casos el coeficiente de determinación (R^2^) aumenta en los primeros 3 predictores. Esto es de esperar ya que estos son los predictores asociados a la respuesta. Sin embargo, luego de este punto el R^2^ aumenta para los datos de entrenamiento, pero no para los datos de prueba. Esto es un claro indicio de sobreajuste.
 
 En la siguiente simulación podemos ver mas claramente como el R^2^ calculado sobre datos de entrenamiento aumenta con la cantidad de predictores, a pesar de no haber un solo predictor asociado a la variable respuesta:
@@ -283,24 +283,23 @@ ggplot(resultados_promedio_aleatorio, aes(x = n_predictores, y = r2, color = Tip
   ) 
 ```
 
-
-Sin embargo, el R^2^ calculado sobre datos de prueba se mantiene constante. 
-
+Sin embargo, el R^2^ calculado sobre datos de prueba se mantiene constante.
 :::
 
 # Herramientas para evitar el sobreajuste
 
 ## Selección de modelos con AIC
 
-El criterio de información de Akaike (AIC) es una medida de la calidad relativa de un modelo estadístico para un conjunto dado de datos. EL AIC penaliza la complejidad del modelo, lo que ayuda a evitar el sobreajuste. El AIC se calcula como: 
+El criterio de información de Akaike (AIC) es una medida de la calidad relativa de un modelo estadístico para un conjunto dado de datos. EL AIC penaliza la complejidad del modelo, lo que ayuda a evitar el sobreajuste. El AIC se calcula como:
 
 $$AIC = -2 * log(L) + 2 * k$$
 
-L es la función de verosimilitud del modelo y k es el número de parámetros del modelo. 
+L es la función de verosimilitud del modelo y k es el número de parámetros del modelo.
 
-El AIC proporciona una medida relativa de la calidad de cada modelo, en relación con los otros modelos. Por lo tanto, el AIC se puede utilizar para seleccionar el mejor modelo de un conjunto de modelos candidatos. Un AIC más bajo indica un mejor modelo. En el contexto de selección de modelos el modelo preferido sería el que tiene el menor AIC. Una diferencia de AIC de 2 o más unidades se considera evidencia fuerte a favor del modelo con el AIC más bajo.  
+El AIC proporciona una medida relativa de la calidad de cada modelo, en relación con los otros modelos. Por lo tanto, el AIC se puede utilizar para seleccionar el mejor modelo de un conjunto de modelos candidatos. Un AIC más bajo indica un mejor modelo. En el contexto de selección de modelos el modelo preferido sería el que tiene el menor AIC. Una diferencia de AIC de 2 o más unidades se considera evidencia fuerte a favor del modelo con el AIC más bajo.
 
 Podemos ver como el AIC aumenta con la cantidad de predictores en el modelo. En el siguiente gráfico se muestra el AIC para un modelo de regresión lineal con diferentes cantidades de predictores:
+
 ```{r}
 #| warning: false
 
@@ -435,7 +434,7 @@ ggplot(resultados_promedio_aic, aes(x = n_predictores, y = delta_aic)) +
 
 ## Aplicación del AIC
 
-Como se mencionó anteriormente, el AIC se puede utilizar para seleccionar el mejor modelo de un conjunto de modelos candidatos. El modelo preferido es el que tiene el menor AIC. Por ejemplo, podemos construir un conjunto de modelos de regresión lineal con diferentes predictores y seleccionar el modelo con el menor AIC. En el siguiente ejemplo, se ajustan modelos de regresión lineal a los datos `Titanic` con diferentes predictores y comparemos el ajuste relativo de los modelos con AIC: 
+Como se mencionó anteriormente, el AIC se puede utilizar para seleccionar el mejor modelo de un conjunto de modelos candidatos. El modelo preferido es el que tiene el menor AIC. Por ejemplo, podemos construir un conjunto de modelos de regresión lineal con diferentes predictores y seleccionar el modelo con el menor AIC. En el siguiente ejemplo, se ajustan modelos de regresión lineal a los datos `Titanic` con diferentes predictores y comparemos el ajuste relativo de los modelos con AIC:
 
 ```{r}
 
@@ -474,7 +473,7 @@ tabla_aic
 
 El modelo con la clase como predictor tiene un delta AIC de 0. Por lo tanto este es el mejor modelo. También podemos ver que la diferencia con el modelo de edad es de `r round(tabla_aic$delta.aic[2], 2)`, lo que indica que el modelo con la clase como predictor es significativamente mejor que el modelo con la edad como predictor.
 
-En algunos casos donde el número de posibles modelos es alto resulta útil utilizar la funcion `dredge` del paquete `MuMIn` para calcular el AIC de todos los modelos posibles y seleccionar el mejor modelo. 
+En algunos casos donde el número de posibles modelos es alto resulta útil utilizar la funcion `dredge` del paquete `MuMIn` para calcular el AIC de todos los modelos posibles y seleccionar el mejor modelo.
 
 ```{r}
 
@@ -490,42 +489,36 @@ dredge(modelo_global)
 
 ```
 
-Esta función usa el AICc para estimar el ajuste del modelo. EL AICc es una versión corregida del AIC para muestras pequeñas. La función calcula el AICc de todos los modelos posibles y selecciona el mejor modelo. Las cruces en las columnas con los nombres de los predictores indican si el predictor está presente en el modelo. En este ejemplo, el modelo con los 3 predictores es el mejor modelo.  
+Esta función usa el AICc para estimar el ajuste del modelo. EL AICc es una versión corregida del AIC para muestras pequeñas. La función calcula el AICc de todos los modelos posibles y selecciona el mejor modelo. Las cruces en las columnas con los nombres de los predictores indican si el predictor está presente en el modelo. En este ejemplo, el modelo con los 3 predictores es el mejor modelo.
 
 Es importante destacar que el AIC no está definido para ciertos tipos de modelos, lo que imposibilita su cálculo en esas circunstancias. En tales casos, se pueden emplear otros criterios de información, como el BIC o el DIC (ver más adelante). Sin embargo, para modelos más complejos en el ámbito del aprendizaje estadístico, la estructura intrincada de estos modelos a menudo impide la aplicación de criterios de información tradicionales. En estas situaciones, los métodos de selección de modelos basados en la validación cruzada se convierten en una herramienta fundamental, ya que permiten evaluar el desempeño del modelo utilizando particiones repetidas del conjunto de datos.
-
 
 ## Criterios de información adicionales
 
 El AIC es solo uno de varios criterios de información utilizados para evaluar modelos estadísticos. Otros criterios comunes incluyen el Criterio de Información Bayesiano (BIC), el Criterio de Información de Deviance (DIC) y el DIC (una versión corregida del AIC para muestras pequeñas). Aunque cada criterio tiene su propia formulación y énfasis (por ejemplo, el BIC penaliza más fuertemente los modelos con mayor complejidad), todos comparten el objetivo de balancear la calidad de ajuste del modelo con su complejidad para evitar el sobreajuste. Estos criterios pueden ser aplicados de manera similar al AIC y seleccionados según el contexto y los objetivos del análisis. Por ejemplo, el BIC es más conservador en términos de selección de predictores, lo que puede ser útil cuando se desea un modelo más parsimonioso.
 
 ::: {.alert .alert-important}
-
 El uso de 'dredge' para la selección de variables debería ser evitado cuando hay prueba de hipótesis. En lugar de esto, se recomienda el uso de modelos causales por medio de grafos dirigidos acíclicos (DAGs: Directed Acyclic Graphs) para seleccionar las variables, ya que proporcionan un enfoque más sólido y coherente con la inferencia causal.
-
-::: 
-
+:::
 
 ::: {.alert .alert-info}
 ## Ejercicio 1
 
 1.  Ajusta un modelo de regresión lineal global con los datos de `mtcars` donde la variable respuesta sea `mpg`.
 
-2. Utilice la función `dredge` para seleccionar el mejor modelo.
-
+2.  Utilice la función `dredge` para seleccionar el mejor modelo.
 :::
 
 # Validación cruzada
 
 La validación cruzada es una técnica que se utiliza para evaluar la capacidad de generalización de un modelo. Consiste en dividir los datos en **k** subconjuntos (folds) y ajustar el modelo **k** veces, cada vez utilizando un subconjunto distinto como conjunto de prueba y el resto como conjunto de entrenamiento. La validación cruzada proporciona una estimación más precisa del rendimiento del modelo en nuevos datos que la división de los datos en un conjunto de entrenamiento y un conjunto de prueba. Esta técnica es particularmente útil cuando se dispone de un número limitado de datos, ya que permite utilizar todos los datos para ajustar el modelo y evaluar su rendimiento. Hay varias variantes de validación cruzada, cada una adecuada para diferentes contextos.
 
-
 ## Validación simple
 
 En su forma mas simple la división de los datos produce un único conjunto de entrenamiento y un único conjunto de prueba. Se conoce en inglés como "hold-out validation". Aunque no es realmente una forma de validación cruzada en el sentido técnico, es una estrategia ampliamente utilizada para evaluar el desempeño de modelos en situaciones simples o preliminares y es útil para introducir ejemplificar el uso de datos de entrenamiento y datos de ejemplo. Esta estrategia consiste en dividir el conjunto de datos en dos partes:
 
-- Conjunto de entrenamiento: Se utiliza para ajustar (entrenar) el modelo.
-- Conjunto de prueba: Se utiliza para evaluar el modelo ajustado.
+-   Conjunto de entrenamiento: Se utiliza para ajustar (entrenar) el modelo.
+-   Conjunto de prueba: Se utiliza para evaluar el modelo ajustado.
 
 ```{r}
 #| warning: false
@@ -594,7 +587,6 @@ modelo$resample
 
 ```
 
-
 ```{r}
 modelo$results
 ```
@@ -608,12 +600,12 @@ mean(modelo$resample$Rsquared)
 ```
 
 También podemos extraer un modelo final. En este caso el modelo final es un modelo ajustado en la totalidad de los datos:
+
 ```{r}
 
 summary(modelo$finalModel)
 
 ```
-
 
 ## Dejar uno fuera (Leave-One-Out Cross-Validation, LOOCV)
 
@@ -638,6 +630,7 @@ print(modelo)
 ```
 
 Este método no devuelve los valores individuales por iteración, pero podemos obtener el modelo final ajustado:
+
 ```{r}
 
 summary(modelo$finalModel)
@@ -666,7 +659,6 @@ print(modelo)
 
 ```
 
-
 ```{r}
 
 modelo$resample
@@ -676,7 +668,6 @@ modelo$resample
 ## Validación de remuestreo con reemplazo ("bootstrap")
 
 El remuestreo bootstrap genera múltiples muestras con reemplazo para entrenar el modelo y estimar su desempeño.
-
 
 ```{r}
 # Configurar remuestreo bootstrap
@@ -701,7 +692,6 @@ print(modelo)
 modelo$resample
 
 ```
-
 
 ## Validación cruzada estratificada
 
@@ -730,7 +720,6 @@ print(modelo)
 
 ```
 
-
 ```{r}
 
 modelo$results
@@ -740,7 +729,6 @@ modelo$results
 ```{r}
 modelo$resample
 ```
-
 
 ## Resumen de las técnicas de validación cruzada
 
@@ -820,9 +808,10 @@ validacion_cruzada
 ::: {.alert .alert-info}
 ## Ejercicio 2
 
-1. Utilice 2 de los métodos de validación cruzada mencionados anteriormente para evaluar el desempeño de un modelo de regresión logística en los datos `mtcars`.
+1.  Utilice 2 de los métodos de validación cruzada mencionados anteriormente para evaluar el desempeño de un modelo de regresión logística en los datos `mtcars`.
 
-El siguiente código simula un juego de datos donde solo los primeros 3 predictores están asociados a la variable respuesta. 
+El siguiente código simula un juego de datos donde solo los primeros 3 predictores están asociados a la variable respuesta.
+
 ```{r}
 
 n <- 100  # Número de observaciones
@@ -837,12 +826,11 @@ datos$y <-
   3 * datos$x1 - 2 * datos$x2 + 1 * datos$x3 + rnorm(n, 0, 2)
 ```
 
-2. Utilice la función 'dredge' para seleccionar los predictores del modelo de regresión lineal para estos datos.
+2.  Utilice la función 'dredge' para seleccionar los predictores del modelo de regresión lineal para estos datos.
 
-3. Utilice la función 'dredge' sobre un modelo de regresión lineal utilizando los datos de `mtcars` donde la variable respuesta sea `mpg` (millas por galón).
+3.  Utilice la función 'dredge' sobre un modelo de regresión lineal utilizando los datos de `mtcars` donde la variable respuesta sea `mpg` (millas por galón).
 
-3. Una vez seleccionados los predictores, ajuste el modelo y evalúe su desempeño utilizando validación cruzada.
-
+4.  Una vez seleccionados los predictores, ajuste el modelo y evalúe su desempeño utilizando validación cruzada.
 :::
 
 ------------------------------------------------------------------------
