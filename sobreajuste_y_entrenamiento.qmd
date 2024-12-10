@@ -477,6 +477,8 @@ En algunos casos donde el número de posibles modelos es alto resulta útil util
 
 ```{r}
 
+datos_tab_titanic$aleat <- rnorm(n = nrow(datos_tab_titanic))
+
 # crear modelo global
 modelo_global <- glm(Survived ~ ., data = datos_tab_titanic, family = binomial)
 
@@ -484,7 +486,8 @@ modelo_global <- glm(Survived ~ ., data = datos_tab_titanic, family = binomial)
 options(na.action = "na.fail")
 
 # usar la funcion dredge
-dredge(modelo_global)
+a <- dredge(modelo_global)
+View(a)
 
 
 ```
@@ -832,6 +835,63 @@ datos$y <-
 
 4.  Una vez seleccionados los predictores, ajuste el modelo y evalúe su desempeño utilizando validación cruzada.
 :::
+
+
+# AIC vs validación cruzada
+
+La elección entre el **AIC (Criterio de Información de Akaike)** (o selección de modelos en general) y la **validación cruzada** depende de varios factores relacionados con los datos, el objetivo del modelo y las limitaciones computacionales. Ambos métodos tienen ventajas y desventajas en el contexto de evitar el sobreajuste:
+
+### **Cuándo usar AIC**
+- **Modelos paramétricos bien especificados:** AIC es ideal cuando se supone que el modelo sigue una distribución específica y esta está correctamente especificada.
+- **Evaluación relativa de modelos:** AIC es útil para comparar varios modelos ajustados a un mismo conjunto de datos y elegir el modelo más parsimonioso (con el mejor equilibrio entre ajuste y complejidad).
+- **Tamaños de muestra moderados a grandes:** AIC funciona bien con datos suficientes para que las estimaciones de parámetros sean confiables.
+- **Menor costo computacional:** Como AIC no requiere dividir ni reentrenar modelos, es más rápido y eficiente que la validación cruzada.
+
+### **Cuándo usar validación cruzada**
+- **Modelos no paramétricos o más complejos:** La validación cruzada se adapta bien a métodos como árboles de decisión, Random Forest o XGBoost, donde las suposiciones paramétricas son menos claras.
+- **Evaluación de capacidad predictiva:** Es preferible si el objetivo principal es maximizar la capacidad predictiva en datos futuros.
+- **Tamaños de muestra pequeños:** La validación cruzada utiliza el conjunto completo de datos de manera eficiente al dividirlo en diferentes subconjuntos.
+- **Datos con ruido o alta dimensionalidad:** Es más robusta para medir el rendimiento real del modelo en presencia de ruido o muchos predictores.
+
+
+```{r}
+#| echo: false
+
+# Crear el data.frame con la comparación
+comparacion_metodos <- data.frame(
+  Característica = c("Objetivo", "Naturaleza de los datos", "Computación", 
+                     "Tamaño de muestra", "Medida de evaluación", "Ejemplos de Modelos"),
+  AIC = c("Equilibrar ajuste y complejidad del modelo.",
+          "Modelos paramétricos bien especificados.",
+          "Rápida y eficiente.",
+          "Moderado a grande.",
+          "Basada en la verosimilitud penalizada.",
+          "Regresiónes: lineal, generalizada, mixta, logística ..."),
+  Validacion_Cruzada = c("Maximizar capacidad predictiva.",
+                         "Modelos complejos o no paramétricos.",
+                         "Más costosa computacionalmente.",
+                         "Pequeño a grande.",
+                         "Basada en error promedio en datos no usados.",
+                         "Random Forest, XGBoost, Support Vector Machines (SVM).")
+)
+
+# Imprimir el data.frame
+comparacion_metodos
+
+```
+
+### **Recomendación**
+- **Usa AIC:** Cuando necesitas comparar modelos paramétricos rápidamente en situaciones con suficiente información para confiar en la especificación del modelo.
+- **Usa validación cruzada:** Cuando estás trabajando con métodos más complejos, datos con ruido o si la predicción futura precisa es tu principal objetivo.
+
+
+Ambos enfoques pueden ser complementarios. Por ejemplo, puedes usar AIC para seleccionar un modelo inicial y luego aplicar validación cruzada para confirmar su capacidad predictiva. Estas dos estrategias se eligieron para este tutorial porque abordan el sobreajuste desde perspectivas complementarias. El AIC, basado en principios de inferencia estadística, es ideal cuando los datos se ajustan bien a la estructura asumida por el modelo. Por otro lado, la validación cruzada es flexible y no asume una especificación estricta del modelo, siendo útil en problemas complejos y de aprendizaje estadístico.
+
+Existen otros métodos que permiten evitar el sobreajuste. Algunos de estos son:
+
+  - **Regularización**: Métodos como LASSO y Ridge penalizan la complejidad del modelo para evitar ajustes excesivos.
+  - **Dropout**: Usado en redes neuronales para prevenir dependencia excesiva en nodos específicos durante el entrenamiento.
+
 
 ------------------------------------------------------------------------
 
