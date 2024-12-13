@@ -105,7 +105,7 @@ simplify = FALSE)
 
 # Día 6
 
-**Regresión Logística** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Regresión Logística** <a href="regresion_logística_y_multinomial.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Introducción a la clasificación y problemas de clasificación
 -   Regresión logística, uso e interpretación
@@ -131,7 +131,7 @@ simplify = FALSE)
 
 # Día 7
 
-**Métodos de Remuestreo y Evaluación de Modelos (Parte I)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Métodos de Remuestreo y Evaluación de Modelos (Parte I)** <a href="sobreajuste_y_entrenamiento.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Validación cruzada y técnicas de remuestreo
 -   Uso de validación cruzada para evaluar modelos
@@ -139,7 +139,7 @@ simplify = FALSE)
 
 # Día 8
 
-**Evaluación de Modelos (Parte II)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Evaluación de Modelos (Parte II)** <a href="sobreajuste_y_entrenamiento.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Validación cruzada y división de conjuntos de datos
 -   Curvas ROC y AUC: interpretación y uso
@@ -148,7 +148,7 @@ simplify = FALSE)
 
 # Día 9
 
-**Métodos Basados en Árboles** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Métodos Basados en Árboles** <a href="modelos_de_arboles.qmd" class="btn btn-warning btn-xs" role="button">tutorial</a>
 
 -   Árboles de decisión: construcción e interpretación
 -   Random forest: fundamentos y aplicaciones
@@ -163,7 +163,8 @@ simplify = FALSE)
 
 # Día 10
 
-**Explorar Espacios Multidimensionales: Reducción de Dimensionalidad** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Explorar Espacios Multidimensionales: Reducción de Dimensionalidad** 
+<!-- <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a> -->
 
 -   Introducción a la reducción de dimensionalidad y su necesidad
 -   Análisis de Componentes Principales (PCA): teoría y aplicación
@@ -318,7 +319,6 @@ roc_curve
 ## Referencia
 
 Cortez, P., & Silva, A.M. (2008). Using data mining to predict secondary school student performance. ([enlace](https://www.semanticscholar.org/paper/Using-data-mining-to-predict-secondary-school-Cortez-Silva/61d468d5254730bbecf822c6b60d7d6595d9889c))
-
 :::
 
 ::: {.alert .alert-warning}
@@ -331,7 +331,8 @@ Cortez, P., & Silva, A.M. (2008). Using data mining to predict secondary school 
 
 # Día 11
 
-**Redes Neuronales y Deep Learning (Parte I)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Redes Neuronales y Deep Learning (Parte I)** 
+<!-- <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a> -->
 
 -   Estructura de una red neuronal: neuronas, capas y activación
 -   Entrenamiento de redes neuronales: forward y backpropagation
@@ -340,7 +341,8 @@ Cortez, P., & Silva, A.M. (2008). Using data mining to predict secondary school 
 
 # Día 12
 
-**Redes Neuronales y Deep Learning (Parte II)** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Redes Neuronales y Deep Learning (Parte II)** 
+<!-- <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a> -->
 
 -   Capas convolucionales y redes neuronales convolucionales (CNNs)
 -   Redes neuronales recurrentes (RNNs) y LSTM
@@ -356,7 +358,8 @@ Cortez, P., & Silva, A.M. (2008). Using data mining to predict secondary school 
 
 # Día 13
 
-**Regularización y Generalización** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Regularización y Generalización** 
+<!-- <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a> -->
 
 -   Conceptos de sobreajuste y subajuste
 -   Regularización: Lasso, Ridge y Elastic Net
@@ -365,7 +368,8 @@ Cortez, P., & Silva, A.M. (2008). Using data mining to predict secondary school 
 
 # Día 14
 
-**Aprendizaje No Supervisado: Clustering** <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a>
+**Aprendizaje No Supervisado: Clustering** 
+<!-- <a href="" class="btn btn-warning btn-xs" role="button">tutorial</a> -->
 
 -   Conceptos básicos de clustering y su importancia
 -   Método k-means: algoritmos y aplicaciones
