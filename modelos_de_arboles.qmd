@@ -332,16 +332,16 @@ Ahora podemos evaluar el desempeño del mejor modelo:
 arbol_train_cv <-
   rpart(
     High ~ Price + Advertising + ShelveLoc + Age,
-    data = train_data,
+    data = Carseats,
     control = rpart.control(cp = modelo_cv$bestTune$cp),
     method = "class"
   )
 
 # Predicciones en el conjunto de prueba
-predicciones <- predict(arbol_train_cv, test_data, type = "class")
+predicciones <- predict(arbol_train_cv, Carseats, type = "class")
 
 # Matriz de confusión
-caret::confusionMatrix(test_data$High, predicciones)
+caret::confusionMatrix(Carseats$High, predicciones)
 ```
 
 
@@ -469,7 +469,7 @@ modelo_rf <- randomForest::randomForest(
   sick ~ ., 
   data = heart, 
   importance = TRUE,  # Para calcular la importancia de las variables
-  ntree = 500         # Número de árboles
+  ntree = 50000         # Número de árboles
 )
 
 # Resumen del modelo

@@ -486,9 +486,7 @@ modelo_global <- glm(Survived ~ ., data = datos_tab_titanic, family = binomial)
 options(na.action = "na.fail")
 
 # usar la funcion dredge
-a <- dredge(modelo_global)
-View(a)
-
+dredge(modelo_global)
 
 ```
 
@@ -696,14 +694,23 @@ modelo$resample
 
 ```
 
-## Validación cruzada estratificada
+## Validación cruzada balanceada
 
-En problemas de clasificación, la distribución de las clases puede ser desbalanceada. La validación cruzada estratificada garantiza que cada subconjunto tenga una proporción similar de clases, mejorando la estabilidad de las métricas:
+En problemas de clasificación, la distribución de las clases puede ser desbalanceada. La validación cruzada balanceada garantiza que cada subconjunto tenga una proporción similar de clases, mejorando la estabilidad de las métricas. 
+
+Hay dos formas basicas en las que se puede balancear los datos durante las iteraciones de la validación cruzada. La primera (muestrear hacia arriba o "up-sampling") es balancear forzando que todas las clases tengan el mismo numero de observaciones que la clase mas frecuente. tenga el mismo numero de observaciones. La segunda es balancear "hacia abajo" (down-sampling) forzando todas las clases a tener el mismo numero de observaciones que la clase menos frecuente. 
+
+Para muestrear hacia abajo, simplemente definimos el argumento `sampling = "up"` en la función `trainControl`:
 
 ```{r}
 
-# Configurar validación cruzada estratificada con 10 folds
-control <- caret::trainControl(method = "cv", number = 10, classProbs = TRUE)
+# Configurar validación cruzada con 10 folds
+control <- caret::trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  sampling = "up"
+)
 
 # Ajustar modelo de clasificación
 mtcars$am_f <- ifelse(mtcars$am == 1, "manual", "automatico")
@@ -723,15 +730,84 @@ print(modelo)
 
 ```
 
+Podemos ver las categorías no estaban perfectamente balanceada en los datos originales:
+
+```{r}
+table(mtcars$am_f)
+```
+
+Sin embargo, la proporción de clases se mantiene constante durante el entrenamiento y para cada categoría el número de observaciones es igual al de la clase mas numerosa:
+
 ```{r}
 
-modelo$results
+# ver frecuencia de clases en el modelo final
+table(modelo$finalModel$data$.outcome)
 
 ```
 
+
+Para muestrear hacia abajo, definimos el argumento `sampling = "down"`:
 ```{r}
-modelo$resample
+
+# Configurar validación cruzada con 10 folds
+control <- caret::trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  sampling = "down"
+)
+
+
+set.seed(123)
+modelo <- caret::train(
+  am_f ~ wt + hp,
+  data = mtcars,
+  method = "glm",
+  family = binomial,
+  trControl = control
+)
+
+# Resultados del modelo
+print(modelo)
+
 ```
+
+Podemos ver nuevamente como la proporción de clases se mantiene constante durante en el entrenamieto, pero en este caso con el número de observaciones en la categoría menos numerosa:
+
+```{r}
+# ver frecuencia de clases en el modelo final
+table(modelo$finalModel$data$.outcome)
+
+```
+
+Tambien se han desarrollado metodos hibridos que combinan "up-sampling" y "down-sampling". El método híbrido "smote" puede ser utilizado de esta forma:
+
+Para muestrear hacia abajo, definimos el argumento `sampling = "down"`:
+```{r}
+
+# Configurar validación cruzada con 10 folds
+control <- caret::trainControl(
+  method = "cv",
+  number = 10,
+  classProbs = TRUE,
+  sampling = "smote"
+)
+
+
+set.seed(123)
+modelo <- caret::train(
+  am_f ~ wt + hp,
+  data = mtcars,
+  method = "glm",
+  family = binomial,
+  trControl = control
+)
+
+# Resultados del modelo
+print(modelo)
+
+```
+
 
 ## Resumen de las técnicas de validación cruzada
 
@@ -741,7 +817,7 @@ modelo$resample
 # Crear el data frame con la información de los métodos de validación cruzada
 metodos_validacion <- data.frame(
     Método = c("Validación cruzada (k-fold)", 
-             "Estratificada", 
+             "Balanceada", 
              "LOOCV (Leave-One-Out)", 
              "Repetida (repeatedcv)", 
              # "Anidada", 
@@ -756,7 +832,7 @@ metodos_validacion <- data.frame(
   ),
   `Codigo de caret` = c(
     "`trainControl(method = 'cv', number = 5)`",
-    "`trainControl(method = 'cv', number = 10, classProbs = TRUE)`",
+    "`trainControl(method = 'cv', number = 10, classProbs = TRUE, sampling = 'smote')`",
     "`trainControl(method = 'LOOCV')`",
     "`trainControl(method = 'repeatedcv', number = 5, repeats = 3)`",
     # "`trainControl(method = 'cv', number = 5, savePredictions = 'final')`",
@@ -779,7 +855,7 @@ Cada uno de estos métodos tiene sus ventajas y desventajas, y la elección del 
 # Crear el data frame con la tabla
 validacion_cruzada <- data.frame(
     Método = c("Validación cruzada (k-fold)", 
-             "Estratificada", 
+             "Balanceada", 
              "LOOCV (Leave-One-Out)", 
              "Repetida (repeatedcv)", 
              # "Anidada", 
