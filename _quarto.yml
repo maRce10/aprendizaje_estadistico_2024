@@ -35,7 +35,7 @@ website:
           href: regresion_logística_y_multinomial.qmd
         - text: "Evaluación de modelos"
           href: evaluacion_de_modelos.qmd
-        - text: "Sobreajuste y etrenamiento"
+        - text: "Sobreajuste y entrenamiento"
           href: sobreajuste_y_entrenamiento.qmd
         - text: "Modelos de árboles"
           href: modelos_de_arboles.qmd
