@@ -16,6 +16,7 @@ library(viridis)
 library(nnet)
 library(MuMIn)
 library(caret)
+library(themis)
 
 
 # ggplot settings
@@ -54,7 +55,8 @@ sketchy::load_packages(
     "viridis", 
     "caret",
     "MuMIn",
-    "nnet"
+    "nnet",
+    "themis"
    )
   )
 
@@ -287,6 +289,8 @@ Sin embargo, el R^2^ calculado sobre datos de prueba se mantiene constante.
 :::
 
 # Herramientas para evitar el sobreajuste
+
+Existen una gran cantidad de técnicas para mejorar la generalización de los modelos de aprendizaje estadístico. En este tutorial veremos 2 de las mas comunes y útiles: la selección de modelos y la validación cruzada.
 
 ## Selección de modelos con AIC
 
@@ -830,14 +834,15 @@ metodos_validacion <- data.frame(
     # "Se utiliza para optimizar hiperparámetros con una validación cruzada interna y luego evaluar el rendimiento con validación cruzada externa.",
     "Genera múltiples muestras con reemplazo para entrenar el modelo y evaluar su desempeño."
   ),
-  `Codigo de caret` = c(
-    "`trainControl(method = 'cv', number = 5)`",
-    "`trainControl(method = 'cv', number = 10, classProbs = TRUE, sampling = 'smote')`",
+  `Código de caret` = c(
+    "`trainControl(..., number = 5)`",
+    "`trainControl(..., classProbs = TRUE, sampling = 'smote')`",
     "`trainControl(method = 'LOOCV')`",
-    "`trainControl(method = 'repeatedcv', number = 5, repeats = 3)`",
+    "`trainControl(method = 'repeatedcv', number = ..., repeats = ...)`",
     # "`trainControl(method = 'cv', number = 5, savePredictions = 'final')`",
-    "`trainControl(method = 'boot', number = 100)`"
-  )
+    "`trainControl(method = 'boot', number = ...)`"
+  ),
+  check.names = FALSE
 )
 
 # Ver el data frame
